@@ -1,0 +1,38 @@
+{
+    "Ad created successfully.": "تم إنشاء الإعلان بنجاح.",
+    "Ad updated successfully.": "تم تحديث الإعلان بنجاح.",
+    "Ad deleted.": "تم حذف الإعلان.",
+    "Ad status changed to active.": "تم تغيير حالة الإعلان إلى نشط.",
+    "Ad status changed to paused.": "تم تغيير حالة الإعلان إلى موقوف.",
+
+    "Category created successfully.": "تم إنشاء الفئة بنجاح.",
+    "Category updated successfully.": "تم تحديث الفئة بنجاح.",
+    "Category deleted successfully.": "تم حذف الفئة بنجاح.",
+    "Cannot delete this category — it still has posts assigned to it. Reassign or delete those posts first.": "لا يمكن حذف هذه الفئة — ما زالت تحتوي على منشورات. أعد تعيين تلك المنشورات أو احذفها أولاً.",
+
+    ":count file(s) uploaded successfully.": "تم رفع :count ملف(ات) بنجاح.",
+    "Media updated.": "تم تحديث الوسائط.",
+    "File deleted.": "تم حذف الملف.",
+    ":count file(s) deleted.": "تم حذف :count ملف(ات).",
+
+    "Post created successfully.": "تم إنشاء المنشور بنجاح.",
+    "Post updated successfully.": "تم تحديث المنشور بنجاح.",
+    "Post deleted successfully.": "تم حذف المنشور بنجاح.",
+    "Featured status updated.": "تم تحديث حالة التمييز.",
+    "Post status changed to draft.": "تم تغيير حالة المنشور إلى مسودة.",
+    "Post status changed to published.": "تم تغيير حالة المنشور إلى منشور.",
+    "Selected posts deleted.": "تم حذف المنشورات المحددة.",
+
+    "Contact settings saved.": "تم حفظ إعدادات التواصل.",
+    "About settings saved.": "تم حفظ إعدادات عن الجمعية.",
+    "Social media links saved.": "تم حفظ روابط التواصل الاجتماعي.",
+    "SEO settings saved.": "تم حفظ إعدادات السيو.",
+
+    "User created successfully.": "تم إنشاء المستخدم بنجاح.",
+    "User updated successfully.": "تم تحديث المستخدم بنجاح.",
+    "User deleted.": "تم حذف المستخدم.",
+    "User status updated.": "تم تحديث حالة المستخدم.",
+    "You cannot change your own role.": "لا يمكنك تغيير دورك الخاص.",
+    "You cannot delete your own account.": "لا يمكنك حذف حسابك الخاص.",
+    "You cannot deactivate your own account.": "لا يمكنك إيقاف حسابك الخاص."
+}

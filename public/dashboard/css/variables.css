@@ -1,0 +1,99 @@
+/* ════════════════════════════════════════
+   BSD ADMIN — DESIGN TOKENS & RESET
+   variables.css
+════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --red:          #C0392B;
+  --red-dark:     #7B241C;
+  --red-mid:      #E74C3C;
+  --red-light:    #FDECEA;
+  --red-faint:    #FEF7F6;
+  --blue:         #2471A3;
+  --blue-dark:    #1A5276;
+  --blue-light:   #EAF2FB;
+  --green:        #1E8449;
+  --green-light:  #EAFAF1;
+  --amber:        #D68910;
+  --amber-light:  #FEF9E7;
+  --purple:       #7D3C98;
+  --purple-light: #F4ECF7;
+  --teal:         #117A65;
+  --teal-light:   #E8F8F5;
+
+  /* Layout */
+  --sidebar-w:          252px;
+  --sidebar-collapsed:  68px;
+  --header-h:           60px;
+
+  /* Surface */
+  --bg:    #F4F2EF;
+  --bg2:   #ECEAE6;
+  --card:  #FFFFFF;
+
+  /* Text */
+  --text:  #1C1B18;
+  --text2: #4A4A45;
+  --muted: #8A8A82;
+
+  /* Borders & shadows */
+  --border:     rgba(0,0,0,0.08);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05);
+
+  /* Typography */
+  --font-en:   'Source Sans 3', sans-serif;
+  --font-ar:   'Noto Naskh Arabic', serif;
+  --font-disp: 'Playfair Display', serif;
+
+  /* Shape */
+  --radius:    12px;
+  --radius-sm: 8px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-en);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+img { max-width: 100%; display: block; }
+svg { flex-shrink: 0; }
+
+/* ── Scrollbar ── */
+* { scrollbar-width: thin; scrollbar-color: var(--bg2) transparent; }
+*::-webkit-scrollbar { width: 5px; height: 5px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--bg2); border-radius: 99px; }
+
+/* ── Lang helpers ── */
+.en  { display: block;  } .ar  { display: none;  }
+span.en { display: inline; } span.ar { display: none; }
+
+[dir="rtl"] .en      { display: none   !important; }
+[dir="rtl"] .ar      { display: block  !important; }
+[dir="rtl"] span.en  { display: none   !important; }
+[dir="rtl"] span.ar  { display: inline !important; }
+[dir="rtl"] body     { font-family: var(--font-ar); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
