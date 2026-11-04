@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Laravel 10 (PHP 8.1) application for a bilingual (English/Arabic) nonprofit ("Benevolent Society") website. It combines:
 
-- A public marketing site (mostly static bilingual HTML/Blade pages).
+- A public bilingual site (Blade, under `resources/views/public/`): home, vision, contact, six program pages (static copy), and a database-driven news listing/detail (`/news`).
 - An admin CMS at `/admin` for managing posts, categories, media, ads, users, and site settings.
 
 Frontend build tooling is Vite + Tailwind CSS + Alpine.js (Laravel Breeze scaffolding for auth).
@@ -23,12 +23,14 @@ Frontend build tooling is Vite + Tailwind CSS + Alpine.js (Laravel Breeze scaffo
 **Run a single test file:** `vendor/bin/phpunit tests/Feature/Auth/AuthenticationTest.php`
 **Run a single test method:** `vendor/bin/phpunit --filter test_method_name tests/Feature/Auth/AuthenticationTest.php`
 
-Note: `phpunit.xml` has the sqlite in-memory DB config commented out, so tests currently hit whatever `DB_CONNECTION`/`DB_DATABASE` is set in `.env` (default: MySQL). If you need isolated test runs, uncomment the `DB_CONNECTION=sqlite` / `DB_DATABASE=:memory:` lines in `phpunit.xml` or override via env vars.
+Note: `phpunit.xml` runs tests against sqlite in-memory (`DB_CONNECTION=sqlite`, `DB_DATABASE=:memory:`), so `RefreshDatabase` never touches the `.env` database. `tests/TestCase.php` calls `withoutVite()`, so tests do not prove the Breeze guest pages (forgot/reset password, verify email, confirm password) render — those use `@vite` and need `npm run build` (or `npm run dev`) to exist at runtime.
 
 **Migrations:** `php artisan migrate` / `php artisan migrate:fresh --seed`
 **Storage symlink for public media uploads:** `php artisan storage:link` (required — `MediaController` stores files on the `public` disk and serves them via `asset('storage/...')`)
 
 **Code style:** `vendor/bin/pint` (Laravel Pint, already a dev dependency)
+
+**Legacy post import (one-time):** `php artisan society:import-legacy-posts --legacy-db=old_benevole --images-zip=path/to/photos.zip` — reads posts from the old Laravel 5.5 site's dump (loaded into a *separate* database on the default connection's server) and stores cover images on the `public` disk. It is a **dry run unless `--commit`** is passed, refuses to use the app database as the source, only verifies (never imports) users/categories, and skips posts whose serialized en/ar title/content is invalid or contains script/iframe/event-handler markup.
 
 ## Architecture
 
@@ -40,23 +42,24 @@ Content-bearing tables (`posts`, `settings`, `media` descriptions) store **paral
 - `Media::getDescriptionAttribute()`
 - `Setting::getResolvedValueAttribute()` and the static helper `Setting::get($key, $locale = null)`
 
-**Important:** there is currently no middleware or route mechanism that calls `App::setLocale()` — `config/app.php` locale stays at the default (`en`) for the whole backend request lifecycle. The public-facing bilingual toggle (`.en`/`.ar` spans) in `resources/views/index.blade.php` is done client-side with CSS/JS, not via Laravel's locale system. Keep this in mind before assuming `App::getLocale()` reflects what the visitor sees.
+Locale is set per request by the `SetLocale` middleware (`app/Http/Middleware/SetLocale.php`, in the `web` group): `?lang=en|ar` switches and is remembered in the session; invalid/missing values fall back to `config("app.locale")`. Layouts emit `<html lang dir>` from `app()->getLocale()`, and the `.en`/`.ar` span pairs are toggled by CSS on `[dir=rtl]`. Exception: `resources/views/auth/login.blade.php` (a standalone page) still has its own client-side language toggle. `resources/lang/ar.json` holds Arabic strings for flash messages only.
 
 ### Admin CMS (`app/Http/Controllers/Admin/*`)
 
-All admin routes live under `Route::prefix('admin')->name('admin.')` in `routes/web.php`, gated by `['auth', 'verified_active']`. Resource areas: Posts, Categories, Media, Ads, Users, Settings. Users and Settings additionally require `role:admin` (see `CheckRole` middleware, registered as the `role` alias).
+All admin routes live under `Route::prefix('admin')->name('admin.')` in `routes/web.php`, gated by `['auth', 'verified_active']`. Resource areas: Posts, Categories, Media, Ads, Users, Settings. Read routes are open to admin/editor/viewer; every mutating route on Posts, Categories, Media and Ads requires `role:admin,editor`; Users and Settings are entirely `role:admin` (see `CheckRole` middleware, registered as the `role` alias). `/admin` redirects to the dashboard, which lives at `/admin/AdminDashboard` (`admin.dashboard`). There is **no public registration** — `users.role` defaults to `editor`, so accounts must only be created via the admin Users screen.
 
 - **Roles** are a plain string column on `users.role` (no package like spatie/permission). Helpers: `User::isAdmin()`, `isEditor()`, `hasRole()`.
 - **Account activation**: `users.is_active` is enforced by `VerifiedActive` middleware (alias `verified_active`), which force-logs-out and redirects to login with an error if a logged-in user's account has been deactivated mid-session.
 - **Authorization beyond roles** goes through policies — see `UserPolicy`: admins can't edit/delete other admins or delete themselves, preventing privilege escalation via the admin UI.
-- **Media** (`app/Models/Media.php`) is a polymorphic (`morphTo`/`morphMany`) attachment model shared by any `mediable` model (currently `Post`). Uploaded files always go to the `public` disk under `media/`; MIME type is mapped to a coarse `type` (`image`/`video`/`document`/`audio`/`other`) via a hardcoded map in `MediaController::TYPE_MAP`.
+- **Media** (`app/Models/Media.php`) is a polymorphic (`morphTo`/`morphMany`) attachment model shared by any `mediable` model (currently `Post`). Uploaded files always go to the `public` disk under `media/`; MIME type is mapped to a coarse `type` (`image`/`video`/`document`/`audio`/`other`) via a hardcoded map in `MediaController::TYPE_MAP`. `MediaController::show` returns JSON only (there is no media detail page).
+- **Auth flows** (login, password reset, verify email, confirm password) are the Breeze controllers in `App\Http\Controllers\Auth` (`routes/auth.php`); `Admin\AuthController` only handles logout from the admin sidebar.
 - **Settings** (`app/Models/Setting.php`) is a flexible key/value table (`group`, `type`, `value`/`value_en`/`value_ar`) rather than fixed columns per setting. `SettingController` writes to it via a private `upsert($key, $type, $values)` helper per settings tab (contact/about/social/seo). When adding a new setting, follow this key/value + `upsert` pattern rather than adding new columns.
 
 ### Public site
 
-Only the `/` route is wired up in `routes/web.php`, rendering `resources/views/index.blade.php`. That view's nav/CTA links (`contact.html`, `vision.html`, `prog-*.html`) point at static HTML files that live in `resources/views/` (not in `public/`) and are **not currently served by any route** — they will 404 as-is. Before treating the public multi-page site as functional, check whether these need real Blade views + routes, or need to be moved into `public/` as static assets.
+Public routes (no auth): `/` (`home`), `/vision`, `/contact`, `/programs/{rehab|education|vocational|social|homecare|devices}`, `/news`, `/news/{post}`. All views extend `layouts.public`. Only published posts with `published_at <= now()` are exposed (`Post::published()` scope; the detail route 404s otherwise); the only settings read publicly are contact info, social links and SEO meta. The admin "About" settings (`vision`, `aims`) are stored but the public `/vision` page is static copy and does not render them yet.
 
-`resources/views/AdminDashboard/partials/*.html` and `resources/views/admin/pages/dashboard.blade.php` are unused leftover scaffold files — the live admin dashboard is `resources/views/admin/dashboard.blade.php`, rendered by `DashboardController::index()`.
+The live admin dashboard is `resources/views/admin/dashboard.blade.php`, rendered by `DashboardController::index()`. Admin views share `admin/layouts/app.blade.php` and the CSS/JS in `public/dashboard/`.
 
 ### Request validation
 

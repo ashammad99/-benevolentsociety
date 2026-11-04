@@ -107,16 +107,12 @@ class MediaController extends Controller
         return back()->with('success', __(':count file(s) uploaded successfully.', ['count' => count($uploaded)]));
     }
 
-    // ── Show / detail ──────────────────────────────────────────────────────
+    // ── Show / detail (JSON only — there is no standalone detail page) ─────
     public function show(Media $media)
     {
         $media->load('user');
 
-        if (request()->expectsJson()) {
-            return response()->json($media->append('url'));
-        }
-
-        return view('admin.media.show', compact('media'));
+        return response()->json($media->append('url'));
     }
 
     // ── Update description / metadata ──────────────────────────────────────
