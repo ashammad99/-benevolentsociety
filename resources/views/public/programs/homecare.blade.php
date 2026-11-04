@@ -99,7 +99,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Geographic Coverage</span><span class="ar">التغطية الجغرافية</span></h4>
-          <p><span class="en">{{ config('society.city.en') }} and surrounding villages. Expanding coverage is in progress.</span><span class="ar">{{ config('society.city.ar') }} والقرى المحيطة. التوسع جارٍ.</span></p>
+          <p><span class="en">{{ config('society.city.en') }} and its neighborhoods, including nearby refugee camps. Expanding coverage is in progress.</span><span class="ar">{{ config('society.city.ar') }} وأحياؤها، بما فيها المخيمات القريبة. التوسع جارٍ.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Referral</span><span class="ar">الإحالة</span></h4>

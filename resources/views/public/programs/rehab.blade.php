@@ -28,7 +28,7 @@
         <span class="en">Medical Rehabilitation</span><span class="ar">التأهيل الطبي</span>
       </div>
       <p class="program-lead">
-        <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across {{ config('society.city.en') }} and surrounding villages.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في {{ config('society.city.ar') }} والقرى المحيطة.</span>
+        <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across {{ config('society.city.en') }}, its neighborhoods and nearby refugee camps.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في {{ config('society.city.ar') }} وأحيائها والمخيمات القريبة.</span>
       </p>
       @if (config('society.program_stats.rehab'))
       <div class="program-stats-row">
@@ -63,7 +63,7 @@
           <div class="service-dot" style="background:#C0392B;"></div>
           <div class="service-text">
             <strong><span class="en">Mobile Clinic Visits</span><span class="ar">زيارات العيادة المتنقلة</span></strong>
-            <span><span class="en">Specialized teams travel to remote villages to deliver rehabilitation care at home.</span><span class="ar">فرق متخصصة تتنقل إلى القرى النائية لتقديم الرعاية التأهيلية في المنزل.</span></span>
+            <span><span class="en">Specialized teams travel to underserved neighborhoods and camps to deliver rehabilitation care at home.</span><span class="ar">فرق متخصصة تتنقل إلى الأحياء والمخيمات الأقل حظاً لتقديم الرعاية التأهيلية في المنزل.</span></span>
           </div>
         </div>
         <div class="service-item">
@@ -103,7 +103,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Location</span><span class="ar">الموقع</span></h4>
-          <p><span class="en">Main center in {{ config('society.city.en') }} + mobile clinics visiting surrounding villages on a rotating weekly schedule.</span><span class="ar">المركز الرئيسي في {{ config('society.city.ar') }} + عيادات متنقلة تزور القرى المحيطة أسبوعياً.</span></p>
+          <p><span class="en">Main center in {{ config('society.city.en') }} + mobile clinics visiting neighborhoods and camps on a rotating weekly schedule.</span><span class="ar">المركز الرئيسي في {{ config('society.city.ar') }} + عيادات متنقلة تزور الأحياء والمخيمات أسبوعياً.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">How to Apply</span><span class="ar">كيفية التقديم</span></h4>

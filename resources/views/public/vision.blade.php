@@ -75,7 +75,7 @@
     <div class="aim-card" style="border-top:4px solid var(--gold);">
       <div class="aim-num" style="color:var(--gold);">05</div>
       <div class="aim-title"><span class="en">Reach the Unreachable</span><span class="ar">الوصول إلى من لا يُوصل إليهم</span></div>
-      <div class="aim-desc"><span class="en">Extend our services beyond the city to remote villages through mobile rehabilitation clinics, home-based care, and community outreach — ensuring geography is never a barrier to support.</span><span class="ar">توسيع خدماتنا خارج المدينة إلى القرى النائية من خلال عيادات تأهيل متنقلة ورعاية منزلية وتوعية مجتمعية — لضمان أن الجغرافيا لا تكون أبداً حاجزاً أمام الدعم.</span></div>
+      <div class="aim-desc"><span class="en">Extend our services beyond {{ config('society.city.en') }} to communities across {{ config('society.region.en') }} through mobile rehabilitation clinics, home-based care, and community outreach — ensuring geography is never a barrier to support.</span><span class="ar">توسيع خدماتنا خارج {{ config('society.city.ar') }} إلى المجتمعات في أنحاء {{ config('society.region.ar') }} من خلال عيادات تأهيل متنقلة ورعاية منزلية وتوعية مجتمعية — لضمان أن الجغرافيا لا تكون أبداً حاجزاً أمام الدعم.</span></div>
     </div>
     <div class="aim-card" style="border-top:4px solid var(--teal);">
       <div class="aim-num" style="color:var(--teal);">06</div>

@@ -36,10 +36,10 @@
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Rehabilitation</span><span class="ar">التأهيل</span></span>
-        <div class="slide-title">Mobile Clinics Reaching<br>Every Village</div>
-        <div class="slide-title-ar">العيادات المتنقلة تصل<br>إلى كل قرية</div>
-        <div class="slide-desc">Our rehabilitation teams travel to surrounding villages, bringing physiotherapy and care directly to those who need it most.</div>
-        <div class="slide-desc-ar">فرق التأهيل تتنقل إلى القرى المحيطة لتقديم الرعاية لمن يحتاجها.</div>
+        <div class="slide-title">Mobile Clinics Reaching<br>Every Neighborhood</div>
+        <div class="slide-title-ar">العيادات المتنقلة تصل<br>إلى كل حي</div>
+        <div class="slide-desc">Our rehabilitation teams travel to neighborhoods and refugee camps, bringing physiotherapy and care directly to those who need it most.</div>
+        <div class="slide-desc-ar">فرق التأهيل تتنقل إلى الأحياء والمخيمات لتقديم الرعاية لمن يحتاجها.</div>
         <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'rehab') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
       </div>
     </div>
