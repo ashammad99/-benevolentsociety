@@ -23,7 +23,7 @@ class VerifiedActive
             $request->session()->regenerateToken();
 
             return redirect()->route('login')
-                ->withErrors(['email' => 'Your account has been deactivated. Contact an administrator.']);
+                ->withErrors(['email' => __('Your account has been deactivated. Contact an administrator.')]);
         }
 
         return $next($request);

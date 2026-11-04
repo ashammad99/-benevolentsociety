@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" id="page">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" id="page">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -477,6 +477,7 @@
             font-family: var(--font-en);
             transition: all 0.2s;
         }
+        a.lang-btn { text-decoration: none; }
         .lang-btn.active {
             border-color: var(--red);
             color: var(--red);
@@ -498,6 +499,11 @@
             background: var(--red-light);
             border: 1px solid rgba(192,57,43,0.2);
             color: var(--red-dark);
+        }
+        .alert-success {
+            background: #EAF7EE;
+            border: 1px solid rgba(39,174,96,0.25);
+            color: #1E6B3A;
         }
         .alert svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
 
@@ -608,16 +614,19 @@
             </p>
         </div>
 
-        <!-- Error message (hidden by default, shown on failed login) -->
-        <div class="alert alert-error" id="loginError" style="display:none;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <span class="en">Invalid email or password. Please try again.</span>
-            <span class="ar">البريد الإلكتروني أو كلمة المرور غير صحيحة.</span>
-        </div>
+        @if (session('status'))
+            <div class="alert alert-success" role="status">{{ session('status') }}</div>
+        @endif
 
-        <!-- Laravel: replace action with route('login') and add @csrf -->
+        @if ($errors->any())
+            <div class="alert alert-error" id="loginError" role="alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>{{ $errors->first() }}</span>
+            </div>
+        @endif
+
         <form id="loginForm" method="POST" action="{{route('login')}}" novalidate>
             @csrf
 
@@ -634,6 +643,7 @@
                         id="email"
                         name="email"
                         autocomplete="email"
+                        value="{{ old('email') }}"
                         required
                         placeholder="you@example.com"
                     >
@@ -684,7 +694,7 @@
                     <span class="en">Remember me</span>
                     <span class="ar">تذكرني</span>
                 </label>
-                <a href="/password/reset" class="forgot-link">
+                <a href="{{ route('password.request') }}" class="forgot-link">
                     <span class="en">Forgot password?</span>
                     <span class="ar">نسيت كلمة المرور؟</span>
                 </a>
@@ -704,11 +714,21 @@
         </div>
 
         <div class="lang-row">
-            <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
-            <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">العربية</button>
+            <a href="?lang=en" class="lang-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}" id="btn-en">English</a>
+            <a href="?lang=ar" class="lang-btn {{ app()->getLocale() === 'ar' ? 'active' : '' }}" id="btn-ar">العربية</a>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('pwdToggle').addEventListener('click', function () {
+        var input = document.getElementById('password');
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        document.getElementById('eyeShow').style.display = show ? 'none' : '';
+        document.getElementById('eyeHide').style.display = show ? '' : 'none';
+    });
+</script>
 
 </body>
 </html>

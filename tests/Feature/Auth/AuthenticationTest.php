@@ -52,4 +52,37 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
         $response->assertRedirect('/');
     }
+
+    public function test_failed_login_shows_the_error_and_keeps_the_email(): void
+    {
+        $user = User::factory()->create();
+
+        $this->from('/login')->post('/login', [
+            'email' => $user->email,
+            'password' => 'wrong-password',
+        ])->assertRedirect('/login');
+
+        $this->get('/login')
+            ->assertSee('These credentials do not match our records.')
+            ->assertSee('value="'.$user->email.'"', false);
+    }
+
+    public function test_login_error_is_translated_to_arabic(): void
+    {
+        $user = User::factory()->create();
+
+        $this->get('/login?lang=ar')->assertSee('dir="rtl"', false);
+
+        $this->from('/login')->post('/login', [
+            'email' => $user->email,
+            'password' => 'wrong-password',
+        ]);
+
+        $this->get('/login')->assertSee('البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+    }
+
+    public function test_login_page_links_to_the_real_forgot_password_page(): void
+    {
+        $this->get('/login')->assertSee('href="'.route('password.request').'"', false);
+    }
 }

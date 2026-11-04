@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Laravel 12 (PHP 8.2+) application for a bilingual (English/Arabic) nonprofit ("Benevolent Society") website. It combines:
+Laravel 13 (PHP 8.3+) application for a bilingual (English/Arabic) nonprofit ("Benevolent Society") website. It combines:
 
 - A public bilingual site (Blade, under `resources/views/public/`): home, vision, contact, six program pages (static copy), and a database-driven news listing/detail (`/news`).
 - An admin CMS at `/admin` for managing posts, categories, media, ads, users, and site settings.
 
 Frontend build tooling is Vite + Tailwind CSS + Alpine.js (Laravel Breeze scaffolding for auth).
 
-The app was upgraded from Laravel 10 but deliberately **kept on the Laravel 10 directory structure** (`app/Http/Kernel.php`, `app/Console/Kernel.php`, `RouteServiceProvider`, full `config/` files) rather than the slim Laravel 11+ skeleton — register middleware and aliases in `app/Http/Kernel.php`, not `bootstrap/app.php`.
+The app was upgraded from Laravel 10 but deliberately **kept on the Laravel 10 directory structure** (`app/Http/Kernel.php`, `app/Console/Kernel.php`, `RouteServiceProvider`, full `config/` files) rather than the slim Laravel 11+ skeleton — register middleware and aliases in `app/Http/Kernel.php`, not `bootstrap/app.php`. `App\Http\Middleware\VerifyCsrfToken` keeps its old name but extends Laravel 13's `PreventRequestForgery`; CSRF is skipped entirely while running tests, so tests don't prove forms carry `@csrf`. `config/cache.php` sets `serializable_classes => false` — add a class there before caching objects of it.
 
 ## Commands
 
@@ -47,7 +47,7 @@ Content-bearing tables (`posts`, `settings`, `media` descriptions) store **paral
 - `Media::getDescriptionAttribute()`
 - `Setting::getResolvedValueAttribute()` and the static helper `Setting::get($key, $locale = null)`
 
-Locale is set per request by the `SetLocale` middleware (`app/Http/Middleware/SetLocale.php`, in the `web` group): `?lang=en|ar` switches and is remembered in the session; invalid/missing values fall back to `config("app.locale")`. Layouts emit `<html lang dir>` from `app()->getLocale()`, and the `.en`/`.ar` span pairs are toggled by CSS on `[dir=rtl]`. Exception: `resources/views/auth/login.blade.php` (a standalone page) still has its own client-side language toggle. `resources/lang/ar.json` holds Arabic strings for flash messages only.
+Locale is set per request by the `SetLocale` middleware (`app/Http/Middleware/SetLocale.php`, in the `web` group): `?lang=en|ar` switches and is remembered in the session; invalid/missing values fall back to `config("app.locale")`. Layouts emit `<html lang dir>` from `app()->getLocale()`, and the `.en`/`.ar` span pairs are toggled by CSS on `[dir=rtl]`. `resources/views/auth/login.blade.php` is a standalone page (not `layouts.guest`) but follows the same `?lang=` mechanism. `resources/lang/ar.json` holds Arabic strings for flash messages; `resources/lang/ar/{auth,passwords}.php` translate the framework's login/password-reset messages (English falls back to the framework's built-in files).
 
 ### Admin CMS (`app/Http/Controllers/Admin/*`)
 
