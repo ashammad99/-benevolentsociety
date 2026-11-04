@@ -174,7 +174,7 @@
             <div class="form-group" style="margin-bottom:0">
               <label class="form-label"><span class="en">Files</span><span class="ar">الملفات</span> <span class="required">*</span></label>
               <input class="form-input" type="file" name="files[]" multiple required
-                     accept=".jpg,.jpeg,.png,.gif,.webp,.svg,.mp4,.mov,.pdf,.doc,.docx,.xls,.xlsx,.mp3,.wav">
+                     accept=".jpg,.jpeg,.png,.gif,.webp,.mp4,.mov,.pdf,.doc,.docx,.xls,.xlsx,.mp3,.wav">
               <div class="form-hint"><span class="en">Up to 20 files, 50 MB each.</span><span class="ar">حتى 20 ملف، 50 ميجا لكل ملف.</span></div>
               @error('files')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
               @error('files.*')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror

@@ -17,7 +17,6 @@ class MediaController extends Controller
         'image/png'                                                             => 'image',
         'image/gif'                                                             => 'image',
         'image/webp'                                                            => 'image',
-        'image/svg+xml'                                                         => 'image',
         'video/mp4'                                                             => 'video',
         'video/mpeg'                                                            => 'video',
         'video/quicktime'                                                       => 'video',
@@ -66,7 +65,8 @@ class MediaController extends Controller
         $request->validate([
             'files'              => ['required', 'array', 'min:1', 'max:20'],
             'files.*'            => [
-                File::types(['jpg','jpeg','png','gif','webp','svg','mp4','mov','pdf','doc','docx','xls','xlsx','mp3','wav'])
+                // No SVG: it can carry scripts and is served from our own domain.
+                File::types(['jpg','jpeg','png','gif','webp','mp4','mov','pdf','doc','docx','xls','xlsx','mp3','wav'])
                     ->max(50 * 1024),  // 50 MB
             ],
             'description_en'     => ['nullable', 'string', 'max:500'],

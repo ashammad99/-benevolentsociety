@@ -74,6 +74,29 @@ class MediaControllerTest extends TestCase
         $this->assertDatabaseCount('media', 0);
     }
 
+    public function test_svg_upload_is_rejected(): void
+    {
+        Storage::fake('public');
+
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>';
+
+        // A real temp file (not UploadedFile::fake(), which reports a MIME
+        // type from the name) so the content sniffing runs: a renamed SVG
+        // must be rejected too.
+        foreach (['logo.svg', 'logo.jpg'] as $name) {
+            $path = tempnam(sys_get_temp_dir(), 'svg');
+            file_put_contents($path, $svg);
+
+            $this->actingAs($this->admin())->post(route('admin.media.upload'), [
+                'files' => [new UploadedFile($path, $name, null, null, true)],
+            ])->assertSessionHasErrors();
+
+            @unlink($path);
+        }
+
+        $this->assertDatabaseCount('media', 0);
+    }
+
     public function test_oversized_file_is_rejected(): void
     {
         Storage::fake('public');
