@@ -126,8 +126,9 @@ class BrandingTest extends TestCase
                 ->assertDontSee('Nablus')
                 ->assertDontSee('نابلس')
                 ->assertDontSee('West Bank')
-                ->assertDontSee('Palestin')
-                ->assertDontSee('فلسطين');
+                // The old hard-coded wording; the country itself now comes from config.
+                ->assertDontSee('Palestinian')
+                ->assertDontSee('فلسطيني');
         }
     }
 }
