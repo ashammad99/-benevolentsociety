@@ -19,3 +19,19 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Never serve dotfiles (.env, .git, ...) except ACME challenges.
+<IfModule mod_rewrite.c>
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+</IfModule>
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+</IfModule>

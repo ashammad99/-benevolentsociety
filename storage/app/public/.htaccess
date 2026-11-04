@@ -1,0 +1,17 @@
+# Served as public/storage (symlink). Uploads must never execute.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+
+<FilesMatch "(?i)\.(php|phtml|php[3-8]|phps|phar|pht|cgi|pl|py|sh|inc|shtml|htaccess)$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes -ExecCGI
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>
