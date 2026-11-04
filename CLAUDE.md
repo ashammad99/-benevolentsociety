@@ -27,7 +27,9 @@ The app was upgraded from Laravel 10 but deliberately **kept on the Laravel 10 d
 
 Note: `phpunit.xml` runs tests against sqlite in-memory (`DB_CONNECTION=sqlite`, `DB_DATABASE=:memory:`), so `RefreshDatabase` never touches the `.env` database. `tests/TestCase.php` calls `withoutVite()`, so tests do not prove the Breeze guest pages (forgot/reset password, verify email, confirm password) render — those use `@vite` and need `npm run build` (or `npm run dev`) to exist at runtime.
 
-**Migrations:** `php artisan migrate` / `php artisan migrate:fresh --seed`
+**Migrations:** `php artisan migrate`
+
+**First admin / seeding:** the seeder creates no users. On a new database run `php artisan migrate`, then `php artisan society:create-admin` (prompts for the password), then `php artisan db:seed` — `CategoriesSeeder` assigns categories to the first admin and skips them if none exists. Both seeders use `insertOrIgnore`, so re-running `db:seed` only adds missing rows.
 
 Sanctum's `personal_access_tokens` migration is published into `database/migrations/` under its original `2019_12_14_000001_...` name (Sanctum 4 no longer auto-loads it); keep that filename so existing databases continue to see it as already run.
 
@@ -51,7 +53,7 @@ Locale is set per request by the `SetLocale` middleware (`app/Http/Middleware/Se
 
 ### Admin CMS (`app/Http/Controllers/Admin/*`)
 
-All admin routes live under `Route::prefix('admin')->name('admin.')` in `routes/web.php`, gated by `['auth', 'verified_active']`. Resource areas: Posts, Categories, Media, Ads, Users, Settings. Read routes are open to admin/editor/viewer; every mutating route on Posts, Categories, Media and Ads requires `role:admin,editor`; Users and Settings are entirely `role:admin` (see `CheckRole` middleware, registered as the `role` alias). `/admin` redirects to the dashboard, which lives at `/admin/AdminDashboard` (`admin.dashboard`). There is **no public registration** — `users.role` defaults to `editor`, so accounts must only be created via the admin Users screen.
+All admin routes live under `Route::prefix('admin')->name('admin.')` in `routes/web.php`, gated by `['auth', 'verified_active']`. Resource areas: Posts, Categories, Media, Ads, Users, Settings. Read routes are open to admin/editor/viewer; every mutating route on Posts, Categories, Media and Ads requires `role:admin,editor`; Users and Settings are entirely `role:admin` (see `CheckRole` middleware, registered as the `role` alias). `/admin` redirects to the dashboard, which lives at `/admin/AdminDashboard` (`admin.dashboard`). There is **no public registration** — `users.role` defaults to `editor`, so accounts must only be created via the admin Users screen (or `society:create-admin` for the first admin).
 
 - **Roles** are a plain string column on `users.role` (no package like spatie/permission). Helpers: `User::isAdmin()`, `isEditor()`, `hasRole()`.
 - **Account activation**: `users.is_active` is enforced by `VerifiedActive` middleware (alias `verified_active`), which force-logs-out and redirects to login with an error if a logged-in user's account has been deactivated mid-session.

@@ -4,19 +4,20 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
  * Seeds the database with the original data from benevole_db.sql,
  * translated to the new schema structure.
+ *
+ * No user accounts are seeded: create the first admin with
+ * `php artisan society:create-admin` before running this seeder, since
+ * categories need an owner.
  */
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
         $this->call([
-            UsersSeeder::class,
             CategoriesSeeder::class,
             SettingsSeeder::class,
         ]);
@@ -26,54 +27,18 @@ class DatabaseSeeder extends Seeder
 
 // ─── You can split these into separate files; kept together here for clarity ──
 
-class UsersSeeder extends Seeder
-{
-    public function run(): void
-    {
-        // Original users — passwords already hashed, reused as-is.
-        // Roles inferred from context: user 1 & 2 appear to be admins/editors.
-        $users = [
-            [
-                'id'         => 1,
-                'name'       => 'Staff 1',
-                'email'      => 'staff1@example.org',
-                'password'   => 'REDACTED',
-                'role'       => 'admin',
-                'is_active'  => true,
-                'created_at' => null,
-                'updated_at' => '2019-08-06 04:19:23',
-            ],
-            [
-                'id'         => 2,
-                'name'       => 'Staff 2',
-                'email'      => 'staff2@example.org',
-                'password'   => 'REDACTED',
-                'role'       => 'admin',
-                'is_active'  => true,
-                'created_at' => '2019-08-06 04:20:27',
-                'updated_at' => '2019-08-06 04:20:27',
-            ],
-            [
-                'id'         => 3,
-                'name'       => 'Staff 3',
-                'email'      => 'staff3@example.org',
-                'password'   => 'REDACTED',
-                'role'       => 'editor',
-                'is_active'  => true,
-                'created_at' => '2019-08-06 07:49:34',
-                'updated_at' => '2019-08-06 07:49:34',
-            ],
-        ];
-
-        DB::table('users')->insert($users);
-    }
-}
-
-
 class CategoriesSeeder extends Seeder
 {
     public function run(): void
     {
+        $ownerId = DB::table('users')->where('role', 'admin')->orderBy('id')->value('id');
+
+        if ($ownerId === null) {
+            $this->command?->warn('No admin account yet: categories skipped. Run `php artisan society:create-admin`, then `php artisan db:seed` again.');
+
+            return;
+        }
+
         // Original data had PHP-serialized multilingual names.
         // Deserialized and split into name_en / name_ar columns.
         $categories = [
@@ -82,7 +47,7 @@ class CategoriesSeeder extends Seeder
                 'name_en'    => 'Health Projects',
                 'name_ar'    => 'مشاريع صحية',
                 'slug'       => 'health-projects',
-                'user_id'    => 2,
+                'user_id'    => $ownerId,
                 'created_at' => '2019-08-06 04:33:19',
                 'updated_at' => '2019-08-06 04:33:19',
             ],
@@ -91,7 +56,7 @@ class CategoriesSeeder extends Seeder
                 'name_en'    => 'Projects for Elders',
                 'name_ar'    => 'مشاريع لكبار السن',
                 'slug'       => 'projects-for-elders',
-                'user_id'    => 2,
+                'user_id'    => $ownerId,
                 'created_at' => '2019-08-06 04:35:18',
                 'updated_at' => '2019-08-07 08:41:34',
             ],
@@ -100,13 +65,14 @@ class CategoriesSeeder extends Seeder
                 'name_en'    => 'Projects for People with Disabilities',
                 'name_ar'    => 'مشاريع لذوي الإعاقات',
                 'slug'       => 'projects-for-people-with-disabilities',
-                'user_id'    => 2,
+                'user_id'    => $ownerId,
                 'created_at' => '2019-08-06 05:12:35',
                 'updated_at' => '2019-08-07 08:40:36',
             ],
         ];
 
-        DB::table('categories')->insert($categories);
+        // insertOrIgnore: re-seeding adds only missing rows, never overwrites.
+        DB::table('categories')->insertOrIgnore($categories);
     }
 }
 
@@ -204,6 +170,7 @@ class SettingsSeeder extends Seeder
                 'updated_at' => '2019-08-07 10:35:50',
             ],
         ];
-        DB::table('settings')->insert($settings);
+        // insertOrIgnore: re-seeding adds only missing rows, never overwrites.
+        DB::table('settings')->insertOrIgnore($settings);
     }
 }
