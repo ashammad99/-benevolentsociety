@@ -103,7 +103,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Eligibility</span><span class="ar">الأهلية</span></h4>
-          <p><span class="en">Open to all residents of the Nablus governorate with documented physical disability.</span><span class="ar">مفتوح لجميع سكان محافظة نابلس ذوي الإعاقة الجسدية الموثقة.</span></p>
+          <p><span class="en">Open to all residents of the {{ config('society.city.en') }} area with documented physical disability.</span><span class="ar">مفتوح لجميع سكان منطقة {{ config('society.city.ar') }} ذوي الإعاقة الجسدية الموثقة.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Wait Time</span><span class="ar">وقت الانتظار</span></h4>

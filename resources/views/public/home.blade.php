@@ -109,7 +109,7 @@
 <div class="section-wrap" id="programs">
   <div class="section-label"><span class="en">What We Do</span><span class="ar">ما نفعله</span></div>
   <div class="section-title"><span class="en">Our Programs</span><span class="ar">برامجنا</span></div>
-  <p class="section-sub"><span class="en">Six pillars of support, each targeting a critical need of the disability community in Nablus and beyond.</span><span class="ar">ستة محاور دعم، كل منها يستهدف حاجة أساسية لمجتمع ذوي الإعاقة.</span></p>
+  <p class="section-sub"><span class="en">Six pillars of support, each targeting a critical need of the disability community in {{ config('society.city.en') }} and beyond.</span><span class="ar">ستة محاور دعم، كل منها يستهدف حاجة أساسية لمجتمع ذوي الإعاقة.</span></p>
   <div class="programs-grid">
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'rehab') }}'">
       <div class="card-bar" style="background:var(--red);"></div>

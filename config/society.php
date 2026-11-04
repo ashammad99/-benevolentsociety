@@ -18,7 +18,15 @@
 |
 */
 
+// Where the organisation works. Used in sentences on the home, vision and
+// program pages ("…across [City] and [Region]…") and in the defaults below.
+$city = ['en' => '[City]', 'ar' => '[المدينة]'];
+$region = ['en' => '[Region]', 'ar' => '[المنطقة]'];
+
 return [
+
+    'city' => $city,
+    'region' => $region,
 
     'name' => [
         'en' => 'Benevolent Society for Disabled',
@@ -33,8 +41,8 @@ return [
 
     // One line under the name in the footer.
     'tagline' => [
-        'en' => 'Serving persons with disabilities and their families in Nablus and the West Bank with dignity, care, and professionalism.',
-        'ar' => 'نخدم ذوي الإعاقة وأسرهم في نابلس والضفة الغربية بكرامة وعناية واحترافية.',
+        'en' => "Serving persons with disabilities and their families in {$city['en']} and {$region['en']} with dignity, care, and professionalism.",
+        'ar' => "نخدم ذوي الإعاقة وأسرهم في {$city['ar']} و{$region['ar']} بكرامة وعناية واحترافية.",
     ],
 
     // Footer legal line (null hides it).
@@ -70,10 +78,10 @@ return [
         'email' => 'info@bsd-nablus.ps',
         'phone' => '+970 9 XXX XXXX',
         'address' => [
-            'en' => 'Nablus, West Bank, Palestine',
-            'ar' => 'نابلس، الضفة الغربية، فلسطين',
+            'en' => "{$city['en']}, {$region['en']}",
+            'ar' => "{$city['ar']}، {$region['ar']}",
         ],
-        'meta_description' => 'A registered local NGO serving persons with disabilities and their families in Nablus and the West Bank.',
+        'meta_description' => "A registered local NGO serving persons with disabilities and their families in {$city['en']} and {$region['en']}.",
     ],
 
 ];

@@ -104,4 +104,23 @@ class BrandingTest extends TestCase
         $this->get('/programs/rehab')->assertSeeInOrder(['555', '666', '777']);
         $this->get('/programs/education')->assertDontSee('class="program-stats-row"', false);
     }
+
+    public function test_location_comes_from_config(): void
+    {
+        config([
+            'society.city' => ['en' => 'Testville', 'ar' => 'مدينة الاختبار'],
+            'society.region' => ['en' => 'Test Region', 'ar' => 'منطقة الاختبار'],
+        ]);
+
+        $this->get('/vision')->assertOk()
+            ->assertSee('across Testville and Test Region')
+            ->assertSee('في مدينة الاختبار ومنطقة الاختبار');
+
+        foreach (['/', '/vision', '/programs/rehab', '/programs/homecare', '/programs/devices'] as $url) {
+            $this->get($url)->assertOk()
+                ->assertDontSee('Nablus')
+                ->assertDontSee('نابلس')
+                ->assertDontSee('West Bank');
+        }
+    }
 }

@@ -43,8 +43,8 @@
       <div style="font-size:2rem;margin-bottom:1rem;">🤝</div>
       <div class="section-title" style="font-size:1.5rem;margin-bottom:.75rem;"><span class="en">Our Mission</span><span class="ar">مهمتنا</span></div>
       <p style="font-size:15px;color:var(--muted);line-height:1.75;">
-        <span class="en">To empower persons with disabilities across Nablus and the West Bank through high-quality rehabilitation, education, vocational training, and social inclusion programs — delivered with compassion, professionalism, and respect for human dignity.</span>
-        <span class="ar">تمكين ذوي الإعاقة في نابلس والضفة الغربية من خلال برامج تأهيل وتعليم وتدريب مهني وإدماج اجتماعي عالية الجودة — تُقدَّم بتعاطف ومهنية واحترام للكرامة الإنسانية.</span>
+        <span class="en">To empower persons with disabilities across {{ config('society.city.en') }} and {{ config('society.region.en') }} through high-quality rehabilitation, education, vocational training, and social inclusion programs — delivered with compassion, professionalism, and respect for human dignity.</span>
+        <span class="ar">تمكين ذوي الإعاقة في {{ config('society.city.ar') }} و{{ config('society.region.ar') }} من خلال برامج تأهيل وتعليم وتدريب مهني وإدماج اجتماعي عالية الجودة — تُقدَّم بتعاطف ومهنية واحترام للكرامة الإنسانية.</span>
       </p>
     </div>
   </div>
@@ -55,7 +55,7 @@
     <div class="aim-card" style="border-top:4px solid var(--red);">
       <div class="aim-num" style="color:var(--red);">01</div>
       <div class="aim-title"><span class="en">Expand Access to Rehabilitation</span><span class="ar">توسيع الوصول إلى التأهيل</span></div>
-      <div class="aim-desc"><span class="en">Ensure every person with a physical disability in the Nablus region can access quality physiotherapy, occupational therapy, and assistive devices — regardless of where they live or their financial situation.</span><span class="ar">ضمان وصول كل شخص ذي إعاقة جسدية في منطقة نابلس إلى علاج طبيعي ووظيفي وأجهزة مساعدة عالية الجودة — بصرف النظر عن مكان إقامته أو وضعه المالي.</span></div>
+      <div class="aim-desc"><span class="en">Ensure every person with a physical disability in the {{ config('society.city.en') }} area can access quality physiotherapy, occupational therapy, and assistive devices — regardless of where they live or their financial situation.</span><span class="ar">ضمان وصول كل شخص ذي إعاقة جسدية في منطقة {{ config('society.city.ar') }} إلى علاج طبيعي ووظيفي وأجهزة مساعدة عالية الجودة — بصرف النظر عن مكان إقامته أو وضعه المالي.</span></div>
     </div>
     <div class="aim-card" style="border-top:4px solid var(--blue);">
       <div class="aim-num" style="color:var(--blue);">02</div>

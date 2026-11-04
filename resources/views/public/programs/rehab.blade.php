@@ -28,7 +28,7 @@
         <span class="en">Medical Rehabilitation</span><span class="ar">التأهيل الطبي</span>
       </div>
       <p class="program-lead">
-        <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across Nablus and surrounding villages.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في نابلس والقرى المحيطة.</span>
+        <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across {{ config('society.city.en') }} and surrounding villages.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في {{ config('society.city.ar') }} والقرى المحيطة.</span>
       </p>
       @if (config('society.program_stats.rehab'))
       <div class="program-stats-row">
@@ -95,7 +95,7 @@
     <div class="info-grid">
         <div class="info-card">
           <h4><span class="en">Eligibility</span><span class="ar">الأهلية</span></h4>
-          <p><span class="en">Open to all Nablus-region residents with documented physical disabilities. No age restriction.</span><span class="ar">مفتوح لجميع سكان منطقة نابلس ذوي الإعاقات الجسدية الموثقة. لا قيود على العمر.</span></p>
+          <p><span class="en">Open to all residents of the {{ config('society.city.en') }} area with documented physical disabilities. No age restriction.</span><span class="ar">مفتوح لجميع سكان منطقة {{ config('society.city.ar') }} ذوي الإعاقات الجسدية الموثقة. لا قيود على العمر.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Cost</span><span class="ar">التكلفة</span></h4>
@@ -103,7 +103,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Location</span><span class="ar">الموقع</span></h4>
-          <p><span class="en">Main center in Nablus + mobile clinics visiting surrounding villages on a rotating weekly schedule.</span><span class="ar">المركز الرئيسي في نابلس + عيادات متنقلة تزور القرى المحيطة أسبوعياً.</span></p>
+          <p><span class="en">Main center in {{ config('society.city.en') }} + mobile clinics visiting surrounding villages on a rotating weekly schedule.</span><span class="ar">المركز الرئيسي في {{ config('society.city.ar') }} + عيادات متنقلة تزور القرى المحيطة أسبوعياً.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">How to Apply</span><span class="ar">كيفية التقديم</span></h4>
