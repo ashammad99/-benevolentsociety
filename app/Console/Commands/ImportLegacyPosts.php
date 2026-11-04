@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Support\SanitizesRichText;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -9,23 +10,30 @@ use Illuminate\Support\Str;
 use ZipArchive;
 
 /**
- * One-time import of the posts (and their cover images) from the old
- * Laravel 5.5 site into the current schema.
+ * One-time import of the old Laravel 5.5 site's content into the current
+ * schema: categories, posts with their cover images, and the contact/about
+ * settings.
  *
  * The old dump must already be loaded into a *separate* database
- * (--legacy-db); this command only ever reads from it. Users, categories and
- * settings are not imported — they are verified to match what already exists.
+ * (--legacy-db); this command only ever reads from it. The old user accounts
+ * are never imported (their password hashes come from a compromised server):
+ * everything is credited to --owner, an existing admin.
  *
- * Runs as a dry run unless --commit is given.
+ * Safe to re-run: existing rows are matched and left alone, settings are only
+ * filled while empty. Runs as a dry run unless --commit is given.
  */
 class ImportLegacyPosts extends Command
 {
+    use SanitizesRichText;
+
     protected $signature = 'society:import-legacy-posts
         {--legacy-db=old_benevole : Database holding the old dump (read-only source)}
+        {--images-dir= : Folder holding the files of the old public/photos/main}
         {--images-zip= : Zip containing the old public/photos/main folder}
+        {--owner= : Email of the admin credited with the imported content (default: first active admin)}
         {--commit : Write changes; without it nothing is written}';
 
-    protected $description = 'Import posts and cover images from the old site (dry run by default)';
+    protected $description = 'Import categories, posts, cover images and settings from the old site (dry run by default)';
 
     private const IMAGE_MIMES = [
         'image/jpeg' => 'jpg',
@@ -38,6 +46,16 @@ class ImportLegacyPosts extends Command
 
     /** Old code stored this literal when a post was saved without an image. */
     private const NO_IMAGE_PLACEHOLDER = 'Ibrahim-MH';
+
+    /** Old settings `item` => [new key, label_en, label_ar, group, type]. */
+    private const SETTINGS_MAP = [
+        'email' => ['email', 'Contact Email', 'البريد الإلكتروني', 'contact', 'email'],
+        'phone' => ['phone', 'Contact Phone', 'رقم الهاتف', 'contact', 'phone'],
+        'adress' => ['address', 'Office Address', 'عنوان المكتب', 'contact', 'text'],
+        'aims' => ['aims', 'Society Aims', 'أهداف الجمعية', 'about', 'richtext'],
+        'vision' => ['vision', 'Society Vision', 'رؤية الجمعية', 'about', 'richtext'],
+        'msg' => ['about_message', 'About / Vision & Aims Combined', 'عن الجمعية / الرؤية والأهداف', 'about', 'richtext'],
+    ];
 
     /** @var array<int,string> */
     private array $problems = [];
@@ -56,6 +74,11 @@ class ImportLegacyPosts extends Command
             return self::FAILURE;
         }
 
+        $ownerId = $this->resolveOwner();
+        if ($ownerId === null) {
+            return self::FAILURE;
+        }
+
         config(['database.connections.legacy' => array_merge(
             config('database.connections.'.config('database.default')),
             ['database' => $legacyDb]
@@ -70,20 +93,21 @@ class ImportLegacyPosts extends Command
             return self::FAILURE;
         }
 
-        $zip = $this->openImagesZip();
-        if ($zip === false) {
+        $images = $this->openImageSource();
+        if ($images === false) {
             return self::FAILURE;
         }
-        $imageIndex = $zip ? $this->indexZipImages($zip) : [];
 
-        $this->verifyUsers($old);
-        $categories = $this->verifyCategories($old);
+        $stats = ['import' => 0, 'already' => 0, 'skipped' => 0, 'no_image' => 0, 'images' => 0,
+            'categories_new' => 0, 'categories_existing' => 0, 'settings_fill' => 0, 'settings_kept' => 0];
 
-        $rows = [];
-        $stats = ['import' => 0, 'already' => 0, 'skipped' => 0, 'no_image' => 0, 'images' => 0];
+        $categoryRows = $this->planCategories($old, $ownerId, $stats);
+        $categoryIds = array_flip(array_merge(array_column($categoryRows, 'id'), $this->existingCategoryIds));
+        $settingRows = $this->planSettings($old, $ownerId, $stats);
 
+        $postRows = [];
         foreach ($old->table('posts')->orderBy('id')->get() as $post) {
-            $record = $this->buildRecord($post, $categories);
+            $record = $this->buildRecord($post, $categoryIds, $ownerId);
             if ($record === null) {
                 $stats['skipped']++;
 
@@ -95,41 +119,26 @@ class ImportLegacyPosts extends Command
                 if ($existing->title_en === $record['title_en']) {
                     $stats['already']++;
                 } else {
-                    $this->problems[] = "Post #{$post->id}: id already used by a different post ('{$existing->title_en}').";
+                    $this->problems[] = "BLOCKING post #{$post->id}: id already used by a different post ('{$existing->title_en}').";
                     $stats['skipped']++;
                 }
 
                 continue;
             }
 
-            $image = $this->resolveImage($post, $zip, $imageIndex);
+            $image = $this->resolveImage($post, $images);
             $record['_image'] = $image;
-            if ($image['bytes'] !== null) {
-                $stats['images']++;
-            } else {
-                $stats['no_image']++;
-            }
-
+            $stats[$image['bytes'] !== null ? 'images' : 'no_image']++;
             $stats['import']++;
-            $rows[] = $record;
+            $postRows[] = $record;
         }
+
+        $this->notes[] = 'All imported content is credited to '.DB::table('users')->where('id', $ownerId)->value('email').
+            ' (the old accounts are not imported).';
 
         $this->report($stats, $commit);
-
-        if ($this->problems) {
-            $this->newLine();
-            $this->error('Problems ('.count($this->problems).'):');
-            foreach ($this->problems as $p) {
-                $this->line('  - '.$p);
-            }
-        }
-        if ($this->notes) {
-            $this->newLine();
-            $this->warn('Notes:');
-            foreach ($this->notes as $n) {
-                $this->line('  - '.$n);
-            }
-        }
+        $this->printList('Problems', $this->problems, 'error');
+        $this->printList('Notes', $this->notes, 'warn');
 
         if (! $commit) {
             $this->newLine();
@@ -144,46 +153,153 @@ class ImportLegacyPosts extends Command
             return self::FAILURE;
         }
 
-        $this->write($rows);
+        $this->write($categoryRows, $settingRows, $postRows);
 
         return self::SUCCESS;
     }
 
-    // ── Verification of data that is expected to exist already ────────────
+    // ── Owner ──────────────────────────────────────────────────────────────
 
-    private function verifyUsers($old): void
+    private function resolveOwner(): ?int
     {
-        $new = DB::table('users')->pluck('email', 'id')->map(fn ($e) => strtolower($e));
+        $query = DB::table('users')->where('role', 'admin')->where('is_active', true);
+        $email = $this->option('owner');
 
-        foreach ($old->table('users')->get() as $u) {
-            $match = $new[$u->id] ?? null;
-            if ($match === null || $match !== strtolower($u->email)) {
-                $this->problems[] = "BLOCKING user #{$u->id} ({$u->email}) is missing or has a different email in the new database.";
-            }
+        $owner = $email
+            ? $query->whereRaw('LOWER(email) = ?', [strtolower($email)])->first()
+            : $query->orderBy('id')->first();
+
+        if ($owner === null) {
+            $this->error($email
+                ? "No active admin with email {$email}."
+                : 'No active admin account. Create one with `php artisan society:create-admin` first.');
+
+            return null;
         }
+
+        return (int) $owner->id;
     }
 
-    /** @return array<int,true> ids of categories that match between old and new */
-    private function verifyCategories($old): array
-    {
-        $new = DB::table('categories')->whereNull('deleted_at')->pluck('name_en', 'id');
-        $ok = [];
+    // ── Categories ─────────────────────────────────────────────────────────
 
-        foreach ($old->table('categories')->get() as $c) {
-            $name = $this->unserializeLocalized($c->name)['en'] ?? null;
-            if (($new[$c->id] ?? null) === $name) {
-                $ok[$c->id] = true;
+    /** @var array<int,int> ids of old categories that already exist in the new database */
+    private array $existingCategoryIds = [];
+
+    /** @return array<int,array<string,mixed>> categories to create */
+    private function planCategories($old, int $ownerId, array &$stats): array
+    {
+        $rows = [];
+
+        foreach ($old->table('categories')->orderBy('id')->get() as $c) {
+            $name = $this->unserializeLocalized($c->name);
+            if ($name === null || $name['en'] === '' || $name['ar'] === '') {
+                $this->problems[] = "BLOCKING category #{$c->id}: name is not a valid en/ar array.";
+
+                continue;
+            }
+
+            $existing = DB::table('categories')->where('id', $c->id)->first();
+            if ($existing) {
+                if ($existing->name_en === $name['en'] && $existing->deleted_at === null) {
+                    $this->existingCategoryIds[] = (int) $c->id;
+                    $stats['categories_existing']++;
+                } else {
+                    $this->problems[] = "BLOCKING category #{$c->id} ('{$name['en']}'): id already used by '{$existing->name_en}'".
+                        ($existing->deleted_at ? ' (soft-deleted)' : '').'.';
+                }
+
+                continue;
+            }
+
+            $slug = Str::slug($name['en']);
+            $clash = DB::table('categories')
+                ->where(fn ($q) => $q->where('slug', $slug)->orWhere('name_en', $name['en'])->orWhere('name_ar', $name['ar']))
+                ->value('id');
+            if ($clash) {
+                $this->problems[] = "BLOCKING category #{$c->id} ('{$name['en']}'): name or slug already used by category #{$clash}.";
+
+                continue;
+            }
+
+            $rows[] = [
+                'id' => (int) $c->id,
+                'name_en' => $name['en'],
+                'name_ar' => $name['ar'],
+                'slug' => $slug,
+                'user_id' => $ownerId,
+                'created_at' => $c->created_at ?? now(),
+                'updated_at' => $c->updated_at ?? $c->created_at ?? now(),
+            ];
+            $stats['categories_new']++;
+        }
+
+        return $rows;
+    }
+
+    // ── Settings ───────────────────────────────────────────────────────────
+
+    /** @return array<string,array<string,mixed>> new key => full row to write */
+    private function planSettings($old, int $ownerId, array &$stats): array
+    {
+        $rows = [];
+
+        foreach ($old->table('settings')->get() as $s) {
+            if (! isset(self::SETTINGS_MAP[$s->item])) {
+                $this->notes[] = "Old setting '{$s->item}' has no counterpart — not imported.";
+
+                continue;
+            }
+            [$key, $labelEn, $labelAr, $group, $type] = self::SETTINGS_MAP[$s->item];
+
+            $values = ['value' => null, 'value_en' => null, 'value_ar' => null];
+            $localized = $this->unserializeLocalized($s->value);
+            if ($localized !== null) {
+                $clean = fn ($v) => $type === 'richtext' ? $this->sanitizeRichText($v) : trim(strip_tags($v));
+                $values['value_en'] = $localized['en'] === '' ? null : $clean($localized['en']);
+                $values['value_ar'] = $localized['ar'] === '' ? null : $clean($localized['ar']);
             } else {
-                $this->problems[] = "BLOCKING category #{$c->id} ('{$name}') is missing or differs in the new database.";
+                $values['value'] = trim(strip_tags((string) $s->value)) ?: null;
+                if ($key === 'phone' && $values['value'] !== null && ! str_starts_with($values['value'], '+')) {
+                    $values['value'] = '+'.$values['value'];
+                }
+            }
+
+            if (array_filter($values, fn ($v) => $v !== null) === []) {
+                continue; // empty in the old site too
+            }
+
+            $existing = DB::table('settings')->where('key', $key)->first();
+            if ($existing && ($existing->value !== null || $existing->value_en !== null || $existing->value_ar !== null)) {
+                $this->notes[] = "Setting '{$key}' already has a value — kept, old value not imported.";
+                $stats['settings_kept']++;
+
+                continue;
+            }
+
+            $rows[$key] = array_merge([
+                'key' => $key,
+                'label_en' => $existing->label_en ?? $labelEn,
+                'label_ar' => $existing->label_ar ?? $labelAr,
+                'group' => $existing->group ?? $group,
+                'type' => $existing->type ?? $type,
+                'is_public' => $existing->is_public ?? true,
+                'updated_by' => $ownerId,
+                'created_at' => $existing->created_at ?? now(),
+                'updated_at' => now(),
+            ], $values);
+            $stats['settings_fill']++;
+
+            if ($key === 'phone') {
+                $this->notes[] = "Phone will be set to {$values['value']} — check the format in Admin → Settings.";
             }
         }
 
-        return $ok;
+        return $rows;
     }
 
     // ── Building one post row ──────────────────────────────────────────────
 
-    private function buildRecord(object $post, array $categories): ?array
+    private function buildRecord(object $post, array $categoryIds, int $ownerId): ?array
     {
         $title = $this->unserializeLocalized($post->title);
         $content = $this->unserializeLocalized($post->content);
@@ -194,14 +310,8 @@ class ImportLegacyPosts extends Command
             return null;
         }
 
-        if (! isset($categories[(int) $post->category])) {
-            $this->problems[] = "Post #{$post->id}: category {$post->category} has no matching category — skipped.";
-
-            return null;
-        }
-
-        if (! DB::table('users')->where('id', $post->user_id)->exists()) {
-            $this->problems[] = "Post #{$post->id}: user {$post->user_id} does not exist — skipped.";
+        if (! isset($categoryIds[(int) $post->category])) {
+            $this->problems[] = "Post #{$post->id}: category {$post->category} is not available — skipped.";
 
             return null;
         }
@@ -212,6 +322,8 @@ class ImportLegacyPosts extends Command
 
                 return null;
             }
+            // Same cleaning the admin applies when a post is saved (PostRequest).
+            $content[$lang] = $this->sanitizeRichText($content[$lang]);
         }
 
         $published = (int) $post->status === 1;
@@ -223,15 +335,15 @@ class ImportLegacyPosts extends Command
 
         return [
             'id' => (int) $post->id,
-            'title_en' => Str::limit($title['en'], 300, ''),
-            'title_ar' => Str::limit($title['ar'], 300, ''),
+            'title_en' => Str::limit(trim($title['en']), 300, ''),
+            'title_ar' => Str::limit(trim($title['ar']), 300, ''),
             'excerpt_en' => $this->excerpt($content['en']),
             'excerpt_ar' => $this->excerpt($content['ar']),
             'content_en' => $content['en'],
             'content_ar' => $content['ar'],
             'image_path' => null,
             'category_id' => (int) $post->category,
-            'user_id' => (int) $post->user_id,
+            'user_id' => $ownerId,
             'status' => $published ? 'published' : 'draft',
             'is_featured' => (int) $post->is_main === 1 ? 1 : 0,
             'published_at' => $published ? ($post->created_at ?? $now) : null,
@@ -274,15 +386,59 @@ class ImportLegacyPosts extends Command
 
     // ── Images ─────────────────────────────────────────────────────────────
 
-    /** @return ZipArchive|null|false null = no zip given, false = error */
-    private function openImagesZip(): ZipArchive|null|false
+    /**
+     * Index the image source as lower-cased file name => reader.
+     *
+     * @return array<string,callable():string|false>|null|false null = no source given, false = error
+     */
+    private function openImageSource(): array|null|false
     {
-        $path = $this->option('images-zip');
-        if (! $path) {
-            $this->notes[] = 'No --images-zip given: posts will be imported without cover images.';
+        $dir = $this->option('images-dir');
+        $zipPath = $this->option('images-zip');
 
-            return null;
+        if ($dir && $zipPath) {
+            $this->error('Give either --images-dir or --images-zip, not both.');
+
+            return false;
         }
+        if ($dir) {
+            return $this->indexImageDir($dir);
+        }
+        if ($zipPath) {
+            return $this->indexImageZip($zipPath);
+        }
+
+        $this->notes[] = 'No --images-dir/--images-zip given: posts will be imported without cover images.';
+
+        return null;
+    }
+
+    /** Only regular files directly inside the folder; no recursion, no links. */
+    private function indexImageDir(string $dir): array|false
+    {
+        if (! is_dir($dir)) {
+            $this->error("Images folder not found: {$dir}");
+
+            return false;
+        }
+
+        $index = [];
+        foreach (new \DirectoryIterator($dir) as $file) {
+            if ($file->isFile() && ! $file->isLink()) {
+                $path = $file->getPathname();
+                $index[mb_strtolower($file->getFilename())] = fn () => @file_get_contents($path);
+            }
+        }
+
+        return $index;
+    }
+
+    /**
+     * Everything in photos/main/ of the zip.
+     * The old archive lacks the UTF-8 flag, so raw names are UTF-8 bytes.
+     */
+    private function indexImageZip(string $path): array|false
+    {
         if (! class_exists(ZipArchive::class)) {
             $this->error('PHP zip extension is not available.');
 
@@ -296,17 +452,6 @@ class ImportLegacyPosts extends Command
             return false;
         }
 
-        return $zip;
-    }
-
-    /**
-     * Map lower-cased file name => zip index for everything in photos/main/.
-     * The old archive lacks the UTF-8 flag, so raw names are UTF-8 bytes.
-     *
-     * @return array<string,int>
-     */
-    private function indexZipImages(ZipArchive $zip): array
-    {
         $index = [];
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $name = $zip->getNameIndex($i, ZipArchive::FL_ENC_RAW);
@@ -314,7 +459,7 @@ class ImportLegacyPosts extends Command
                 $name = mb_convert_encoding($name, 'UTF-8', 'CP437');
             }
             if (preg_match('#(?:^|/)photos/main/([^/]+)$#u', $name, $m)) {
-                $index[mb_strtolower($m[1])] = $i;
+                $index[mb_strtolower($m[1])] = fn () => $zip->getFromIndex($i);
             }
         }
 
@@ -322,15 +467,12 @@ class ImportLegacyPosts extends Command
     }
 
     /** @return array{bytes:?string,ext:?string,source:?string} */
-    private function resolveImage(object $post, ?ZipArchive $zip, array $index): array
+    private function resolveImage(object $post, ?array $index): array
     {
         $none = ['bytes' => null, 'ext' => null, 'source' => null];
         $file = trim((string) $post->image);
 
-        if ($file === '' || $file === self::NO_IMAGE_PLACEHOLDER) {
-            return $none;
-        }
-        if ($zip === null) {
+        if ($file === '' || $file === self::NO_IMAGE_PLACEHOLDER || $index === null) {
             return $none;
         }
 
@@ -344,7 +486,7 @@ class ImportLegacyPosts extends Command
             return $none;
         }
 
-        $bytes = $zip->getFromIndex($index[$key]);
+        $bytes = $index[$key]();
         $reason = $this->rejectImage($bytes, $mime);
         if ($reason !== null) {
             $this->problems[] = "Post #{$post->id}: cover image '{$file}' rejected ({$reason}) — imported without image.";
@@ -385,7 +527,7 @@ class ImportLegacyPosts extends Command
     private function hasBlockingProblem(): bool
     {
         foreach ($this->problems as $p) {
-            if (str_contains($p, 'BLOCKING') || str_contains($p, 'already used by a different post')) {
+            if (str_contains($p, 'BLOCKING')) {
                 return true;
             }
         }
@@ -395,27 +537,56 @@ class ImportLegacyPosts extends Command
 
     private function report(array $s, bool $commit): void
     {
-        $this->info($commit ? 'Legacy post import (COMMIT)' : 'Legacy post import (dry run)');
+        $this->info($commit ? 'Legacy import (COMMIT)' : 'Legacy import (dry run)');
         $this->table(['Measure', 'Count'], [
+            ['Categories to create', $s['categories_new']],
+            ['Categories already present', $s['categories_existing']],
+            ['Settings to fill (were empty)', $s['settings_fill']],
+            ['Settings kept (already set)', $s['settings_kept']],
             ['Posts to import', $s['import']],
             ['  with a valid cover image', $s['images']],
             ['  without a cover image', $s['no_image']],
-            ['Already imported (same id + title)', $s['already']],
-            ['Skipped (see problems)', $s['skipped']],
+            ['Posts already imported (same id + title)', $s['already']],
+            ['Posts skipped (see problems)', $s['skipped']],
         ]);
     }
 
-    private function write(array $rows): void
+    private function printList(string $heading, array $items, string $style): void
+    {
+        if (! $items) {
+            return;
+        }
+
+        $this->newLine();
+        $this->{$style}("{$heading} (".count($items).'):');
+        foreach ($items as $item) {
+            $this->line('  - '.$item);
+        }
+    }
+
+    private function write(array $categories, array $settings, array $posts): void
     {
         $disk = Storage::disk('public');
 
-        DB::transaction(function () use ($rows, $disk) {
-            foreach ($rows as $row) {
+        DB::transaction(function () use ($categories, $settings, $posts, $disk) {
+            foreach ($categories as $row) {
+                DB::table('categories')->insert($row);
+            }
+
+            foreach ($settings as $key => $row) {
+                DB::table('settings')->updateOrInsert(['key' => $key], $row);
+            }
+
+            foreach ($posts as $row) {
                 $image = $row['_image'];
                 unset($row['_image']);
 
+                // One file per post: the admin deletes a post's image file when the
+                // post is deleted or its image replaced, so posts that shared a photo
+                // in the old site must not share a file here. The hash part lets a
+                // re-run after a failed attempt reuse the file.
                 if ($image['bytes'] !== null) {
-                    $path = 'posts/legacy-'.substr(sha1($image['bytes']), 0, 16).'.'.$image['ext'];
+                    $path = 'posts/legacy-'.$row['id'].'-'.substr(sha1($image['bytes']), 0, 12).'.'.$image['ext'];
                     if (! $disk->exists($path)) {
                         $disk->put($path, $image['bytes']);
                     }
@@ -426,6 +597,6 @@ class ImportLegacyPosts extends Command
             }
         });
 
-        $this->info(count($rows).' posts imported.');
+        $this->info(count($categories).' categories, '.count($settings).' settings and '.count($posts).' posts imported.');
     }
 }

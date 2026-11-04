@@ -37,7 +37,7 @@ Sanctum's `personal_access_tokens` migration is published into `database/migrati
 
 **Code style:** `vendor/bin/pint` (Laravel Pint, already a dev dependency)
 
-**Legacy post import (one-time):** `php artisan society:import-legacy-posts --legacy-db=old_benevole --images-zip=path/to/photos.zip` — reads posts from the old Laravel 5.5 site's dump (loaded into a *separate* database on the default connection's server) and stores cover images on the `public` disk. It is a **dry run unless `--commit`** is passed, refuses to use the app database as the source, only verifies (never imports) users/categories, and skips posts whose serialized en/ar title/content is invalid or contains script/iframe/event-handler markup.
+**Legacy import (one-time):** `php artisan society:import-legacy-posts --legacy-db=old_benevole --images-dir=path/to/photos/main [--owner=admin@email]` — imports categories, posts with cover images, and the contact/about settings from the old Laravel 5.5 site. The old dump must be loaded into a *separate* database (`old_benevole`; never the app database, which is also named `benevole_db`), and the photos come from `public/photos/main` of the 2021 cPanel backup (`--images-zip` also works). It is a **dry run unless `--commit`**, never imports the old user accounts (content is credited to `--owner`, default the first active admin), keeps old ids, sanitizes content with `SanitizesRichText` like the admin does, gives every post its own image file (the admin deletes a post's file with the post), validates each image's bytes, only fills settings that are still empty, and is safe to re-run.
 
 ## Architecture
 
