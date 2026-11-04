@@ -21,9 +21,9 @@
 // Where the organisation works. Used in sentences on the home, vision and
 // program pages ("…across [City] and [Region]…", "…under the law of
 // [Country]") and in the defaults below.
-$city = ['en' => '[City]', 'ar' => '[المدينة]'];
-$region = ['en' => '[Region]', 'ar' => '[المنطقة]'];
-$country = ['en' => '[Country]', 'ar' => '[الدولة]'];
+$city = ['en' => 'Gaza City', 'ar' => 'مدينة غزة'];
+$region = ['en' => 'the Gaza Strip', 'ar' => 'قطاع غزة'];
+$country = ['en' => 'Palestine', 'ar' => 'فلسطين'];
 
 return [
 
@@ -81,8 +81,8 @@ return [
         'email' => 'info@bsd-nablus.ps',
         'phone' => '+970 9 XXX XXXX',
         'address' => [
-            'en' => "{$city['en']}, {$region['en']}",
-            'ar' => "{$city['ar']}، {$region['ar']}",
+            'en' => 'Gaza City, Gaza Strip, Palestine',
+            'ar' => 'مدينة غزة، قطاع غزة، فلسطين',
         ],
         'meta_description' => "A registered local NGO serving persons with disabilities and their families in {$city['en']} and {$region['en']}.",
     ],
