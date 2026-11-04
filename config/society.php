@@ -79,7 +79,7 @@ return [
 
     'fallback' => [
         'email' => 'info@bsd-nablus.ps',
-        'phone' => '+970 9 XXX XXXX',
+        'phone' => '+972 8 284 4810',
         'address' => [
             'en' => 'Gaza City, Gaza Strip, Palestine',
             'ar' => 'مدينة غزة، قطاع غزة، فلسطين',
