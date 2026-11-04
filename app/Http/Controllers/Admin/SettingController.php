@@ -49,7 +49,7 @@ class SettingController extends Controller
 
         $this->upsert('email', 'email', ['value' => $data['email']]);
         $this->upsert('phone', 'phone', ['value' => $data['phone']]);
-        $this->upsert('address', 'richtext', ['value_en' => $data['address_en'], 'value_ar' => $data['address_ar']]);
+        $this->upsert('address', 'richtext', ['value_en' => $data['address_en'] ?? null, 'value_ar' => $data['address_ar'] ?? null]);
 
         return redirect()
             ->route('admin.settings.index')
@@ -69,10 +69,10 @@ class SettingController extends Controller
         // aims_en/aims_ar come from a contenteditable rich-text toolbar (see
         // admin.settings.index) and are rendered back with {!! !!}, so they
         // need the same sanitization as Post content before being stored.
-        $this->upsert('vision', 'richtext', ['value_en' => $data['vision_en'], 'value_ar' => $data['vision_ar']]);
+        $this->upsert('vision', 'richtext', ['value_en' => $data['vision_en'] ?? null, 'value_ar' => $data['vision_ar'] ?? null]);
         $this->upsert('aims', 'richtext', [
-            'value_en' => $this->sanitizeRichText($data['aims_en']),
-            'value_ar' => $this->sanitizeRichText($data['aims_ar']),
+            'value_en' => $this->sanitizeRichText($data['aims_en'] ?? null),
+            'value_ar' => $this->sanitizeRichText($data['aims_ar'] ?? null),
         ]);
 
         return redirect()
@@ -111,8 +111,8 @@ class SettingController extends Controller
             'meta_description_ar' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $this->upsert('meta_title', 'text', ['value_en' => $data['meta_title_en'],       'value_ar' => $data['meta_title_ar']]);
-        $this->upsert('meta_description', 'text', ['value_en' => $data['meta_description_en'], 'value_ar' => $data['meta_description_ar']]);
+        $this->upsert('meta_title', 'text', ['value_en' => $data['meta_title_en'] ?? null,       'value_ar' => $data['meta_title_ar'] ?? null]);
+        $this->upsert('meta_description', 'text', ['value_en' => $data['meta_description_en'] ?? null, 'value_ar' => $data['meta_description_ar'] ?? null]);
 
         return redirect()
             ->route('admin.settings.index')

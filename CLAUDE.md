@@ -4,12 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Laravel 10 (PHP 8.1) application for a bilingual (English/Arabic) nonprofit ("Benevolent Society") website. It combines:
+Laravel 12 (PHP 8.2+) application for a bilingual (English/Arabic) nonprofit ("Benevolent Society") website. It combines:
 
 - A public bilingual site (Blade, under `resources/views/public/`): home, vision, contact, six program pages (static copy), and a database-driven news listing/detail (`/news`).
 - An admin CMS at `/admin` for managing posts, categories, media, ads, users, and site settings.
 
 Frontend build tooling is Vite + Tailwind CSS + Alpine.js (Laravel Breeze scaffolding for auth).
+
+The app was upgraded from Laravel 10 but deliberately **kept on the Laravel 10 directory structure** (`app/Http/Kernel.php`, `app/Console/Kernel.php`, `RouteServiceProvider`, full `config/` files) rather than the slim Laravel 11+ skeleton — register middleware and aliases in `app/Http/Kernel.php`, not `bootstrap/app.php`.
 
 ## Commands
 
@@ -26,6 +28,9 @@ Frontend build tooling is Vite + Tailwind CSS + Alpine.js (Laravel Breeze scaffo
 Note: `phpunit.xml` runs tests against sqlite in-memory (`DB_CONNECTION=sqlite`, `DB_DATABASE=:memory:`), so `RefreshDatabase` never touches the `.env` database. `tests/TestCase.php` calls `withoutVite()`, so tests do not prove the Breeze guest pages (forgot/reset password, verify email, confirm password) render — those use `@vite` and need `npm run build` (or `npm run dev`) to exist at runtime.
 
 **Migrations:** `php artisan migrate` / `php artisan migrate:fresh --seed`
+
+Sanctum's `personal_access_tokens` migration is published into `database/migrations/` under its original `2019_12_14_000001_...` name (Sanctum 4 no longer auto-loads it); keep that filename so existing databases continue to see it as already run.
+
 **Storage symlink for public media uploads:** `php artisan storage:link` (required — `MediaController` stores files on the `public` disk and serves them via `asset('storage/...')`)
 
 **Code style:** `vendor/bin/pint` (Laravel Pint, already a dev dependency)

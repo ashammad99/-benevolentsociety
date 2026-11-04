@@ -87,10 +87,11 @@ class SettingControllerTest extends TestCase
             'value' => 'old@example.com',
         ]);
 
+        // Address fields deliberately omitted: they are optional.
         $this->actingAs($this->admin())->put(route('admin.settings.contact'), [
             'email' => 'new@example.com',
             'phone' => '+970000000',
-        ]);
+        ])->assertRedirect(route('admin.settings.index'));
 
         $this->assertDatabaseHas('settings', [
             'key' => 'email',
