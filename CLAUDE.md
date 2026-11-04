@@ -29,7 +29,7 @@ Note: `phpunit.xml` runs tests against sqlite in-memory (`DB_CONNECTION=sqlite`,
 
 **Migrations:** `php artisan migrate`
 
-**First admin / seeding:** the seeder creates no users. On a new database run `php artisan migrate`, then `php artisan society:create-admin` (prompts for the password), then `php artisan db:seed` — `CategoriesSeeder` assigns categories to the first admin and skips them if none exists. Both seeders use `insertOrIgnore`, so re-running `db:seed` only adds missing rows.
+**First admin / seeding:** the seeder creates no users or categories, only the empty contact/about settings rows (bilingual labels, null values). On a new database run `php artisan migrate`, `php artisan db:seed` and `php artisan society:create-admin` (prompts for the password); categories are then created in the admin. `db:seed` uses `insertOrIgnore`, so re-running it only adds missing rows.
 
 Sanctum's `personal_access_tokens` migration is published into `database/migrations/` under its original `2019_12_14_000001_...` name (Sanctum 4 no longer auto-loads it); keep that filename so existing databases continue to see it as already run.
 

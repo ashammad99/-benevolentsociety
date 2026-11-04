@@ -60,21 +60,17 @@ class CreateAdminTest extends TestCase
         $this->assertSame(1, User::where('email', 'taken@example.org')->count());
     }
 
-    public function test_seeder_creates_no_users_and_gives_categories_to_the_first_admin(): void
+    public function test_seeder_creates_only_empty_settings_and_can_be_rerun(): void
     {
         $this->seed();
-        $this->assertSame(0, User::count());
-        $this->assertSame(0, Category::count());
-        $settings = Setting::count();
-        $this->assertGreaterThan(0, $settings);
-
-        // Seeding again after creating the admin adds the categories and
-        // leaves the already-seeded settings alone.
-        $admin = User::factory()->create(['role' => 'admin']);
         $this->seed();
 
-        $this->assertSame(1, User::count());
-        $this->assertSame($settings, Setting::count());
-        $this->assertSame(3, Category::where('user_id', $admin->id)->count());
+        $this->assertSame(0, User::count());
+        $this->assertSame(0, Category::count());
+        $this->assertSame(
+            ['address', 'aims', 'email', 'phone', 'vision'],
+            Setting::orderBy('key')->pluck('key')->all()
+        );
+        $this->assertSame(0, Setting::whereNotNull('value')->orWhereNotNull('value_en')->orWhereNotNull('value_ar')->count());
     }
 }
