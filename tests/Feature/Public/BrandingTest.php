@@ -110,17 +110,24 @@ class BrandingTest extends TestCase
         config([
             'society.city' => ['en' => 'Testville', 'ar' => 'مدينة الاختبار'],
             'society.region' => ['en' => 'Test Region', 'ar' => 'منطقة الاختبار'],
+            'society.country' => ['en' => 'Testland', 'ar' => 'دولة الاختبار'],
         ]);
+
+        $this->get('/programs/vocational')->assertOk()
+            ->assertSee('traditional crafts of Testland')
+            ->assertSee('وحرف تراثية من دولة الاختبار');
 
         $this->get('/vision')->assertOk()
             ->assertSee('across Testville and Test Region')
             ->assertSee('في مدينة الاختبار ومنطقة الاختبار');
 
-        foreach (['/', '/vision', '/programs/rehab', '/programs/homecare', '/programs/devices'] as $url) {
+        foreach (['/', '/vision', '/contact', '/programs/rehab', '/programs/education', '/programs/vocational', '/programs/social', '/programs/homecare', '/programs/devices'] as $url) {
             $this->get($url)->assertOk()
                 ->assertDontSee('Nablus')
                 ->assertDontSee('نابلس')
-                ->assertDontSee('West Bank');
+                ->assertDontSee('West Bank')
+                ->assertDontSee('Palestin')
+                ->assertDontSee('فلسطين');
         }
     }
 }

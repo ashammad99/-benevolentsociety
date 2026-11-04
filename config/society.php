@@ -19,14 +19,17 @@
 */
 
 // Where the organisation works. Used in sentences on the home, vision and
-// program pages ("…across [City] and [Region]…") and in the defaults below.
+// program pages ("…across [City] and [Region]…", "…under the law of
+// [Country]") and in the defaults below.
 $city = ['en' => '[City]', 'ar' => '[المدينة]'];
 $region = ['en' => '[Region]', 'ar' => '[المنطقة]'];
+$country = ['en' => '[Country]', 'ar' => '[الدولة]'];
 
 return [
 
     'city' => $city,
     'region' => $region,
+    'country' => $country,
 
     'name' => [
         'en' => 'Benevolent Society for Disabled',
@@ -47,8 +50,8 @@ return [
 
     // Footer legal line (null hides it).
     'registration' => [
-        'en' => 'Registered under Palestinian Authority NGO Law',
-        'ar' => 'مرخصة بموجب القانون الفلسطيني',
+        'en' => "Registered under the NGO law of {$country['en']}",
+        'ar' => "مرخصة بموجب قانون الجمعيات في {$country['ar']}",
     ],
 
     // Contact page (null hides it).

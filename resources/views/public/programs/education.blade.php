@@ -99,7 +99,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Curriculum</span><span class="ar">المنهج</span></h4>
-          <p><span class="en">Adapted Palestinian national curriculum supplemented with specialized therapeutic content.</span><span class="ar">المنهج الوطني الفلسطيني المُكيَّف مع محتوى علاجي متخصص.</span></p>
+          <p><span class="en">The national curriculum of {{ config('society.country.en') }}, adapted and supplemented with specialized therapeutic content.</span><span class="ar">المنهج الوطني في {{ config('society.country.ar') }} مُكيَّفاً مع محتوى علاجي متخصص.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Enrollment</span><span class="ar">التسجيل</span></h4>

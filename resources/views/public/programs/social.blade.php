@@ -70,7 +70,7 @@
           <div class="service-dot" style="background:#8E44AD;"></div>
           <div class="service-text">
             <strong><span class="en">Rights & Legal Advocacy</span><span class="ar">المناصرة الحقوقية والقانونية</span></strong>
-            <span><span class="en">Guidance on disability rights, access to public services, and legal protections under Palestinian law.</span><span class="ar">إرشاد حول حقوق ذوي الإعاقة والوصول إلى الخدمات العامة والحماية القانونية.</span></span>
+            <span><span class="en">Guidance on disability rights, access to public services, and legal protections under the law of {{ config('society.country.en') }}.</span><span class="ar">إرشاد حول حقوق ذوي الإعاقة والوصول إلى الخدمات العامة والحماية القانونية.</span></span>
           </div>
         </div>
         <div class="service-item">

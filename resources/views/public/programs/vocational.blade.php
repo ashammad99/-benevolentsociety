@@ -63,7 +63,7 @@
           <div class="service-dot" style="background:#27AE60;"></div>
           <div class="service-text">
             <strong><span class="en">Handicrafts & Artisanship</span><span class="ar">الحرف اليدوية</span></strong>
-            <span><span class="en">Embroidery, ceramics, woodwork, and traditional Palestinian crafts for commercial sale.</span><span class="ar">تطريز وخزف ونجارة وحرف تراثية فلسطينية للبيع التجاري.</span></span>
+            <span><span class="en">Embroidery, ceramics, woodwork, and traditional crafts of {{ config('society.country.en') }} for commercial sale.</span><span class="ar">تطريز وخزف ونجارة وحرف تراثية من {{ config('society.country.ar') }} للبيع التجاري.</span></span>
           </div>
         </div>
         <div class="service-item">
@@ -107,7 +107,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Certification</span><span class="ar">الشهادات</span></h4>
-          <p><span class="en">Graduates receive a recognized vocational certificate endorsed by the Palestinian Vocational Training Authority.</span><span class="ar">يحصل الخريجون على شهادة مهنية معترف بها من سلطة التدريب المهني الفلسطينية.</span></p>
+          <p><span class="en">Graduates receive a recognized vocational certificate endorsed by the national vocational training authority of {{ config('society.country.en') }}.</span><span class="ar">يحصل الخريجون على شهادة مهنية معترف بها من الجهة الوطنية للتدريب المهني في {{ config('society.country.ar') }}.</span></p>
         </div></div>
   </div>
 </div>
