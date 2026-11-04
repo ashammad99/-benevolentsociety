@@ -11,7 +11,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'News | جمعية المعاقين الخيرية')
+@section('title', 'News')
 @section('active_nav', 'news')
 
 @push('styles')

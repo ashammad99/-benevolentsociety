@@ -6,7 +6,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Medical Rehabilitation | جمعية المعاقين الخيرية')
+@section('title', 'Medical Rehabilitation')
 @section('active_nav', 'rehab')
 
 @section('content')

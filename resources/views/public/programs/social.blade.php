@@ -6,7 +6,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Social Inclusion | جمعية المعاقين الخيرية')
+@section('title', 'Social Inclusion')
 @section('active_nav', 'social')
 
 @section('content')

@@ -11,7 +11,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Contact Us | جمعية المعاقين الخيرية')
+@section('title', 'Contact Us')
 @section('active_nav', 'contact')
 
 @section('content')
@@ -38,8 +38,8 @@
           <div>
             <div class="contact-label"><span class="en">Address</span><span class="ar">العنوان</span></div>
             <div class="contact-value">
-              <span class="en">{{ $contact['address_en'] ?: 'Main Street, Nablus, West Bank, Palestine' }}</span>
-              <span class="ar">{{ $contact['address_ar'] ?: 'الشارع الرئيسي، نابلس، الضفة الغربية، فلسطين' }}</span>
+              <span class="en">{{ $contact['address_en'] ?: config('society.fallback.address.en') }}</span>
+              <span class="ar">{{ $contact['address_ar'] ?: config('society.fallback.address.ar') }}</span>
             </div>
           </div>
         </div>
@@ -47,23 +47,25 @@
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
           <div>
             <div class="contact-label"><span class="en">Phone</span><span class="ar">الهاتف</span></div>
-            <div class="contact-value">{{ $contact['phone'] ?: '+970 9 XXX XXXX' }}</div>
+            <div class="contact-value">{{ $contact['phone'] ?: config('society.fallback.phone') }}</div>
           </div>
         </div>
         <div class="contact-info-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
           <div>
             <div class="contact-label"><span class="en">Email</span><span class="ar">البريد الإلكتروني</span></div>
-            <div class="contact-value">{{ $contact['email'] ?: 'info@bsd-nablus.ps' }}</div>
+            <div class="contact-value">{{ $contact['email'] ?: config('society.fallback.email') }}</div>
           </div>
         </div>
+        @if (config('society.office_hours'))
         <div class="contact-info-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
           <div>
             <div class="contact-label"><span class="en">Working Hours</span><span class="ar">ساعات العمل</span></div>
-            <div class="contact-value"><span class="en">Sunday – Thursday, 8:00 AM – 4:00 PM</span><span class="ar">الأحد – الخميس، 8:00 ص – 4:00 م</span></div>
+            <div class="contact-value"><span class="en">{{ config('society.office_hours.en') }}</span><span class="ar">{{ config('society.office_hours.ar') }}</span></div>
           </div>
         </div>
+        @endif
         <div class="contact-info-item">
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
           <div>

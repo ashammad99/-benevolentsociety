@@ -6,7 +6,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Home-Based Care | جمعية المعاقين الخيرية')
+@section('title', 'Home-Based Care')
 @section('active_nav', 'homecare')
 
 @section('content')

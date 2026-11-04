@@ -6,7 +6,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Assistive Devices Aid | جمعية المعاقين الخيرية')
+@section('title', 'Assistive Devices Aid')
 @section('active_nav', 'devices')
 
 @section('content')

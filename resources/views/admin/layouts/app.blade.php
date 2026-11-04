@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') — BSD Admin</title>
+    <title>@yield('title', 'Dashboard') — {{ config('society.short_name') }} Admin</title>
 
-    {{-- Favicon (served from public/dashboard/) --}}
-    <link rel="icon" type="image/jpeg" href="{{ asset('dashboard/img/logo.jpg') }}">
+    {{-- Favicon: the organisation logo (config/society.php) --}}
+    <link rel="icon" href="{{ asset(config('society.logo')) }}">
 
     {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -60,20 +60,10 @@
 </div>{{-- /admin-shell --}}
 
 {{-- Admin JS (public/dashboard/js/) --}}
-<script src="{{ asset('dashboard/js/logo.js') }}"></script>
 <script src="{{ asset('dashboard/js/app.js') }}"></script>
 
 <script>
-// ── Logo injection ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
-    if (typeof BSD_LOGO !== 'undefined') {
-        document.querySelectorAll('.js-logo').forEach(function (el) {
-            el.src = BSD_LOGO;
-        });
-        var fav = document.querySelector('link[rel="icon"]');
-        if (fav) fav.href = BSD_LOGO;
-    }
-
     // ── Nav active highlight ──────────────────────────────
     var active = document.body.getAttribute('data-active');
     if (active) {

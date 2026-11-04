@@ -11,7 +11,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Home | Benevolent Society for Disabled | جمعية المعاقين الخيرية')
+@section('title', 'Home')
 @section('active_nav', 'home')
 
 @section('content')

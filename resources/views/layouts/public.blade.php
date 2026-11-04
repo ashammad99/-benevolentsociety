@@ -14,10 +14,11 @@
 @php
     $__navPrograms = ['rehab', 'education', 'vocational', 'social', 'homecare', 'devices'];
     $__active = trim($__env->yieldContent('active_nav'));
-    $__settingEmail   = \App\Models\Setting::get('email')   ?: 'info@bsd-nablus.ps';
-    $__settingPhone   = \App\Models\Setting::get('phone')   ?: '+970 9 XXX XXXX';
-    $__settingAddrEn  = \App\Models\Setting::get('address', 'en') ?: 'Nablus, West Bank, Palestine';
-    $__settingAddrAr  = \App\Models\Setting::get('address', 'ar') ?: 'نابلس، الضفة الغربية، فلسطين';
+    $__orgName        = config('society.name.'.app()->getLocale()) ?? config('society.name.en');
+    $__settingEmail   = \App\Models\Setting::get('email')   ?: config('society.fallback.email');
+    $__settingPhone   = \App\Models\Setting::get('phone')   ?: config('society.fallback.phone');
+    $__settingAddrEn  = \App\Models\Setting::get('address', 'en') ?: config('society.fallback.address.en');
+    $__settingAddrAr  = \App\Models\Setting::get('address', 'ar') ?: config('society.fallback.address.ar');
     $__socialLinks = [
         'facebook'  => \App\Models\Setting::get('facebook'),
         'instagram' => \App\Models\Setting::get('instagram'),
@@ -26,15 +27,16 @@
         'linkedin'  => \App\Models\Setting::get('linkedin'),
     ];
     $__socialLinks = array_filter($__socialLinks);
-    $__metaTitle = trim($__env->yieldContent('meta_title')) ?: (\App\Models\Setting::get('meta_title', 'en') ?: 'Benevolent Society for Disabled');
-    $__metaDesc  = trim($__env->yieldContent('meta_description')) ?: (\App\Models\Setting::get('meta_description', 'en') ?: 'A registered local NGO serving persons with disabilities and their families in Nablus and the West Bank.');
+    $__metaTitle = trim($__env->yieldContent('meta_title')) ?: (\App\Models\Setting::get('meta_title', 'en') ?: $__orgName);
+    $__metaDesc  = trim($__env->yieldContent('meta_description')) ?: (\App\Models\Setting::get('meta_description', 'en') ?: config('society.fallback.meta_description'));
 @endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>@yield('title', 'Benevolent Society for Disabled | جمعية المعاقين الخيرية')</title>
+<title>@hasSection('title')@yield('title') | {{ $__orgName }}@else{{ $__orgName }}@endif</title>
+<link rel="icon" href="{{ asset(config('society.logo')) }}">
 <meta name="description" content="{{ $__metaDesc }}">
 <link rel="canonical" href="{{ url()->current() }}">
 <meta property="og:type" content="website">
@@ -316,10 +318,10 @@ span.en{display:inline}span.ar{display:none}
 
 <nav>
   <a class="nav-logo" href="{{ route('home') }}">
-    <img class="logo-img js-logo" src="" alt="BSD">
+    <img class="logo-img" src="{{ asset(config('society.logo')) }}" alt="{{ $__orgName }}">
     <div>
-      <div class="logo-name">Benevolent Society<br>for Disabled</div>
-      <div class="logo-name-ar">جمعية المعاقين الخيرية</div>
+      <div class="logo-name">{{ config('society.name.en') }}</div>
+      <div class="logo-name-ar">{{ config('society.name.ar') }}</div>
     </div>
   </a>
   <ul class="nav-menu">
@@ -353,13 +355,13 @@ span.en{display:inline}span.ar{display:none}
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo-wrap">
-          <img class="logo-img js-logo" src="" alt="BSD" style="width:40px;height:40px;">
+          <img class="logo-img" src="{{ asset(config('society.logo')) }}" alt="{{ $__orgName }}" style="width:40px;height:40px;">
           <div style="color:white;font-weight:700;font-size:14px;line-height:1.35;">
-            <span class="en">Benevolent Society for Disabled</span>
-            <span class="ar">جمعية المعاقين الخيرية</span>
+            <span class="en">{{ config('society.name.en') }}</span>
+            <span class="ar">{{ config('society.name.ar') }}</span>
           </div>
         </div>
-        <p><span class="en">Serving persons with disabilities and their families in Nablus and the West Bank with dignity, care, and professionalism.</span><span class="ar">نخدم ذوي الإعاقة وأسرهم في نابلس والضفة الغربية بكرامة وعناية واحترافية.</span></p>
+        <p><span class="en">{{ config('society.tagline.en') }}</span><span class="ar">{{ config('society.tagline.ar') }}</span></p>
       </div>
       <div class="footer-col">
         <h4><span class="en">Navigate</span><span class="ar">تنقل</span></h4>
@@ -390,20 +392,14 @@ span.en{display:inline}span.ar{display:none}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© {{ date('Y') }} <span class="en">Benevolent Society for Disabled. All rights reserved.</span><span class="ar">جمعية المعاقين الخيرية. جميع الحقوق محفوظة.</span></span>
-      <span><span class="en">Registered under Palestinian Authority NGO Law</span><span class="ar">مرخصة بموجب القانون الفلسطيني</span></span>
+      <span>© {{ date('Y') }} <span class="en">{{ config('society.name.en') }}. All rights reserved.</span><span class="ar">{{ config('society.name.ar') }}. جميع الحقوق محفوظة.</span></span>
+      @if (config('society.registration'))
+      <span><span class="en">{{ config('society.registration.en') }}</span><span class="ar">{{ config('society.registration.ar') }}</span></span>
+      @endif
     </div>
   </div>
 </footer>
 
-<script src="{{ asset('dashboard/js/logo.js') }}"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    if (typeof BSD_LOGO !== 'undefined') {
-        document.querySelectorAll('.js-logo').forEach(function (el) { el.src = BSD_LOGO; });
-    }
-});
-</script>
 @stack('scripts')
 </body>
 </html>

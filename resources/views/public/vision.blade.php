@@ -9,7 +9,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Vision & Mission | جمعية المعاقين الخيرية')
+@section('title', 'Vision & Mission')
 @section('active_nav', 'vision')
 
 @section('content')

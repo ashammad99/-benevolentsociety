@@ -8,7 +8,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', ($post->title_en ?: 'News') . ' | جمعية المعاقين الخيرية')
+@section('title', $post->title ?: 'News')
 @section('meta_description', Str::limit(strip_tags($post->excerpt_en ?: $post->content_en), 160))
 
 @push('styles')

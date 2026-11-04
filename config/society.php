@@ -1,0 +1,62 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Organisation identity
+|--------------------------------------------------------------------------
+|
+| The organisation's name, logo and fixed details, used by the public site,
+| the login page and the admin panel. Edit this file to rebrand the site.
+|
+| Bilingual values are ['en' => ..., 'ar' => ...]. Set an optional value to
+| null to hide it.
+|
+| Contact details and SEO meta are editable in Admin → Settings; the
+| 'fallback' values below are shown only while those settings are empty.
+|
+| After editing on a server where config is cached: php artisan config:cache
+|
+*/
+
+return [
+
+    'name' => [
+        'en' => 'Benevolent Society for Disabled',
+        'ar' => 'جمعية المعاقين الخيرية',
+    ],
+
+    // Shown where space is tight (browser tab of the admin panel, logo alt text).
+    'short_name' => 'BSD',
+
+    // Path under public/.
+    'logo' => 'images/logo.jpg',
+
+    // One line under the name in the footer.
+    'tagline' => [
+        'en' => 'Serving persons with disabilities and their families in Nablus and the West Bank with dignity, care, and professionalism.',
+        'ar' => 'نخدم ذوي الإعاقة وأسرهم في نابلس والضفة الغربية بكرامة وعناية واحترافية.',
+    ],
+
+    // Footer legal line (null hides it).
+    'registration' => [
+        'en' => 'Registered under Palestinian Authority NGO Law',
+        'ar' => 'مرخصة بموجب القانون الفلسطيني',
+    ],
+
+    // Contact page (null hides it).
+    'office_hours' => [
+        'en' => 'Sunday – Thursday, 8:00 AM – 4:00 PM',
+        'ar' => 'الأحد – الخميس، 8:00 ص – 4:00 م',
+    ],
+
+    'fallback' => [
+        'email' => 'info@bsd-nablus.ps',
+        'phone' => '+970 9 XXX XXXX',
+        'address' => [
+            'en' => 'Nablus, West Bank, Palestine',
+            'ar' => 'نابلس، الضفة الغربية، فلسطين',
+        ],
+        'meta_description' => 'A registered local NGO serving persons with disabilities and their families in Nablus and the West Bank.',
+    ],
+
+];

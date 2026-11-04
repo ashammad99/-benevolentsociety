@@ -10,10 +10,10 @@
 
     {{-- Brand --}}
     <div class="sidebar-brand">
-        <img class="brand-logo js-logo" src="{{ asset('dashboard/img/logo.jpg') }}" alt="BSD">
+        <img class="brand-logo" src="{{ asset(config('society.logo')) }}" alt="{{ config('society.short_name') }}">
         <div class="brand-text">
-            <span class="brand-name en">Benevolent Society</span>
-            <span class="brand-name ar">جمعية المعاقين</span>
+            <span class="brand-name en">{{ config('society.name.en') }}</span>
+            <span class="brand-name ar">{{ config('society.name.ar') }}</span>
             <span class="brand-sub en">Admin Panel</span>
             <span class="brand-sub ar">لوحة الإدارة</span>
         </div>

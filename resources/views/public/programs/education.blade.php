@@ -6,7 +6,7 @@
 --}}
 @extends('layouts.public')
 
-@section('title', 'Special Education | جمعية المعاقين الخيرية')
+@section('title', 'Special Education')
 @section('active_nav', 'education')
 
 @section('content')

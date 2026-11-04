@@ -66,6 +66,8 @@ All admin routes live under `Route::prefix('admin')->name('admin.')` in `routes/
 
 Public routes (no auth): `/` (`home`), `/vision`, `/contact`, `/programs/{rehab|education|vocational|social|homecare|devices}`, `/news`, `/news/{post}`. All views extend `layouts.public`. Only published posts with `published_at <= now()` are exposed (`Post::published()` scope; the detail route 404s otherwise); the only settings read publicly are contact info, social links and SEO meta. The admin "About" settings (`vision`, `aims`) are stored but the public `/vision` page is static copy and does not render them yet.
 
+**Branding** lives in `config/society.php` (bilingual name, short name, logo path under `public/`, footer tagline and registration line, office hours, and fallback contact/meta values shown while the admin Settings are empty). The public layout, login page and admin layout/sidebar read from it — never hard-code the organisation's name in a view. Page views set only `@section('title', 'Page')`; `layouts.public` appends the name in the current locale. Body copy on the home, vision and program pages (and the home/login statistics) is still static text in those views.
+
 The live admin dashboard is `resources/views/admin/dashboard.blade.php`, rendered by `DashboardController::index()`. Admin views share `admin/layouts/app.blade.php` and the CSS/JS in `public/dashboard/`.
 
 ### Request validation

@@ -53,7 +53,7 @@ class Setting extends Model
      * Retrieve a setting value by key for the current locale.
      *
      * Usage:
-     *   Setting::get('email')           → 'info@benevolentsociety.ps'
+     *   Setting::get('email')           → 'info@example.org'
      *   Setting::get('vision')          → Arabic or English richtext
      *   Setting::get('vision', 'en')    → force English
      */
