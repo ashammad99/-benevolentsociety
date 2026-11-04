@@ -107,7 +107,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Wait Time</span><span class="ar">وقت الانتظار</span></h4>
-          <p><span class="en">Most devices are available within 2–4 weeks. Custom-fitted items may take 6–10 weeks.</span><span class="ar">معظم الأجهزة متوفرة خلال 2–4 أسابيع. المنتجات المصنوعة خصيصاً قد تستغرق 6–10 أسابيع.</span></p>
+          <p><span class="en">Most devices are available within a few weeks. Custom-fitted items take longer.</span><span class="ar">معظم الأجهزة متوفرة خلال أسابيع قليلة. المنتجات المصنوعة خصيصاً تستغرق وقتاً أطول.</span></p>
         </div></div>
   </div>
 </div>

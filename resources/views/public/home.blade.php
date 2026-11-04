@@ -38,8 +38,8 @@
         <span class="slide-badge"><span class="en">Rehabilitation</span><span class="ar">التأهيل</span></span>
         <div class="slide-title">Mobile Clinics Reaching<br>Every Village</div>
         <div class="slide-title-ar">العيادات المتنقلة تصل<br>إلى كل قرية</div>
-        <div class="slide-desc">Our rehabilitation teams travel to 18 villages, bringing physiotherapy and care directly to those who need it most.</div>
-        <div class="slide-desc-ar">فرق التأهيل تتنقل إلى 18 قرية لتقديم الرعاية لمن يحتاجها.</div>
+        <div class="slide-desc">Our rehabilitation teams travel to surrounding villages, bringing physiotherapy and care directly to those who need it most.</div>
+        <div class="slide-desc-ar">فرق التأهيل تتنقل إلى القرى المحيطة لتقديم الرعاية لمن يحتاجها.</div>
         <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'rehab') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
       </div>
     </div>
@@ -86,8 +86,8 @@
         <span class="slide-badge"><span class="en">Assistive Devices</span><span class="ar">الأجهزة المساعدة</span></span>
         <div class="slide-title">Mobility & Dignity<br>for Every Person</div>
         <div class="slide-title-ar">الحركة والكرامة<br>لكل شخص</div>
-        <div class="slide-desc">850+ devices distributed annually — restoring independence and dignity across the region.</div>
-        <div class="slide-desc-ar">أكثر من 850 جهازاً سنوياً تعيد الاستقلالية والكرامة.</div>
+        <div class="slide-desc">Assistive devices that restore independence and dignity across the region.</div>
+        <div class="slide-desc-ar">أجهزة مساعدة تعيد الاستقلالية والكرامة.</div>
         <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'devices') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
       </div>
     </div>

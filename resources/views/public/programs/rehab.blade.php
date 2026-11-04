@@ -28,7 +28,7 @@
         <span class="en">Medical Rehabilitation</span><span class="ar">التأهيل الطبي</span>
       </div>
       <p class="program-lead">
-        <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across Nablus and 18 surrounding villages.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في نابلس و18 قرية محيطة.</span>
+        <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across Nablus and surrounding villages.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في نابلس والقرى المحيطة.</span>
       </p>
       @if (config('society.program_stats.rehab'))
       <div class="program-stats-row">
@@ -103,7 +103,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Location</span><span class="ar">الموقع</span></h4>
-          <p><span class="en">Main center in Nablus + mobile clinics visiting 18 villages on a rotating weekly schedule.</span><span class="ar">المركز الرئيسي في نابلس + عيادات متنقلة تزور 18 قرية أسبوعياً.</span></p>
+          <p><span class="en">Main center in Nablus + mobile clinics visiting surrounding villages on a rotating weekly schedule.</span><span class="ar">المركز الرئيسي في نابلس + عيادات متنقلة تزور القرى المحيطة أسبوعياً.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">How to Apply</span><span class="ar">كيفية التقديم</span></h4>

@@ -99,7 +99,7 @@
         </div>
         <div class="info-card">
           <h4><span class="en">Geographic Coverage</span><span class="ar">التغطية الجغرافية</span></h4>
-          <p><span class="en">Nablus city and surrounding villages within a 30km radius. Expanding coverage is in progress.</span><span class="ar">مدينة نابلس والقرى المحيطة ضمن نطاق 30 كم. التوسع جارٍ.</span></p>
+          <p><span class="en">Nablus city and surrounding villages. Expanding coverage is in progress.</span><span class="ar">مدينة نابلس والقرى المحيطة. التوسع جارٍ.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Referral</span><span class="ar">الإحالة</span></h4>

@@ -95,7 +95,7 @@
     <div class="info-grid">
         <div class="info-card">
           <h4><span class="en">Age Range</span><span class="ar">الفئة العمرية</span></h4>
-          <p><span class="en">Serves children and youth aged 3–21 years with various disabilities.</span><span class="ar">يخدم الأطفال والشباب من 3 إلى 21 سنة.</span></p>
+          <p><span class="en">Serves children and youth with various disabilities.</span><span class="ar">يخدم الأطفال والشباب ذوي الإعاقات المختلفة.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Curriculum</span><span class="ar">المنهج</span></h4>

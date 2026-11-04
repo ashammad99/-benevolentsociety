@@ -95,11 +95,11 @@
     <div class="info-grid">
         <div class="info-card">
           <h4><span class="en">Duration</span><span class="ar">المدة</span></h4>
-          <p><span class="en">Courses run 3–6 months depending on the track, with flexible morning and afternoon schedules.</span><span class="ar">تستمر الدورات 3–6 أشهر حسب المسار، بجداول صباحية ومسائية مرنة.</span></p>
+          <p><span class="en">Course length depends on the track, with flexible morning and afternoon schedules.</span><span class="ar">تختلف مدة الدورات حسب المسار، بجداول صباحية ومسائية مرنة.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Who Can Apply</span><span class="ar">من يمكنه التقديم</span></h4>
-          <p><span class="en">Adults with any disability type aged 18–50, with basic literacy. Exceptions considered case by case.</span><span class="ar">البالغون ذوو الإعاقة من 18–50 عاماً مع محو أمية أساسي.</span></p>
+          <p><span class="en">Adults with any disability type, with basic literacy. Exceptions considered case by case.</span><span class="ar">البالغون ذوو الإعاقة بمختلف أنواعها مع محو أمية أساسي.</span></p>
         </div>
         <div class="info-card">
           <h4><span class="en">Cost</span><span class="ar">التكلفة</span></h4>
