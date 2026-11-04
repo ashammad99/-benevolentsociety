@@ -30,11 +30,13 @@
       <p class="program-lead">
         <span class="en">Our medical rehabilitation program provides comprehensive physiotherapy, occupational therapy, and assistive device services to individuals with physical disabilities across Nablus and 18 surrounding villages.</span><span class="ar">يقدّم برنامج التأهيل الطبي خدمات شاملة من علاج طبيعي ووظيفي وتوفير أجهزة مساعدة لذوي الإعاقات الجسدية في نابلس و18 قرية محيطة.</span>
       </p>
+      @if (config('society.program_stats.rehab'))
       <div class="program-stats-row">
-        <div class="pstat"><div class="pstat-num" style="color:#C0392B;">2,100</div><div class="pstat-label"><span class="en">Patients / Year</span><span class="ar">مريض / سنة</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#C0392B;">18</div><div class="pstat-label"><span class="en">Villages Reached</span><span class="ar">قرية</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#C0392B;">3</div><div class="pstat-label"><span class="en">Mobile Units</span><span class="ar">وحدات متنقلة</span></div></div>
+        @foreach (config('society.program_stats.rehab') as $stat)
+        <div class="pstat"><div class="pstat-num" style="color:#C0392B;">{{ $stat['value'] }}</div><div class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+        @endforeach
       </div>
+      @endif
     </div>
     <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1576765608866-5b51046452be?w=900&q=80');"></div>
   </div>

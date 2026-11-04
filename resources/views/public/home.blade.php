@@ -98,12 +98,13 @@
   <div class="slide-counter" id="counter">1 / 5</div>
 </div>
 <div class="thumb-strip" id="thumbs"></div>
+@if (config('society.stats'))
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">8,500+</div><div class="stat-label"><span class="en">Beneficiaries</span><span class="ar">مستفيد</span></div></div>
-  <div class="stat"><div class="stat-num">32</div><div class="stat-label"><span class="en">Active Projects</span><span class="ar">مشروع نشط</span></div></div>
-  <div class="stat"><div class="stat-num">25+</div><div class="stat-label"><span class="en">Years of Service</span><span class="ar">عاماً من الخدمة</span></div></div>
-  <div class="stat"><div class="stat-num">850</div><div class="stat-label"><span class="en">Devices/Year</span><span class="ar">جهاز/سنة</span></div></div>
+  @foreach (config('society.stats') as $stat)
+  <div class="stat"><div class="stat-num">{{ $stat['value'] }}</div><div class="stat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+  @endforeach
 </div>
+@endif
 
 <div class="section-wrap" id="programs">
   <div class="section-label"><span class="en">What We Do</span><span class="ar">ما نفعله</span></div>
@@ -118,7 +119,9 @@
         </div>
         <div class="card-title"><span class="en">Medical Rehabilitation</span><span class="ar">التأهيل الطبي</span></div>
         <div class="card-desc"><span class="en">Physiotherapy, occupational therapy, and assistive device provision for people with physical disabilities.</span><span class="ar">علاج طبيعي وعلاج وظيفي وتوفير أجهزة مساعدة.</span></div>
-        <span class="tag" style="background:var(--red-light);color:var(--red-dark);"><span class="en">2,100 patients/yr</span><span class="ar">2,100 مريض/سنة</span></span>
+        @if ($stat = config('society.program_stats.rehab.0'))
+        <span class="tag" style="background:var(--red-light);color:var(--red-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
+        @endif
         <div style="margin-top:.85rem;"><span class="card-link"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
       </div>
     </div>
@@ -130,7 +133,9 @@
         </div>
         <div class="card-title"><span class="en">Special Education</span><span class="ar">التعليم الخاص</span></div>
         <div class="card-desc"><span class="en">Tailored curricula for children with intellectual, hearing, and visual impairments.</span><span class="ar">مناهج مُكيَّفة للأطفال ذوي الإعاقات المختلفة.</span></div>
-        <span class="tag" style="background:var(--blue-light);color:var(--blue-dark);"><span class="en">640 students</span><span class="ar">640 طالب</span></span>
+        @if ($stat = config('society.program_stats.education.0'))
+        <span class="tag" style="background:var(--blue-light);color:var(--blue-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
+        @endif
         <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--blue);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
       </div>
     </div>
@@ -142,7 +147,9 @@
         </div>
         <div class="card-title"><span class="en">Vocational Training</span><span class="ar">التدريب المهني</span></div>
         <div class="card-desc"><span class="en">Skills-based training in tailoring, computing, and crafts for economic independence.</span><span class="ar">تدريب مهاري للاستقلالية الاقتصادية.</span></div>
-        <span class="tag" style="background:var(--green-light);color:var(--green-dark);"><span class="en">380 trainees/yr</span><span class="ar">380 متدرب/سنة</span></span>
+        @if ($stat = config('society.program_stats.vocational.0'))
+        <span class="tag" style="background:var(--green-light);color:var(--green-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
+        @endif
         <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--green);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
       </div>
     </div>
@@ -154,7 +161,9 @@
         </div>
         <div class="card-title"><span class="en">Social Inclusion</span><span class="ar">الإدماج الاجتماعي</span></div>
         <div class="card-desc"><span class="en">Community integration, family counseling, and awareness campaigns to reduce stigma.</span><span class="ar">أنشطة اندماج مجتمعي وحملات توعية.</span></div>
-        <span class="tag" style="background:var(--purple-light);color:var(--purple-dark);"><span class="en">1,200 participants</span><span class="ar">1,200 مشارك</span></span>
+        @if ($stat = config('society.program_stats.social.0'))
+        <span class="tag" style="background:var(--purple-light);color:var(--purple-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
+        @endif
         <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--purple);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
       </div>
     </div>
@@ -166,7 +175,9 @@
         </div>
         <div class="card-title"><span class="en">Home-Based Care</span><span class="ar">الرعاية المنزلية</span></div>
         <div class="card-desc"><span class="en">Visiting care teams for those unable to travel to our centers.</span><span class="ar">فرق رعاية متنقلة لمن لا يستطيع الوصول إلى مراكزنا.</span></div>
-        <span class="tag" style="background:var(--gold-light);color:var(--gold-dark);"><span class="en">310 families</span><span class="ar">310 أسرة</span></span>
+        @if ($stat = config('society.program_stats.homecare.0'))
+        <span class="tag" style="background:var(--gold-light);color:var(--gold-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
+        @endif
         <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--gold);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
       </div>
     </div>
@@ -178,7 +189,9 @@
         </div>
         <div class="card-title"><span class="en">Assistive Devices</span><span class="ar">الأجهزة المساعدة</span></div>
         <div class="card-desc"><span class="en">Subsidized wheelchairs, hearing aids, and prosthetics for eligible beneficiaries.</span><span class="ar">أجهزة مساعدة مدعومة للمستفيدين المؤهلين.</span></div>
-        <span class="tag" style="background:var(--teal-light);color:var(--teal-dark);"><span class="en">850 devices/yr</span><span class="ar">850 جهاز/سنة</span></span>
+        @if ($stat = config('society.program_stats.devices.0'))
+        <span class="tag" style="background:var(--teal-light);color:var(--teal-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
+        @endif
         <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--teal);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
       </div>
     </div>

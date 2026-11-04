@@ -30,11 +30,13 @@
       <p class="program-lead">
         <span class="en">Our assistive devices program ensures that no one is left behind due to inability to afford life-changing mobility and communication aids — distributing wheelchairs, hearing aids, prosthetics, and more to those who need them.</span><span class="ar">يضمن برنامج الأجهزة المساعدة أن لا يُحرم أحد من الأجهزة المُحوِّلة للحياة بسبب العجز المالي — من كراسي متحركة وسماعات وأطراف اصطناعية وغيرها.</span>
       </p>
+      @if (config('society.program_stats.devices'))
       <div class="program-stats-row">
-        <div class="pstat"><div class="pstat-num" style="color:#1ABC9C;">850+</div><div class="pstat-label"><span class="en">Devices/Year</span><span class="ar">جهاز/سنة</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#1ABC9C;">15+</div><div class="pstat-label"><span class="en">Device Types</span><span class="ar">نوع جهاز</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#1ABC9C;">100%</div><div class="pstat-label"><span class="en">Locally Fitted</span><span class="ar">مُجهَّز محلياً</span></div></div>
+        @foreach (config('society.program_stats.devices') as $stat)
+        <div class="pstat"><div class="pstat-num" style="color:#1ABC9C;">{{ $stat['value'] }}</div><div class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+        @endforeach
       </div>
+      @endif
     </div>
     <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1593113630400-ea4288922559?w=900&q=80');"></div>
   </div>

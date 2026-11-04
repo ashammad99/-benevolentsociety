@@ -49,6 +49,23 @@ return [
         'ar' => 'الأحد – الخميس، 8:00 ص – 4:00 م',
     ],
 
+    // Headline numbers: the bar under the home page slider (all entries) and
+    // the login page panel (first three). Empty hides both. Format:
+    //   ['value' => '1,200+', 'label' => ['en' => 'Beneficiaries', 'ar' => 'مستفيد']],
+    'stats' => [],
+
+    // Three numbers at the top of each program page, same format as 'stats'.
+    // The first one also appears as the tag on that program's home page card.
+    // Empty hides both.
+    'program_stats' => [
+        'rehab' => [],
+        'education' => [],
+        'vocational' => [],
+        'social' => [],
+        'homecare' => [],
+        'devices' => [],
+    ],
+
     'fallback' => [
         'email' => 'info@bsd-nablus.ps',
         'phone' => '+970 9 XXX XXXX',

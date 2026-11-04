@@ -30,11 +30,13 @@
       <p class="program-lead">
         <span class="en">For individuals with severe or complex disabilities who cannot travel to our centers, our home-based care program delivers professional rehabilitation, nursing support, and family training directly at home.</span><span class="ar">لذوي الإعاقات الشديدة أو المعقدة الذين لا يستطيعون التنقل، يُقدّم برنامجنا التأهيل المهني والدعم التمريضي والتدريب الأسري مباشرةً في المنزل.</span>
       </p>
+      @if (config('society.program_stats.homecare'))
       <div class="program-stats-row">
-        <div class="pstat"><div class="pstat-num" style="color:#D4AC0D;">310</div><div class="pstat-label"><span class="en">Families Served</span><span class="ar">أسرة</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#D4AC0D;">2x</div><div class="pstat-label"><span class="en">Weekly Visits</span><span class="ar">زيارة أسبوعية</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#D4AC0D;">100%</div><div class="pstat-label"><span class="en">Coverage in Target Areas</span><span class="ar">تغطية في المناطق المستهدفة</span></div></div>
+        @foreach (config('society.program_stats.homecare') as $stat)
+        <div class="pstat"><div class="pstat-num" style="color:#D4AC0D;">{{ $stat['value'] }}</div><div class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+        @endforeach
       </div>
+      @endif
     </div>
     <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80');"></div>
   </div>

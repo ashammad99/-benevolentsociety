@@ -30,11 +30,13 @@
       <p class="program-lead">
         <span class="en">Our special education program delivers tailored academic curricula and individualized learning support for children and youth with intellectual, hearing, and visual impairments, helping them reach their full potential.</span><span class="ar">يقدّم برنامج التعليم الخاص مناهج أكاديمية مُكيَّفة ودعمًا تعليميًا فرديًا للأطفال والشباب ذوي الإعاقات الذهنية والسمعية والبصرية.</span>
       </p>
+      @if (config('society.program_stats.education'))
       <div class="program-stats-row">
-        <div class="pstat"><div class="pstat-num" style="color:#2471A3;">640</div><div class="pstat-label"><span class="en">Students Enrolled</span><span class="ar">طالب</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#2471A3;">40</div><div class="pstat-label"><span class="en">Certified Teachers</span><span class="ar">معلم متخصص</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#2471A3;">8</div><div class="pstat-label"><span class="en">Partner Schools</span><span class="ar">مدارس شريكة</span></div></div>
+        @foreach (config('society.program_stats.education') as $stat)
+        <div class="pstat"><div class="pstat-num" style="color:#2471A3;">{{ $stat['value'] }}</div><div class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+        @endforeach
       </div>
+      @endif
     </div>
     <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=900&q=80');"></div>
   </div>

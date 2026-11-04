@@ -577,20 +577,16 @@
         <h1 class="panel-headline-ar">مرحباً بعودتك<br>إلى لوحة<br>التحكم.</h1>
         <p class="panel-desc">Manage programs, projects, media, and site content from one place — securely and efficiently.</p>
         <p class="panel-desc-ar">إدارة البرامج والمشاريع والوسائط ومحتوى الموقع من مكان واحد — بأمان وكفاءة.</p>
+        @if (config('society.stats'))
         <div class="panel-stats">
+            @foreach (array_slice(config('society.stats'), 0, 3) as $stat)
             <div>
-                <span class="pstat-num">8,500+</span>
-                <span class="pstat-label"><span class="en">Beneficiaries</span><span class="ar">مستفيد</span></span>
+                <span class="pstat-num">{{ $stat['value'] }}</span>
+                <span class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></span>
             </div>
-            <div>
-                <span class="pstat-num">32</span>
-                <span class="pstat-label"><span class="en">Active Projects</span><span class="ar">مشروع نشط</span></span>
-            </div>
-            <div>
-                <span class="pstat-num">25+</span>
-                <span class="pstat-label"><span class="en">Years</span><span class="ar">عاماً</span></span>
-            </div>
+            @endforeach
         </div>
+        @endif
     </div>
 
     <div class="panel-bottom">

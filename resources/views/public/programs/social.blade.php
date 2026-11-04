@@ -30,11 +30,13 @@
       <p class="program-lead">
         <span class="en">Our social inclusion program dismantles the barriers that isolate persons with disabilities from their communities through awareness campaigns, family support, recreational activities, and rights advocacy.</span><span class="ar">يزيل برنامج الإدماج الاجتماعي الحواجز التي تعزل ذوي الإعاقة عن مجتمعاتهم من خلال حملات التوعية ودعم الأسرة والأنشطة الترفيهية والمناصرة.</span>
       </p>
+      @if (config('society.program_stats.social'))
       <div class="program-stats-row">
-        <div class="pstat"><div class="pstat-num" style="color:#8E44AD;">1,200</div><div class="pstat-label"><span class="en">Annual Participants</span><span class="ar">مشارك/سنة</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#8E44AD;">30+</div><div class="pstat-label"><span class="en">Community Events/Yr</span><span class="ar">فعالية/سنة</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#8E44AD;">12</div><div class="pstat-label"><span class="en">Awareness Campaigns</span><span class="ar">حملة توعوية</span></div></div>
+        @foreach (config('society.program_stats.social') as $stat)
+        <div class="pstat"><div class="pstat-num" style="color:#8E44AD;">{{ $stat['value'] }}</div><div class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+        @endforeach
       </div>
+      @endif
     </div>
     <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=900&q=80');"></div>
   </div>

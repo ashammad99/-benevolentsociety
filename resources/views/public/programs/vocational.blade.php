@@ -30,11 +30,13 @@
       <p class="program-lead">
         <span class="en">Our vocational training program equips adults with disabilities with practical, market-relevant skills — from tailoring and computer literacy to crafts and small business management — opening pathways to real economic independence.</span><span class="ar">يُجهّز برنامج التدريب المهني البالغين ذوي الإعاقة بمهارات عملية وذات صلة بالسوق — من الخياطة وتقنية المعلومات إلى الحرف اليدوية وإدارة المشاريع الصغيرة.</span>
       </p>
+      @if (config('society.program_stats.vocational'))
       <div class="program-stats-row">
-        <div class="pstat"><div class="pstat-num" style="color:#27AE60;">380</div><div class="pstat-label"><span class="en">Trainees / Year</span><span class="ar">متدرب/سنة</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#27AE60;">12</div><div class="pstat-label"><span class="en">Skills Tracks</span><span class="ar">مسار مهاري</span></div></div>
-        <div class="pstat"><div class="pstat-num" style="color:#27AE60;">68%</div><div class="pstat-label"><span class="en">Job Placement Rate</span><span class="ar">معدل التوظيف</span></div></div>
+        @foreach (config('society.program_stats.vocational') as $stat)
+        <div class="pstat"><div class="pstat-num" style="color:#27AE60;">{{ $stat['value'] }}</div><div class="pstat-label"><span class="en">{{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['label']['ar'] }}</span></div></div>
+        @endforeach
       </div>
+      @endif
     </div>
     <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=900&q=80');"></div>
   </div>

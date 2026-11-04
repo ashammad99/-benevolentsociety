@@ -68,4 +68,40 @@ class BrandingTest extends TestCase
             ->assertSee('— TC Admin', false)
             ->assertSee(asset('images/test-logo.png'), false);
     }
+
+    public function test_statistics_are_hidden_when_not_configured(): void
+    {
+        config(['society.stats' => [], 'society.program_stats' => []]);
+
+        $this->get('/')->assertOk()
+            ->assertDontSee('class="stats-bar"', false)
+            ->assertDontSee('class="tag"', false);
+        $this->get('/login')->assertOk()->assertDontSee('class="panel-stats"', false);
+        $this->get('/programs/rehab')->assertOk()->assertDontSee('class="program-stats-row"', false);
+    }
+
+    public function test_configured_statistics_are_shown(): void
+    {
+        $stat = fn ($value, $en, $ar) => ['value' => $value, 'label' => ['en' => $en, 'ar' => $ar]];
+
+        config([
+            'society.stats' => [
+                $stat('111', 'Alpha', 'ألف'),
+                $stat('222', 'Beta', 'باء'),
+                $stat('333', 'Gamma', 'جيم'),
+                $stat('444', 'Delta', 'دال'),
+            ],
+            'society.program_stats.rehab' => [
+                $stat('555', 'Patients', 'مريض'),
+                $stat('666', 'Villages', 'قرية'),
+                $stat('777', 'Units', 'وحدة'),
+            ],
+        ]);
+
+        $this->get('/')->assertSeeInOrder(['111', 'Alpha', '444', 'Delta'])->assertSee('555 Patients');
+        // The login panel shows the first three only.
+        $this->get('/login')->assertSee('333')->assertDontSee('444');
+        $this->get('/programs/rehab')->assertSeeInOrder(['555', '666', '777']);
+        $this->get('/programs/education')->assertDontSee('class="program-stats-row"', false);
+    }
 }
