@@ -6,9 +6,9 @@
  * modal open/close, dropdown menus, nav active state.
  */
 
-/* ════════════════════════════════════════
+/*
    SIDEBAR
-════════════════════════════════════════ */
+ */
 const isMobile = () => window.innerWidth <= 768;
 
 function initSidebar() {
@@ -56,9 +56,9 @@ function adjustMainMargin() {
   mw.style.marginRight = rtl ? w   : '0';
 }
 
-/* ════════════════════════════════════════
+/*
    LANGUAGE SWITCH
-════════════════════════════════════════ */
+ */
 function setLang(l) {
   const html = document.documentElement;
   html.setAttribute('dir',  l === 'ar' ? 'rtl' : 'ltr');
@@ -84,9 +84,9 @@ function initLang() {
   if (l !== 'en') setLang(l);
 }
 
-/* ════════════════════════════════════════
+/*
    NAV ACTIVE STATE
-════════════════════════════════════════ */
+ */
 function navigate(el, labelEn, labelAr) {
   document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
@@ -100,9 +100,9 @@ function navigate(el, labelEn, labelAr) {
   }
 }
 
-/* ════════════════════════════════════════
+/*
    MODALS
-════════════════════════════════════════ */
+ */
 function openModal(id) {
   const overlay = document.getElementById(id);
   if (overlay) overlay.classList.add('open');
@@ -130,9 +130,9 @@ function initModals() {
   });
 }
 
-/* ════════════════════════════════════════
+/*
    DROPDOWN MENUS
-════════════════════════════════════════ */
+ */
 function initDropdowns() {
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-dropdown]');
@@ -149,9 +149,9 @@ function initDropdowns() {
   });
 }
 
-/* ════════════════════════════════════════
+/*
    TOGGLE SWITCHES
-════════════════════════════════════════ */
+ */
 function initToggles() {
   document.querySelectorAll('.toggle').forEach(toggle => {
     toggle.addEventListener('click', () => {
@@ -164,9 +164,9 @@ function initToggles() {
   });
 }
 
-/* ════════════════════════════════════════
+/*
    DELETE CONFIRM
-════════════════════════════════════════ */
+ */
 function confirmDelete(message, callback) {
   // Simple confirm — replace with modal in production
   const msg = document.documentElement.getAttribute('dir') === 'rtl'
@@ -175,9 +175,9 @@ function confirmDelete(message, callback) {
   if (window.confirm(msg)) callback();
 }
 
-/* ════════════════════════════════════════
+/*
    NOTIFICATIONS TOAST
-════════════════════════════════════════ */
+ */
 function showToast(message, type = 'success') {
   const toast = document.createElement('div');
   toast.className = `alert alert-${type}`;
@@ -196,9 +196,9 @@ function showToast(message, type = 'success') {
   setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3500);
 }
 
-/* ════════════════════════════════════════
+/*
    INIT
-════════════════════════════════════════ */
+ */
 document.addEventListener('DOMContentLoaded', () => {
   initSidebar();
   initLang();

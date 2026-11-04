@@ -72,7 +72,7 @@
             <span class="en">Recent Posts</span><span class="ar">المنشورات الأخيرة</span>
           </div>
           <a href="{{ route('admin.posts.index') }}" class="btn btn-ghost btn-sm">
-            <span class="en">View all →</span><span class="ar">← الكل</span>
+            <span class="en">View all</span><span class="ar">الكل</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
           </a>
         </div>
         <div class="table-wrap">

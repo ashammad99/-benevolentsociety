@@ -28,7 +28,7 @@
         <span class="en">Vocational Training</span><span class="ar">التدريب المهني</span>
       </div>
       <p class="program-lead">
-        <span class="en">Our vocational training program equips adults with disabilities with practical, market-relevant skills — from tailoring and computer literacy to crafts and small business management — opening pathways to real economic independence.</span><span class="ar">يُجهّز برنامج التدريب المهني البالغين ذوي الإعاقة بمهارات عملية وذات صلة بالسوق — من الخياطة وتقنية المعلومات إلى الحرف اليدوية وإدارة المشاريع الصغيرة.</span>
+        <span class="en">Our vocational training program teaches adults with disabilities practical skills that employers need, including tailoring, computer skills, crafts and small business management.</span><span class="ar">يعلّم برنامج التدريب المهني البالغين ذوي الإعاقة مهارات عملية يحتاجها سوق العمل، منها الخياطة ومهارات الحاسوب والحرف اليدوية وإدارة المشاريع الصغيرة.</span>
       </p>
       @if (config('society.program_stats.vocational'))
       <div class="program-stats-row">

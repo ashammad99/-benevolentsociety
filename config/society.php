@@ -44,8 +44,8 @@ return [
 
     // One line under the name in the footer.
     'tagline' => [
-        'en' => "Serving persons with disabilities and their families in {$city['en']} and {$region['en']} with dignity, care, and professionalism.",
-        'ar' => "نخدم ذوي الإعاقة وأسرهم في {$city['ar']} و{$region['ar']} بكرامة وعناية واحترافية.",
+        'en' => "Serving people with disabilities and their families in {$city['en']} and {$region['en']}.",
+        'ar' => "نخدم ذوي الإعاقة وأسرهم في {$city['ar']} و{$region['ar']}.",
     ],
 
     // Footer legal line (null hides it).

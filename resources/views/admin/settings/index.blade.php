@@ -45,7 +45,7 @@
         <button type="button" class="settings-tab {{ $activeTab === 'tab-seo' ? 'active' : '' }}" onclick="switchSettingsTab(this,'tab-seo')">SEO</button>
       </div>
 
-      {{-- ── Contact ── --}}
+      {{-- Contact --}}
       <div class="settings-panel {{ $activeTab === 'tab-contact' ? 'active' : '' }}" id="tab-contact">
         <form method="POST" action="{{ route('admin.settings.contact') }}">
           @csrf
@@ -78,7 +78,7 @@
         </form>
       </div>
 
-      {{-- ── About ── --}}
+      {{-- About --}}
       <div class="settings-panel {{ $activeTab === 'tab-about' ? 'active' : '' }}" id="tab-about">
         <form method="POST" action="{{ route('admin.settings.about') }}" id="about-form">
           @csrf
@@ -121,7 +121,7 @@
         </form>
       </div>
 
-      {{-- ── Social ── --}}
+      {{-- Social --}}
       <div class="settings-panel {{ $activeTab === 'tab-social' ? 'active' : '' }}" id="tab-social">
         <form method="POST" action="{{ route('admin.settings.social') }}">
           @csrf
@@ -152,7 +152,7 @@
         </form>
       </div>
 
-      {{-- ── SEO ── --}}
+      {{-- SEO --}}
       <div class="settings-panel {{ $activeTab === 'tab-seo' ? 'active' : '' }}" id="tab-seo">
         <form method="POST" action="{{ route('admin.settings.seo') }}">
           @csrf

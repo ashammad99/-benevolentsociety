@@ -30,10 +30,10 @@
     </div>
 
     <div class="grid-2" style="align-items:start">
-      <!-- Left column: content -->
+      {{-- Left column: content --}}
       <div style="display:flex;flex-direction:column;gap:18px">
 
-        <!-- Title -->
+        {{-- Title --}}
         <div class="card">
           <div class="card-header">
             <div class="card-title"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg><span class="en">Title</span><span class="ar">العنوان</span></div>
@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <!-- Excerpt -->
+        {{-- Excerpt --}}
         <div class="card">
           <div class="card-header">
             <div class="card-title"><svg viewBox="0 0 24 24"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/></svg><span class="en">Excerpt</span><span class="ar">المقتطف</span></div>
@@ -69,7 +69,7 @@
           </div>
         </div>
 
-        <!-- Content -->
+        {{-- Content --}}
         <div class="card">
           <div class="card-header">
             <div class="card-title"><svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg><span class="en">Content</span><span class="ar">المحتوى</span></div>
@@ -95,9 +95,9 @@
         </div>
       </div>
 
-      <!-- Right column: settings -->
+      {{-- Right column: settings --}}
       <div class="form-sidebar">
-        <!-- Publish -->
+        {{-- Publish --}}
         <div class="card">
           <div class="card-header"><div class="card-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="en">Publish</span><span class="ar">النشر</span></div></div>
           <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
@@ -131,7 +131,7 @@
           </div>
         </div>
 
-        <!-- Category -->
+        {{-- Category --}}
         <div class="card">
           <div class="card-header"><div class="card-title"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><span class="en">Category</span><span class="ar">الفئة</span></div></div>
           <div class="card-body">
@@ -145,7 +145,7 @@
           </div>
         </div>
 
-        <!-- Cover Image -->
+        {{-- Cover Image --}}
         <div class="card">
           <div class="card-header"><div class="card-title"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="en">Cover Image</span><span class="ar">صورة الغلاف</span></div></div>
           <div class="card-body">

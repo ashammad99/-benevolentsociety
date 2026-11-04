@@ -233,7 +233,11 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .aim-desc{font-size:13.5px;color:var(--muted);line-height:1.65}
 .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2.5rem}
 .value-card{text-align:center;padding:2rem 1rem;border-radius:16px;background:var(--bg);border:1px solid var(--border)}
-.value-icon{font-size:2rem;margin-bottom:.75rem}
+.value-icon{margin-bottom:.75rem;color:var(--red)}
+.value-icon svg{width:32px;height:32px}
+.icon-arrow{width:16px;height:16px;flex-shrink:0}
+.icon-chevron{width:14px;height:14px;flex-shrink:0}
+[dir="rtl"] .icon-arrow{transform:scaleX(-1)}
 .value-title{font-weight:700;font-size:15px;margin-bottom:.35rem}
 .value-desc{font-size:13px;color:var(--muted);line-height:1.55}
 
@@ -327,7 +331,7 @@ span.en{display:inline}span.ar{display:none}
   <ul class="nav-menu">
     <li class="{{ $__active === 'home' ? 'active' : '' }}"><a href="{{ route('home') }}"><span class="en">Home</span><span class="ar">الرئيسية</span></a></li>
     <li class="{{ in_array($__active, $__navPrograms) ? 'active' : '' }}">
-      <a><span class="en">Programs ▾</span><span class="ar">البرامج ▾</span></a>
+      <a><span class="en">Programs</span><span class="ar">البرامج</span><svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
       <div class="dropdown">
         <a href="{{ route('programs.show', 'rehab') }}"><span class="en">Medical Rehabilitation</span><span class="ar">التأهيل الطبي</span></a>
         <a href="{{ route('programs.show', 'education') }}"><span class="en">Special Education</span><span class="ar">التعليم الخاص</span></a>

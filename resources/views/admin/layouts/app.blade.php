@@ -24,10 +24,10 @@
 
 <div class="admin-shell">
 
-    {{-- ═══ SIDEBAR ══════════════════════════════════════════ --}}
+    {{-- SIDEBAR --}}
     @include('admin.partials.sidebar')
 
-    {{-- ═══ MAIN WRAP ════════════════════════════════════════ --}}
+    {{-- MAIN WRAP --}}
     <div class="main-wrap" id="mainWrap">
 
         {{-- Topbar --}}
@@ -64,7 +64,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // ── Nav active highlight ──────────────────────────────
+    // Nav active highlight
     var active = document.body.getAttribute('data-active');
     if (active) {
         document.querySelectorAll('.nav-item[data-page]').forEach(function (el) {
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ── Sidebar navigation (uses Laravel named routes) ───────
+// Sidebar navigation (uses Laravel named routes)
 var BSD_ROUTES = {
     dashboard:  '{{ route('admin.dashboard') }}',
     posts:      '{{ route('admin.posts.index') }}',
@@ -88,7 +88,7 @@ function sidebarNav(page) {
     if (BSD_ROUTES[page]) window.location.href = BSD_ROUTES[page];
 }
 
-// ── Auto-dismiss flash bar ────────────────────────────────
+// Auto-dismiss flash bar
 var flash = document.getElementById('flashBar');
 if (flash) setTimeout(function () { flash.style.opacity = '0'; setTimeout(function () { flash.remove(); }, 400); }, 4000);
 </script>

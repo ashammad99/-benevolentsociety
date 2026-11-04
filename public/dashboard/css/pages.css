@@ -1,8 +1,8 @@
 
-/* ════════════════════════════════════════
+/*
    BSD ADMIN — PAGES EXTRA CSS
    pages.css
-════════════════════════════════════════ */
+ */
 
 /* Layout helpers */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}

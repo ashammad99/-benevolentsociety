@@ -28,7 +28,7 @@
         <span class="en">Special Education</span><span class="ar">التعليم الخاص</span>
       </div>
       <p class="program-lead">
-        <span class="en">Our special education program delivers tailored academic curricula and individualized learning support for children and youth with intellectual, hearing, and visual impairments, helping them reach their full potential.</span><span class="ar">يقدّم برنامج التعليم الخاص مناهج أكاديمية مُكيَّفة ودعمًا تعليميًا فرديًا للأطفال والشباب ذوي الإعاقات الذهنية والسمعية والبصرية.</span>
+        <span class="en">Our special education program offers adapted curricula and individual learning support for children and young people with intellectual, hearing and visual impairments.</span><span class="ar">يقدّم برنامج التعليم الخاص مناهج أكاديمية مُكيَّفة ودعمًا تعليميًا فرديًا للأطفال والشباب ذوي الإعاقات الذهنية والسمعية والبصرية.</span>
       </p>
       @if (config('society.program_stats.education'))
       <div class="program-stats-row">

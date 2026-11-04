@@ -28,7 +28,7 @@
         <span class="en">Assistive Devices Aid</span><span class="ar">دعم الأجهزة المساعدة</span>
       </div>
       <p class="program-lead">
-        <span class="en">Our assistive devices program ensures that no one is left behind due to inability to afford life-changing mobility and communication aids — distributing wheelchairs, hearing aids, prosthetics, and more to those who need them.</span><span class="ar">يضمن برنامج الأجهزة المساعدة أن لا يُحرم أحد من الأجهزة المُحوِّلة للحياة بسبب العجز المالي — من كراسي متحركة وسماعات وأطراف اصطناعية وغيرها.</span>
+        <span class="en">Our assistive devices program provides wheelchairs, hearing aids, prosthetics and other aids to people with disabilities who cannot afford them.</span><span class="ar">يوفّر برنامج الأجهزة المساعدة الكراسي المتحركة والسماعات والأطراف الاصطناعية وغيرها لذوي الإعاقة غير القادرين على تحمّل تكلفتها.</span>
       </p>
       @if (config('society.program_stats.devices'))
       <div class="program-stats-row">

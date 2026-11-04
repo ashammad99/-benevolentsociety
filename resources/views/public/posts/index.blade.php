@@ -52,7 +52,7 @@
 <div class="section-wrap">
   @if($posts->isEmpty())
     <div class="post-empty">
-      <span class="en">No news posted yet — check back soon.</span><span class="ar">لا توجد أخبار بعد — تفضل بالعودة قريباً.</span>
+      <span class="en">No news has been posted yet.</span><span class="ar">لا توجد أخبار حتى الآن.</span>
     </div>
   @else
     <div class="projects-grid">

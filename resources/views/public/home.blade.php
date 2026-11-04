@@ -40,7 +40,7 @@
         <div class="slide-title-ar">العيادات المتنقلة تصل<br>إلى كل حي</div>
         <div class="slide-desc">Our rehabilitation teams travel to neighborhoods and refugee camps, bringing physiotherapy and care directly to those who need it most.</div>
         <div class="slide-desc-ar">فرق التأهيل تتنقل إلى الأحياء والمخيمات لتقديم الرعاية لمن يحتاجها.</div>
-        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'rehab') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
+        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'rehab') }}'"><span class="en">Learn More</span><span class="ar">اعرف أكثر</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></button>
       </div>
     </div>
     <div class="slide" id="slide-1">
@@ -50,9 +50,9 @@
         <span class="slide-badge"><span class="en">Special Education</span><span class="ar">التعليم الخاص</span></span>
         <div class="slide-title">Every Child Deserves<br>Quality Education</div>
         <div class="slide-title-ar">كل طفل يستحق<br>تعليماً جيداً</div>
-        <div class="slide-desc">Tailored classrooms and trained educators ensure every child receives the education they deserve.</div>
-        <div class="slide-desc-ar">فصول مُكيَّفة ومعلمون متخصصون لكل طفل.</div>
-        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'education') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
+        <div class="slide-desc">Adapted classes and trained teachers for children with disabilities.</div>
+        <div class="slide-desc-ar">فصول مُكيَّفة ومعلمون متخصصون للأطفال ذوي الإعاقة.</div>
+        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'education') }}'"><span class="en">Learn More</span><span class="ar">اعرف أكثر</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></button>
       </div>
     </div>
     <div class="slide" id="slide-2">
@@ -64,7 +64,7 @@
         <div class="slide-title-ar">مهارات تبني<br>حياة مستقلة</div>
         <div class="slide-desc">Vocational programs open doors to economic independence for hundreds each year.</div>
         <div class="slide-desc-ar">برامج مهنية تفتح أبواب الاستقلالية الاقتصادية.</div>
-        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'vocational') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
+        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'vocational') }}'"><span class="en">Learn More</span><span class="ar">اعرف أكثر</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></button>
       </div>
     </div>
     <div class="slide" id="slide-3">
@@ -74,9 +74,9 @@
         <span class="slide-badge"><span class="en">Community</span><span class="ar">المجتمع</span></span>
         <div class="slide-title">Inclusion Starts<br>in Our Community</div>
         <div class="slide-title-ar">الإدماج يبدأ<br>في مجتمعنا</div>
-        <div class="slide-desc">Awareness campaigns and events break barriers and foster belonging for persons with disabilities.</div>
-        <div class="slide-desc-ar">حملات التوعية تهدم الحواجز وتعزز الانتماء.</div>
-        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'social') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
+        <div class="slide-desc">Awareness campaigns and community events for people with disabilities and their families.</div>
+        <div class="slide-desc-ar">حملات توعية وفعاليات مجتمعية لذوي الإعاقة وأسرهم.</div>
+        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'social') }}'"><span class="en">Learn More</span><span class="ar">اعرف أكثر</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></button>
       </div>
     </div>
     <div class="slide" id="slide-4">
@@ -84,11 +84,11 @@
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Assistive Devices</span><span class="ar">الأجهزة المساعدة</span></span>
-        <div class="slide-title">Mobility & Dignity<br>for Every Person</div>
-        <div class="slide-title-ar">الحركة والكرامة<br>لكل شخص</div>
-        <div class="slide-desc">Assistive devices that restore independence and dignity across the region.</div>
-        <div class="slide-desc-ar">أجهزة مساعدة تعيد الاستقلالية والكرامة.</div>
-        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'devices') }}'"><span class="en">Learn More →</span><span class="ar">اعرف أكثر ←</span></button>
+        <div class="slide-title">Assistive Devices<br>for Those in Need</div>
+        <div class="slide-title-ar">أجهزة مساعدة<br>لمن يحتاجها</div>
+        <div class="slide-desc">Wheelchairs, hearing aids and other devices for people who cannot afford them.</div>
+        <div class="slide-desc-ar">كراسٍ متحركة وسماعات وأجهزة أخرى لمن لا يستطيع تحمّل تكلفتها.</div>
+        <button class="slide-btn" onclick="location.href='{{ route('programs.show', 'devices') }}'"><span class="en">Learn More</span><span class="ar">اعرف أكثر</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></button>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@
 <div class="section-wrap" id="programs">
   <div class="section-label"><span class="en">What We Do</span><span class="ar">ما نفعله</span></div>
   <div class="section-title"><span class="en">Our Programs</span><span class="ar">برامجنا</span></div>
-  <p class="section-sub"><span class="en">Six pillars of support, each targeting a critical need of the disability community in {{ config('society.city.en') }} and beyond.</span><span class="ar">ستة محاور دعم، كل منها يستهدف حاجة أساسية لمجتمع ذوي الإعاقة.</span></p>
+  <p class="section-sub"><span class="en">Six programs, each meeting a specific need of people with disabilities in {{ config('society.city.en') }}.</span><span class="ar">ستة برامج، يلبّي كل منها حاجة محددة لذوي الإعاقة.</span></p>
   <div class="programs-grid">
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'rehab') }}'">
       <div class="card-bar" style="background:var(--red);"></div>
@@ -122,7 +122,7 @@
         @if ($stat = config('society.program_stats.rehab.0'))
         <span class="tag" style="background:var(--red-light);color:var(--red-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
         @endif
-        <div style="margin-top:.85rem;"><span class="card-link"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
+        <div style="margin-top:.85rem;"><span class="card-link"><span class="en">View Program</span><span class="ar">عرض البرنامج</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></span></div>
       </div>
     </div>
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'education') }}'">
@@ -132,11 +132,11 @@
           <svg viewBox="0 0 24 24" stroke="var(--blue)"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
         </div>
         <div class="card-title"><span class="en">Special Education</span><span class="ar">التعليم الخاص</span></div>
-        <div class="card-desc"><span class="en">Tailored curricula for children with intellectual, hearing, and visual impairments.</span><span class="ar">مناهج مُكيَّفة للأطفال ذوي الإعاقات المختلفة.</span></div>
+        <div class="card-desc"><span class="en">Adapted curricula for children with intellectual, hearing and visual impairments.</span><span class="ar">مناهج مُكيَّفة للأطفال ذوي الإعاقات المختلفة.</span></div>
         @if ($stat = config('society.program_stats.education.0'))
         <span class="tag" style="background:var(--blue-light);color:var(--blue-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
         @endif
-        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--blue);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
+        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--blue);"><span class="en">View Program</span><span class="ar">عرض البرنامج</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></span></div>
       </div>
     </div>
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'vocational') }}'">
@@ -150,7 +150,7 @@
         @if ($stat = config('society.program_stats.vocational.0'))
         <span class="tag" style="background:var(--green-light);color:var(--green-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
         @endif
-        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--green);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
+        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--green);"><span class="en">View Program</span><span class="ar">عرض البرنامج</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></span></div>
       </div>
     </div>
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'social') }}'">
@@ -164,7 +164,7 @@
         @if ($stat = config('society.program_stats.social.0'))
         <span class="tag" style="background:var(--purple-light);color:var(--purple-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
         @endif
-        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--purple);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
+        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--purple);"><span class="en">View Program</span><span class="ar">عرض البرنامج</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></span></div>
       </div>
     </div>
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'homecare') }}'">
@@ -178,7 +178,7 @@
         @if ($stat = config('society.program_stats.homecare.0'))
         <span class="tag" style="background:var(--gold-light);color:var(--gold-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
         @endif
-        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--gold);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
+        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--gold);"><span class="en">View Program</span><span class="ar">عرض البرنامج</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></span></div>
       </div>
     </div>
     <div class="program-card" onclick="location.href='{{ route('programs.show', 'devices') }}'">
@@ -192,7 +192,7 @@
         @if ($stat = config('society.program_stats.devices.0'))
         <span class="tag" style="background:var(--teal-light);color:var(--teal-dark);"><span class="en">{{ $stat['value'] }} {{ $stat['label']['en'] }}</span><span class="ar">{{ $stat['value'] }} {{ $stat['label']['ar'] }}</span></span>
         @endif
-        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--teal);"><span class="en">View Program →</span><span class="ar">← عرض البرنامج</span></span></div>
+        <div style="margin-top:.85rem;"><span class="card-link" style="color:var(--teal);"><span class="en">View Program</span><span class="ar">عرض البرنامج</span><svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg></span></div>
       </div>
     </div>
   </div>

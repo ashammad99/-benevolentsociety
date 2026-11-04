@@ -49,7 +49,7 @@
           <div class="service-dot" style="background:#D4AC0D;"></div>
           <div class="service-text">
             <strong><span class="en">In-Home Physiotherapy</span><span class="ar">علاج طبيعي منزلي</span></strong>
-            <span><span class="en">Licensed physiotherapists visit to provide sessions tailored to the home environment.</span><span class="ar">يزور معالجون طبيعيون مرخصون المنزل لتقديم جلسات مُكيَّفة للبيئة المنزلية.</span></span>
+            <span><span class="en">Licensed physiotherapists hold therapy sessions in the patient's home.</span><span class="ar">يقدّم معالجون طبيعيون مرخصون جلسات العلاج في منزل المريض.</span></span>
           </div>
         </div>
         <div class="service-item">

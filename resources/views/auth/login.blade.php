@@ -37,7 +37,7 @@
             overflow-x: hidden;
         }
 
-        /* ── LEFT PANEL ───────────────────────────────── */
+        /* LEFT PANEL */
         .left-panel {
             width: 46%;
             min-height: 100vh;
@@ -202,7 +202,7 @@
             animation: fadeSlideUp 0.7s 0.3s ease both;
         }
 
-        /* ── RIGHT PANEL ──────────────────────────────── */
+        /* RIGHT PANEL */
         .right-panel {
             flex: 1;
             display: flex;
@@ -268,7 +268,7 @@
             color: var(--muted);
         }
 
-        /* ── FORM ─────────────────────────────────────── */
+        /* FORM */
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -508,7 +508,7 @@
         }
         .alert svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
 
-        /* ── LANG HELPERS ────────────────────────────── */
+        /* LANG HELPERS */
         .en { display: block; } .ar { display: none; }
         span.en { display: inline; } span.ar { display: none; }
         [dir="rtl"] .en { display: none !important; }
@@ -524,7 +524,7 @@
         [dir="rtl"] .panel-stats { flex-direction: row-reverse; }
         [dir="rtl"] .form-row { flex-direction: row-reverse; }
 
-        /* ── ANIMATIONS ──────────────────────────────── */
+        /* ANIMATIONS */
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(18px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -537,7 +537,7 @@
             to { transform: translate(-50%,-50%) rotate(360deg); }
         }
 
-        /* ── RESPONSIVE ──────────────────────────────── */
+        /* RESPONSIVE */
         @media (max-width: 820px) {
             body { flex-direction: column; }
             .left-panel {
@@ -556,7 +556,7 @@
 </head>
 <body>
 
-<!-- ── LEFT PANEL ──────────────────────────────────── -->
+{{-- LEFT PANEL --}}
 <div class="left-panel">
     <div class="panel-stripe"></div>
 
@@ -575,8 +575,8 @@
         <p class="panel-tagline"><span class="en">Staff Access</span><span class="ar">وصول الموظفين</span></p>
         <h1 class="panel-headline">Welcome<br>back to the<br>dashboard.</h1>
         <h1 class="panel-headline-ar">مرحباً بعودتك<br>إلى لوحة<br>التحكم.</h1>
-        <p class="panel-desc">Manage programs, projects, media, and site content from one place — securely and efficiently.</p>
-        <p class="panel-desc-ar">إدارة البرامج والمشاريع والوسائط ومحتوى الموقع من مكان واحد — بأمان وكفاءة.</p>
+        <p class="panel-desc">Manage programs, projects, media and site content from one place.</p>
+        <p class="panel-desc-ar">إدارة البرامج والمشاريع والوسائط ومحتوى الموقع من مكان واحد.</p>
         @if (config('society.stats'))
         <div class="panel-stats">
             @foreach (array_slice(config('society.stats'), 0, 3) as $stat)
@@ -595,7 +595,7 @@
     </div>
 </div>
 
-<!-- ── RIGHT PANEL / LOGIN CARD ────────────────────── -->
+{{-- RIGHT PANEL / LOGIN CARD --}}
 <div class="right-panel">
     <div class="login-card">
         <div class="card-accent"></div>
@@ -627,7 +627,7 @@
         <form id="loginForm" method="POST" action="{{route('login')}}" novalidate>
             @csrf
 
-            <!-- Email -->
+            {{-- Email --}}
             <div class="form-group">
                 <label class="form-label" for="email">
                     <span class="en">Email address</span>
@@ -651,7 +651,7 @@
                 </div>
             </div>
 
-            <!-- Password -->
+            {{-- Password --}}
             <div class="form-group">
                 <label class="form-label" for="password">
                     <span class="en">Password</span>
@@ -684,7 +684,7 @@
                 </div>
             </div>
 
-            <!-- Remember me + Forgot password -->
+            {{-- Remember me + Forgot password --}}
             <div class="form-row">
                 <label class="checkbox-label">
                     <input type="checkbox" name="remember" id="remember">
