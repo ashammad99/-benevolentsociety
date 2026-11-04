@@ -78,7 +78,7 @@ return [
     ],
 
     'fallback' => [
-        'email' => 'info@bsd-nablus.ps',
+        'email' => 'info@benevolentsociety.ps',
         'phone' => '+972 8 284 4810',
         'address' => [
             'en' => 'Gaza City, Gaza Strip, Palestine',
