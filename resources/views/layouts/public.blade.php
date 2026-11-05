@@ -264,6 +264,8 @@ footer{background:#111;color:white;padding:3rem 2.5rem 1.5rem}
 .footer-col ul li a:hover{color:white}
 .footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:.85rem}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.25rem;font-size:12px;color:rgba(255,255,255,.35);flex-wrap:wrap;gap:.5rem}
+.footer-credit a{color:rgba(255,255,255,.6);text-decoration:underline;text-underline-offset:2px}
+.footer-credit a:hover{color:#fff}
 
 /* LANG */
 .en{display:block}.ar{display:none}
@@ -382,6 +384,9 @@ span.en{display:inline}span.ar{display:none}
       <span>© {{ date('Y') }} <span class="en">{{ config('society.name.en') }}. All rights reserved.</span><span class="ar">{{ config('society.name.ar') }}. جميع الحقوق محفوظة.</span></span>
       @if (config('society.registration'))
       <span><span class="en">{{ config('society.registration.en') }}</span><span class="ar">{{ config('society.registration.ar') }}</span></span>
+      @endif
+      @if (config('society.credit'))
+      <span class="footer-credit"><span class="en">Developed by</span><span class="ar">تطوير:</span> <a href="{{ config('society.credit.url') }}" target="_blank" rel="noopener"><span class="en">{{ config('society.credit.name.en') }}</span><span class="ar">{{ config('society.credit.name.ar') }}</span></a></span>
       @endif
     </div>
   </div>

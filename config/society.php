@@ -54,6 +54,12 @@ return [
         'ar' => "مرخصة بموجب قانون الجمعيات في {$country['ar']}",
     ],
 
+    // Website credit in the footer's bottom line (null hides it).
+    'credit' => [
+        'name' => ['en' => 'Ahmed Hammad', 'ar' => 'أحمد حماد'],
+        'url' => 'https://www.linkedin.com/in/ahmed-hammad-461337177/',
+    ],
+
     // Contact page (null hides it).
     'office_hours' => [
         'en' => 'Sunday – Thursday, 8:00 AM – 4:00 PM',

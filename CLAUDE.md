@@ -9,23 +9,21 @@ Laravel 13 (PHP 8.3+) application for a bilingual (English/Arabic) nonprofit ("B
 - A public bilingual site (Blade, under `resources/views/public/`): home, vision, contact, six program pages (static copy), and a database-driven news listing/detail (`/news`).
 - An admin CMS at `/admin` for managing posts, categories, media, ads, users, and site settings.
 
-Frontend build tooling is Vite + Tailwind CSS + Alpine.js (Laravel Breeze scaffolding for auth).
+There is no frontend build step (no npm, Vite or Tailwind): the public site, admin (`public/dashboard/`) and staff pages use plain CSS/JS, mostly inline in the views. Auth controllers are Laravel Breeze's.
 
 The app was upgraded from Laravel 10 but deliberately **kept on the Laravel 10 directory structure** (`app/Http/Kernel.php`, `app/Console/Kernel.php`, `RouteServiceProvider`, full `config/` files) rather than the slim Laravel 11+ skeleton — register middleware and aliases in `app/Http/Kernel.php`, not `bootstrap/app.php`. `App\Http\Middleware\VerifyCsrfToken` keeps its old name but extends Laravel 13's `PreventRequestForgery`; CSRF is skipped entirely while running tests, so tests don't prove forms carry `@csrf`. `config/cache.php` sets `serializable_classes => false` — add a class there before caching objects of it.
 
 ## Commands
 
 **PHP dependencies:** `composer install`
-**JS dependencies:** `npm install` (Vite 8 + `laravel-vite-plugin` 3: needs Node ^20.19 or >=22.12)
 
-**Run dev server:** `php artisan serve` (backend) + `npm run dev` (Vite, in parallel)
-**Build frontend assets:** `npm run build`
+**Run dev server:** `php artisan serve`
 
 **Run all tests:** `php artisan test` or `vendor/bin/phpunit`
 **Run a single test file:** `vendor/bin/phpunit tests/Feature/Auth/AuthenticationTest.php`
 **Run a single test method:** `vendor/bin/phpunit --filter test_method_name tests/Feature/Auth/AuthenticationTest.php`
 
-Note: `phpunit.xml` runs tests against sqlite in-memory (`DB_CONNECTION=sqlite`, `DB_DATABASE=:memory:`), so `RefreshDatabase` never touches the `.env` database. `tests/TestCase.php` calls `withoutVite()`. No view uses `@vite` any more (the site and the staff pages carry their own inline CSS), so `npm run build` only matters if a view starts using `@vite` again.
+Note: `phpunit.xml` runs tests against sqlite in-memory (`DB_CONNECTION=sqlite`, `DB_DATABASE=:memory:`), so `RefreshDatabase` never touches the `.env` database.
 
 **Migrations:** `php artisan migrate`
 
@@ -66,7 +64,7 @@ All admin routes live under `Route::prefix('admin')->name('admin.')` in `routes/
 
 Public routes (no auth): `/` (`home`), `/vision`, `/contact`, `/programs/{rehab|education|vocational|social|homecare|devices}`, `/news`, `/news/{post}`, and `POST /contact` (`contact.send`, throttled to 5/min). All views extend `layouts.public`. The contact form emails `App\Mail\ContactMessage` (plain text, Reply-To = the visitor) to the `email` setting, falling back to `config('society.fallback.email')`; its reason list is `config('society.contact_reasons')`, and a hidden `website` field is a honeypot. It needs working `MAIL_*` settings: locally `.env` points at `mailpit`, so run `MAIL_MAILER=log php artisan serve` to see sent mail in `storage/logs/laravel.log`. Only published posts with `published_at <= now()` are exposed (`Post::published()` scope; the detail route 404s otherwise); the only settings read publicly are contact info, social links and SEO meta. The `/vision` page shows the `about_message` setting (the organisation's own vision and aims, imported from the old site) as its only content ("Our Vision & Aims"), re-sanitized in `PageController::vision()`. It is edited in the admin Settings → About tab (`about_en`/`about_ar` rich-text editors, `SettingController::saveAbout`); the older `vision`/`aims` setting rows are no longer used.
 
-**Branding** lives in `config/society.php` (bilingual name, `city`/`region`/`country` used in sentences across the public pages and in the config's own defaults, short name, logo path under `public/`, footer tagline and registration line, office hours, and fallback contact/meta values shown while the admin Settings are empty). The public layout, login page and admin layout/sidebar read from it — never hard-code the organisation's name in a view. Page views set only `@section('title', 'Page')`; `layouts.public` appends the name in the current locale. Headline numbers also come from it: `stats` (home stats bar, first three on the login panel) and `program_stats.<slug>` (each program page's row; the first entry is also that program's home-card tag) — empty lists hide those blocks. Body copy on the home, vision and program pages is still static text in those views.
+**Branding** lives in `config/society.php` (bilingual name, `city`/`region`/`country` used in sentences across the public pages and in the config's own defaults, short name, logo path under `public/`, footer tagline, registration line and developer credit (`credit`), office hours, and fallback contact/meta values shown while the admin Settings are empty). The public layout, login page and admin layout/sidebar read from it — never hard-code the organisation's name in a view. Page views set only `@section('title', 'Page')`; `layouts.public` appends the name in the current locale. Headline numbers also come from it: `stats` (home stats bar, first three on the login panel) and `program_stats.<slug>` (each program page's row; the first entry is also that program's home-card tag) — empty lists hide those blocks. Body copy on the home, vision and program pages is still static text in those views.
 
 The live admin dashboard is `resources/views/admin/dashboard.blade.php`, rendered by `DashboardController::index()`. Admin views share `admin/layouts/app.blade.php` and the CSS/JS in `public/dashboard/`.
 

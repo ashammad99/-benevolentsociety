@@ -143,4 +143,17 @@ class BrandingTest extends TestCase
             $this->assertNotFalse(@getimagesize($file), basename($file).' is not a readable image');
         }
     }
+
+    public function test_footer_credit_links_to_the_developer_and_can_be_hidden(): void
+    {
+        config(['society.credit' => ['name' => ['en' => 'Dev Name', 'ar' => 'اسم المطور'], 'url' => 'https://www.linkedin.com/in/example/']]);
+
+        $this->get('/')->assertOk()
+            ->assertSee('Developed by')
+            ->assertSee('href="https://www.linkedin.com/in/example/" target="_blank" rel="noopener"', false)
+            ->assertSee('اسم المطور');
+
+        config(['society.credit' => null]);
+        $this->get('/')->assertOk()->assertDontSee('class="footer-credit"', false);
+    }
 }
