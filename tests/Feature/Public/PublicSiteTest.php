@@ -113,7 +113,7 @@ class PublicSiteTest extends TestCase
         $this->get(route('news.show', $post).'?lang=en')->assertSee('Health Projects')->assertSee('26 January 2021');
     }
 
-    public function test_vision_page_shows_the_about_us_text_sanitized(): void
+    public function test_vision_page_shows_the_organisations_vision_and_aims_sanitized(): void
     {
         \App\Models\Setting::factory()->create([
             'key' => 'about_message', 'type' => 'richtext', 'value' => null,
@@ -122,16 +122,16 @@ class PublicSiteTest extends TestCase
         ]);
 
         $this->get('/vision')->assertOk()
-            ->assertSee('Who We Are')
+            ->assertSee('Society Vision')
             ->assertSee('<li>Social justice</li>', false)
             ->assertSee('رؤية الجمعية')
             ->assertDontSee('onclick', false)
             ->assertDontSee('<script>alert(1)</script>', false);
     }
 
-    public function test_vision_page_hides_the_about_section_when_empty(): void
+    public function test_vision_page_hides_the_text_block_when_empty(): void
     {
-        $this->get('/vision')->assertOk()->assertDontSee('Who We Are');
+        $this->get('/vision')->assertOk()->assertDontSee('class="about-text"', false);
     }
 
     public function test_viewing_a_post_increments_its_view_count(): void

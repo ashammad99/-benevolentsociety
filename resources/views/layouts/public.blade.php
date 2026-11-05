@@ -131,7 +131,6 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .section-wrap{padding:4.5rem 2.5rem;max-width:1120px;margin:0 auto}
 .section-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
 .section-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--red-dark);margin-bottom:1rem;line-height:1.25}
-.about-wrap{padding-bottom:0}
 .about-text{max-width:860px;color:var(--muted);font-size:15.5px;line-height:1.85}
 .about-text strong{color:var(--red-dark);font-size:1.1rem}
 .about-text p{margin:1.25rem 0 .5rem}
@@ -234,21 +233,9 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .vision-hero-inner{max-width:800px;margin:0 auto;text-align:center;padding:4rem 2.5rem}
 .vision-icon{width:80px;height:80px;border-radius:20px;background:var(--red-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem}
 .vision-icon svg{width:40px;height:40px;fill:none;stroke:var(--red);stroke-width:1.5;stroke-linecap:round}
-.aims-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2.5rem}
-.aim-card{border-radius:16px;padding:1.75rem;border:1px solid var(--border);background:var(--bg);transition:transform .2s,box-shadow .2s}
-.aim-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
-.aim-num{font-family:var(--font-display);font-size:2.5rem;font-weight:700;opacity:.15;margin-bottom:.5rem}
-.aim-title{font-weight:700;font-size:16px;margin-bottom:.5rem;color:var(--text)}
-.aim-desc{font-size:13.5px;color:var(--muted);line-height:1.65}
-.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2.5rem}
-.value-card{text-align:center;padding:2rem 1rem;border-radius:16px;background:var(--bg);border:1px solid var(--border)}
-.value-icon{margin-bottom:.75rem;color:var(--red)}
-.value-icon svg{width:32px;height:32px}
 .icon-arrow{width:16px;height:16px;flex-shrink:0}
 .icon-chevron{width:14px;height:14px;flex-shrink:0}
 [dir="rtl"] .icon-arrow{transform:scaleX(-1)}
-.value-title{font-weight:700;font-size:15px;margin-bottom:.35rem}
-.value-desc{font-size:13px;color:var(--muted);line-height:1.55}
 
 /* CONTACT STRIP */
 .btn-white{padding:11px 22px;background:white;color:var(--blue-dark);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
@@ -339,7 +326,7 @@ span.en{display:inline}span.ar{display:none}
       </div>
     </li>
     <li class="{{ $__active === 'news' ? 'active' : '' }}"><a href="{{ route('news.index') }}"><span class="en">News</span><span class="ar">الأخبار</span></a></li>
-    <li class="{{ $__active === 'vision' ? 'active' : '' }}"><a href="{{ route('vision') }}"><span class="en">Vision &amp; Mission</span><span class="ar">رؤيتنا</span></a></li>
+    <li class="{{ $__active === 'vision' ? 'active' : '' }}"><a href="{{ route('vision') }}"><span class="en">Vision &amp; Aims</span><span class="ar">رؤيتنا وأهدافنا</span></a></li>
     <li class="{{ $__active === 'contact' ? 'active' : '' }}"><a href="{{ route('contact') }}"><span class="en">Contact</span><span class="ar">تواصل</span></a></li>
   </ul>
   <div class="nav-right">
@@ -367,7 +354,7 @@ span.en{display:inline}span.ar{display:none}
         <h4><span class="en">Navigate</span><span class="ar">تنقل</span></h4>
         <ul>
           <li><a href="{{ route('home') }}"><span class="en">Home</span><span class="ar">الرئيسية</span></a></li>
-          <li><a href="{{ route('vision') }}"><span class="en">Vision &amp; Mission</span><span class="ar">رؤيتنا ومهمتنا</span></a></li>
+          <li><a href="{{ route('vision') }}"><span class="en">Vision &amp; Aims</span><span class="ar">رؤيتنا وأهدافنا</span></a></li>
           <li><a href="{{ route('news.index') }}"><span class="en">News</span><span class="ar">الأخبار</span></a></li>
           <li><a href="{{ route('programs.show', 'rehab') }}"><span class="en">Programs</span><span class="ar">البرامج</span></a></li>
           <li><a href="{{ route('contact') }}"><span class="en">Contact</span><span class="ar">تواصل</span></a></li>
