@@ -77,29 +77,59 @@
 
     </div>
 
-    <div class="contact-form">
+    <form class="contact-form" id="contact-form" method="POST" action="{{ route('contact.send') }}">
+      @csrf
       <div class="section-label" style="margin-bottom:1rem;"><span class="en">Send a Message</span><span class="ar">أرسل رسالة</span></div>
+
+      @if (session('contact_sent'))
+        <div class="form-alert form-alert-success" role="status"><span class="en">Thank you, your message has been sent. We will get back to you soon.</span><span class="ar">شكراً لك، تم إرسال رسالتك. سنتواصل معك قريباً.</span></div>
+      @endif
+      @if (session('contact_error'))
+        <div class="form-alert form-alert-error" role="alert">{{ session('contact_error') }}</div>
+      @endif
+
+      {{-- Spam trap: hidden from people, filled in by bots. --}}
+      <div class="hp-field" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
       <div class="form-row">
-        <div class="form-group"><label><span class="en">First Name</span><span class="ar">الاسم الأول</span></label><input type="text" placeholder="Your first name / اسمك الأول"></div>
-        <div class="form-group"><label><span class="en">Last Name</span><span class="ar">اسم العائلة</span></label><input type="text" placeholder="Your last name / اسم العائلة"></div>
+        <div class="form-group">
+          <label for="cf-first"><span class="en">First Name</span><span class="ar">الاسم الأول</span></label>
+          <input id="cf-first" type="text" name="first_name" value="{{ old('first_name') }}" maxlength="100" required autocomplete="given-name" placeholder="{{ __('Your first name') }}">
+          @error('first_name')<div class="field-error">{{ $message }}</div>@enderror
+        </div>
+        <div class="form-group">
+          <label for="cf-last"><span class="en">Last Name</span><span class="ar">اسم العائلة</span></label>
+          <input id="cf-last" type="text" name="last_name" value="{{ old('last_name') }}" maxlength="100" required autocomplete="family-name" placeholder="{{ __('Your last name') }}">
+          @error('last_name')<div class="field-error">{{ $message }}</div>@enderror
+        </div>
       </div>
-      <div class="form-group"><label><span class="en">Email Address</span><span class="ar">البريد الإلكتروني</span></label><input type="email" placeholder="your@email.com"></div>
-      <div class="form-group"><label><span class="en">Phone Number</span><span class="ar">رقم الهاتف</span></label><input type="tel" placeholder="+970 ..."></div>
       <div class="form-group">
-        <label><span class="en">Reason for Contact</span><span class="ar">سبب التواصل</span></label>
-        <select>
-          <option value=""><span class="en">Select a reason…</span></option>
-          <option value="services"><span class="en">Inquire about services</span></option>
-          <option value="referral"><span class="en">Patient / Beneficiary referral</span></option>
-          <option value="volunteer"><span class="en">Volunteering</span></option>
-          <option value="partnership"><span class="en">Partnership</span></option>
-          <option value="media"><span class="en">Media / Press inquiry</span></option>
-          <option value="other"><span class="en">Other</span></option>
-        </select>
+        <label for="cf-email"><span class="en">Email Address</span><span class="ar">البريد الإلكتروني</span></label>
+        <input id="cf-email" type="email" name="email" value="{{ old('email') }}" maxlength="191" required autocomplete="email" dir="ltr" placeholder="your@email.com">
+        @error('email')<div class="field-error">{{ $message }}</div>@enderror
       </div>
-      <div class="form-group"><label><span class="en">Message</span><span class="ar">الرسالة</span></label><textarea placeholder="Write your message here… / اكتب رسالتك هنا…"></textarea></div>
-      <button class="form-submit" onclick="alert('Thank you! We will get back to you soon. شكراً! سنتواصل معك قريباً.');"><span class="en">Send Message</span><span class="ar">إرسال الرسالة</span></button>
-    </div>
+      <div class="form-group">
+        <label for="cf-phone"><span class="en">Phone Number</span><span class="ar">رقم الهاتف</span></label>
+        <input id="cf-phone" type="tel" name="phone" value="{{ old('phone') }}" maxlength="30" autocomplete="tel" dir="ltr" placeholder="+970 ...">
+        @error('phone')<div class="field-error">{{ $message }}</div>@enderror
+      </div>
+      <div class="form-group">
+        <label for="cf-reason"><span class="en">Reason for Contact</span><span class="ar">سبب التواصل</span></label>
+        <select id="cf-reason" name="reason" required>
+          <option value="">{{ __('Select a reason…') }}</option>
+          @foreach (config('society.contact_reasons') as $key => $label)
+            <option value="{{ $key }}" @selected(old('reason') === $key)>{{ $label[app()->getLocale()] ?? $label['en'] }}</option>
+          @endforeach
+        </select>
+        @error('reason')<div class="field-error">{{ $message }}</div>@enderror
+      </div>
+      <div class="form-group">
+        <label for="cf-message"><span class="en">Message</span><span class="ar">الرسالة</span></label>
+        <textarea id="cf-message" name="message" maxlength="5000" required placeholder="{{ __('Write your message here…') }}">{{ old('message') }}</textarea>
+        @error('message')<div class="field-error">{{ $message }}</div>@enderror
+      </div>
+      <button type="submit" class="form-submit"><span class="en">Send Message</span><span class="ar">إرسال الرسالة</span></button>
+    </form>
   </div>
 </div>
 

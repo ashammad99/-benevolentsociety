@@ -37,5 +37,11 @@
     "You cannot deactivate your own account.": "لا يمكنك إيقاف حسابك الخاص.",
     "Your account has been deactivated. Contact an administrator.": "تم إيقاف حسابك. يرجى التواصل مع المسؤول.",
 
-    "News": "الأخبار"
+    "News": "الأخبار",
+
+    "Your first name": "اسمك الأول",
+    "Your last name": "اسم العائلة",
+    "Select a reason…": "اختر السبب…",
+    "Write your message here…": "اكتب رسالتك هنا…",
+    "Your message could not be sent. Please try again later or contact us by phone or email.": "تعذّر إرسال رسالتك. يرجى المحاولة لاحقاً أو التواصل معنا عبر الهاتف أو البريد الإلكتروني."
 }

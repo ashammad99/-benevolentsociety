@@ -77,6 +77,17 @@ return [
         'devices' => [],
     ],
 
+    // Choices in the contact form's "Reason for Contact" list; the key is
+    // what the form submits and what the email reports.
+    'contact_reasons' => [
+        'services' => ['en' => 'Inquire about services', 'ar' => 'الاستفسار عن الخدمات'],
+        'referral' => ['en' => 'Patient / beneficiary referral', 'ar' => 'إحالة مريض / مستفيد'],
+        'volunteer' => ['en' => 'Volunteering', 'ar' => 'التطوع'],
+        'partnership' => ['en' => 'Partnership', 'ar' => 'الشراكة'],
+        'media' => ['en' => 'Media / press inquiry', 'ar' => 'استفسار إعلامي / صحفي'],
+        'other' => ['en' => 'Other', 'ar' => 'أخرى'],
+    ],
+
     'fallback' => [
         'email' => 'info@benevolentsociety.ps',
         'phone' => '+972 8 284 4810',

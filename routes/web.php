@@ -26,6 +26,9 @@ use App\Http\Controllers\Public\PostController as PublicPostController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/vision', [PageController::class, 'vision'])->name('vision');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [PageController::class, 'sendContact'])
+    ->middleware('throttle:5,1')
+    ->name('contact.send');
 
 Route::get('/programs/{program}', [ProgramController::class, 'show'])
     ->where('program', 'rehab|education|vocational|social|homecare|devices')
