@@ -130,4 +130,17 @@ class BrandingTest extends TestCase
                 ->assertDontSee('فلسطيني');
         }
     }
+
+    public function test_pages_use_the_organisations_own_photos(): void
+    {
+        foreach (['/', '/programs/rehab', '/programs/education', '/programs/vocational', '/programs/social', '/programs/homecare', '/programs/devices'] as $url) {
+            $this->get($url)->assertOk()
+                ->assertDontSee('unsplash.com', false)
+                ->assertSee('images/site/', false);
+        }
+
+        foreach (glob(public_path('images/site/*.jpg')) as $file) {
+            $this->assertNotFalse(@getimagesize($file), basename($file).' is not a readable image');
+        }
+    }
 }

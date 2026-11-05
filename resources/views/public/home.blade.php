@@ -32,7 +32,7 @@
 <div class="hero-slider" id="slider">
   <div class="slides-track" id="track">
     <div class="slide active" id="slide-0">
-      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1576765608866-5b51046452be?w=1600&q=85');"></div>
+      <div class="slide-bg" style="background-image:url('{{ asset('images/site/slide-rehab.jpg') }}');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Rehabilitation</span><span class="ar">التأهيل</span></span>
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="slide" id="slide-1">
-      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1600&q=85');"></div>
+      <div class="slide-bg" style="background-image:url('{{ asset('images/site/slide-education.jpg') }}');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Special Education</span><span class="ar">التعليم الخاص</span></span>
@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="slide" id="slide-2">
-      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1600&q=85');"></div>
+      <div class="slide-bg" style="background-image:url('{{ asset('images/site/slide-vocational.jpg') }}');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Vocational Training</span><span class="ar">التدريب المهني</span></span>
@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="slide" id="slide-3">
-      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1600&q=85');"></div>
+      <div class="slide-bg" style="background-image:url('{{ asset('images/site/slide-social.jpg') }}');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Community</span><span class="ar">المجتمع</span></span>
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="slide" id="slide-4">
-      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1593113630400-ea4288922559?w=1600&q=85');"></div>
+      <div class="slide-bg" style="background-image:url('{{ asset('images/site/slide-devices.jpg') }}');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <span class="slide-badge"><span class="en">Assistive Devices</span><span class="ar">الأجهزة المساعدة</span></span>
@@ -226,7 +226,7 @@
 @push('scripts')
 <script>
 var TOTAL=5,current=0,autoTimer;
-var thumbBgs=['https://images.unsplash.com/photo-1576765608866-5b51046452be?w=300&q=70','https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=300&q=70','https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=300&q=70','https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=300&q=70','https://images.unsplash.com/photo-1593113630400-ea4288922559?w=300&q=70'];
+var thumbBgs=['{{ asset('images/site/thumb-rehab.jpg') }}','{{ asset('images/site/thumb-education.jpg') }}','{{ asset('images/site/thumb-vocational.jpg') }}','{{ asset('images/site/thumb-social.jpg') }}','{{ asset('images/site/thumb-devices.jpg') }}'];
 var track=document.getElementById('track'),dotsEl=document.getElementById('dots'),thumbsEl=document.getElementById('thumbs'),counterEl=document.getElementById('counter');
 for(var i=0;i<TOTAL;i++){
   var d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=(function(n){return function(){goTo(n)}})(i);dotsEl.appendChild(d);

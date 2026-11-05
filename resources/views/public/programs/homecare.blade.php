@@ -38,7 +38,7 @@
       </div>
       @endif
     </div>
-    <div class="program-image" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80');"></div>
+    <div class="program-image" style="background-image:url('{{ asset('images/site/program-homecare.jpg') }}');"></div>
   </div>
 </div>
 <div class="section-wrap">
