@@ -55,6 +55,7 @@
     <div class="en">{!! $post->content_en !!}</div>
     <div class="ar">{!! $post->content_ar !!}</div>
   </div>
+  @include('public.partials.ad', ['ad' => $ads['sidebar'] ?? null, 'variant' => 'card'])
 </div>
 
 @if($relatedPosts->isNotEmpty())

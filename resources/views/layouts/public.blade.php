@@ -244,6 +244,22 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .ad-banner{background:var(--gray-50);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:1rem;text-align:center;flex-wrap:wrap}
 .ad-banner img{max-height:64px;border-radius:8px}
 .ad-banner .ad-text strong{color:var(--red-dark)}
+.ad-card{display:flex;gap:1.25rem;align-items:center;background:var(--blue-light);border:1px solid rgba(36,113,163,.18);border-radius:16px;padding:1.25rem 1.5rem;margin:1.5rem 0}
+.ad-card img{width:120px;max-height:90px;object-fit:cover;border-radius:10px;flex-shrink:0}
+.ad-card-body{display:grid;gap:.3rem}
+.ad-card strong{color:var(--blue-dark);font-size:16px}
+.ad-card p,.ad-popup p{color:var(--muted);font-size:14px;line-height:1.6}
+.ad-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.ad-card-link{font-size:13px;font-weight:700;color:var(--red);justify-self:start}
+.ad-popup{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:1000}
+.ad-popup[hidden]{display:none}
+.ad-popup-box{position:relative;background:#fff;border-radius:16px;max-width:440px;width:100%;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.ad-popup-img{width:100%;max-height:240px;object-fit:cover;display:block}
+.ad-popup-body{padding:1.5rem;display:grid;gap:.5rem}
+.ad-popup-body h3{font-size:1.25rem;color:var(--red-dark)}
+.ad-popup-close{position:absolute;top:10px;inset-inline-end:10px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text)}
+.ad-popup-close svg{width:18px;height:18px}
+@media (max-width:640px){.ad-card{flex-direction:column;align-items:flex-start}.ad-card img{width:100%;max-height:160px}}
 
 /* PAGINATION */
 .pg-nav{display:flex;gap:6px;align-items:center}
@@ -337,6 +353,8 @@ span.en{display:inline}span.ar{display:none}
   </div>
 </nav>
 
+@include('public.partials.ad', ['ad' => $ads['banner'] ?? null, 'variant' => 'banner'])
+
 @yield('content')
 
 <footer>
@@ -392,6 +410,27 @@ span.en{display:inline}span.ar{display:none}
   </div>
 </footer>
 
+@include('public.partials.ad', ['ad' => $ads['popup'] ?? null, 'variant' => 'popup'])
+<script>
+// Popup ad: shown once per browser session (per ad and version); closes with ×, Esc or a click outside.
+(function () {
+  var el = document.getElementById('ad-popup');
+  if (!el) return;
+  var key = 'ad-popup-seen-' + el.dataset.key;
+  try { if (sessionStorage.getItem(key)) return; } catch (e) {}
+  function close() {
+    el.hidden = true;
+    document.removeEventListener('keydown', onKey);
+    try { sessionStorage.setItem(key, '1'); } catch (e) {}
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  el.hidden = false;
+  el.querySelector('.ad-popup-close').addEventListener('click', close);
+  el.addEventListener('click', function (e) { if (e.target === el) close(); });
+  document.addEventListener('keydown', onKey);
+  el.querySelector('.ad-popup-close').focus();
+})();
+</script>
 @stack('scripts')
 </body>
 </html>

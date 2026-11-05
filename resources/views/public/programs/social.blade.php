@@ -88,6 +88,12 @@
           </div>
         </div></div>
 </div>
+@if (isset($ads['inline']))
+<div class="section-wrap" style="padding-top:0;padding-bottom:0">
+  @include('public.partials.ad', ['ad' => $ads['inline'], 'variant' => 'card'])
+</div>
+@endif
+
 <div style="background:var(--gray-50);padding:1px 0;">
   <div class="section-wrap">
     <div class="section-label"><span class="en">Quick Facts</span><span class="ar">حقائق سريعة</span></div>

@@ -7,7 +7,7 @@
     were (no CMS model backs them). The "Latest News" section is new — it
     reuses the .projects-grid/.project-card CSS that already shipped in the
     stylesheet but was unused in the old markup, and is fed by
-    HomeController@index ($featuredPosts, $latestPosts, $bannerAd).
+    HomeController@index ($featuredPosts, $latestPosts); $ads from AppServiceProvider.
 --}}
 @extends('layouts.public')
 
@@ -15,19 +15,6 @@
 @section('active_nav', 'home')
 
 @section('content')
-
-@if($bannerAd)
-<div class="ad-banner">
-  @if($bannerAd->image_url)<img src="{{ $bannerAd->image_url }}" alt="">@endif
-  <div class="ad-text">
-    <strong>{{ $bannerAd->title }}</strong>
-    @if($bannerAd->body)<span> — {{ $bannerAd->body }}</span>@endif
-  </div>
-  @if($bannerAd->url)<a href="{{ $bannerAd->url }}" class="btn-white" style="padding:6px 16px;font-size:13px;" target="_blank" rel="noopener">
-    <span class="en">Learn More</span><span class="ar">اعرف أكثر</span>
-  </a>@endif
-</div>
-@endif
 
 <div class="hero-slider" id="slider">
   <div class="slides-track" id="track">
@@ -197,6 +184,12 @@
     </div>
   </div>
 </div>
+
+@if (isset($ads['inline']))
+<div class="section-wrap" style="padding-top:0;padding-bottom:0">
+  @include('public.partials.ad', ['ad' => $ads['inline'], 'variant' => 'card'])
+</div>
+@endif
 
 @if($latestPosts->isNotEmpty())
 <div class="projects-bg">

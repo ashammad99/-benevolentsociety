@@ -65,6 +65,10 @@
                 <option value="inline" @selected(old('type') === 'inline')>Inline</option>
               </select>
               @error('type')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
+              <div style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.55">
+                <span class="en"><b>Banner</b>: strip under the menu on every page · <b>Popup</b>: window when a visitor opens the site, once per visit · <b>Sidebar</b>: card on the news pages · <b>Inline</b>: card on the home and program pages. The newest active ad of each type is shown.</span>
+                <span class="ar"><b>شريط</b>: أسفل القائمة في كل الصفحات · <b>نافذة منبثقة</b>: عند فتح الموقع، مرة واحدة لكل زيارة · <b>جانبي</b>: بطاقة في صفحات الأخبار · <b>ضمن المحتوى</b>: بطاقة في الصفحة الرئيسية وصفحات البرامج. يُعرض أحدث إعلان نشط من كل نوع.</span>
+              </div>
             </div>
             <div class="form-group" style="margin-bottom:0">
               <label class="form-label"><span class="en">Status</span><span class="ar">الحالة</span></label>

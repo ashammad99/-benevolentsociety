@@ -50,6 +50,7 @@
 </div>
 
 <div class="section-wrap">
+  @include('public.partials.ad', ['ad' => $ads['sidebar'] ?? null, 'variant' => 'card'])
   @if($posts->isEmpty())
     <div class="post-empty">
       <span class="en">No news has been posted yet.</span><span class="ar">لا توجد أخبار حتى الآن.</span>
