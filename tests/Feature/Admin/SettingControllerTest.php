@@ -100,40 +100,66 @@ class SettingControllerTest extends TestCase
         ]);
     }
 
-    public function test_aims_rich_text_is_sanitized_against_stored_xss(): void
+    public function test_about_text_is_saved_and_shown_on_the_vision_page(): void
     {
         $this->actingAs($this->admin())->put(route('admin.settings.about'), [
-            'vision_en' => 'A safe vision statement.',
-            'vision_ar' => 'رؤية آمنة.',
-            'aims_en' => '<p onclick="alert(1)">Aim one</p><script>alert(1)</script>',
-            'aims_ar' => '<p>هدف واحد</p><img src=x onerror=alert(1)>',
-        ]);
+            'about_en' => '<p><strong>Society Vision</strong></p><ul><li>Social justice</li></ul>',
+            'about_ar' => '<p><strong>رؤية الجمعية</strong></p>',
+        ])->assertRedirect(route('admin.settings.index'));
 
-        $aims = Setting::where('key', 'aims')->firstOrFail();
+        $this->assertDatabaseHas('settings', ['key' => 'about_message', 'label_en' => 'Vision & Aims']);
 
-        $this->assertStringNotContainsString('<script', $aims->value_en);
-        $this->assertStringNotContainsString('onclick', $aims->value_en);
-        $this->assertStringContainsString('<p>Aim one</p>', $aims->value_en);
-
-        $this->assertStringNotContainsString('onerror', $aims->value_ar);
-        $this->assertStringNotContainsString('<img', $aims->value_ar);
-        $this->assertStringContainsString('<p>هدف واحد</p>', $aims->value_ar);
+        $this->get('/vision')->assertSee('<li>Social justice</li>', false)->assertSee('رؤية الجمعية');
+        $this->actingAs($this->admin())->get(route('admin.settings.index'))->assertSee('<li>Social justice</li>', false);
     }
 
-    public function test_aims_are_sanitized_even_when_the_save_fails_validation(): void
+    public function test_about_rich_text_is_sanitized_against_stored_xss(): void
+    {
+        $this->actingAs($this->admin())->put(route('admin.settings.about'), [
+            'about_en' => '<p onclick="alert(1)">Aim one</p><script>alert(1)</script>',
+            'about_ar' => '<p>هدف واحد</p><img src=x onerror=alert(1)>',
+        ]);
+
+        $about = Setting::where('key', 'about_message')->firstOrFail();
+
+        $this->assertStringNotContainsString('<script', $about->value_en);
+        $this->assertStringNotContainsString('onclick', $about->value_en);
+        $this->assertStringContainsString('<p>Aim one</p>', $about->value_en);
+
+        $this->assertStringNotContainsString('onerror', $about->value_ar);
+        $this->assertStringNotContainsString('<img', $about->value_ar);
+        $this->assertStringContainsString('<p>هدف واحد</p>', $about->value_ar);
+    }
+
+    public function test_about_is_sanitized_even_when_the_save_fails_validation(): void
     {
         $admin = $this->admin();
 
-        // A failed save flashes the submitted aims as old() input, which the
+        // A failed save flashes the submitted text as old() input, which the
         // settings page puts back into a {!! !!} editor: it must be sanitized.
         $this->actingAs($admin)->from(route('admin.settings.index'))->put(route('admin.settings.about'), [
-            'vision_en' => ['not', 'a', 'string'],
-            'aims_en' => '<p>Aim</p><script>alert(1)</script><img src=x onerror=alert(2)>',
-        ])->assertSessionHasErrors('vision_en');
+            'about_en' => '<p>Aim</p><script>alert(1)</script><img src=x onerror=alert(2)>',
+            'about_ar' => ['not', 'a', 'string'],
+        ])->assertSessionHasErrors('about_ar');
 
-        $this->assertSame('<p>Aim</p>alert(1)', session()->getOldInput('aims_en'));
+        $this->assertSame('<p>Aim</p>alert(1)', session()->getOldInput('about_en'));
+    }
 
-        $this->actingAs($admin)->put(route('admin.settings.about'), ['aims_en' => ['x']])
-            ->assertSessionHasErrors('aims_en');
+    public function test_an_emptied_editor_clears_the_about_text(): void
+    {
+        Setting::factory()->create(['key' => 'about_message', 'type' => 'richtext', 'value' => null, 'value_en' => '<p>Old</p>', 'value_ar' => '<p>قديم</p>']);
+
+        $this->actingAs($this->admin())->put(route('admin.settings.about'), ['about_en' => '<br>', 'about_ar' => '<p> </p>']);
+
+        $about = Setting::where('key', 'about_message')->firstOrFail();
+        $this->assertNull($about->value_en);
+        $this->assertNull($about->value_ar);
+        $this->get('/vision')->assertDontSee('class="about-text"', false);
+    }
+
+    public function test_editor_cannot_save_the_about_text(): void
+    {
+        $this->actingAs($this->editor())->put(route('admin.settings.about'), ['about_en' => '<p>x</p>'])->assertForbidden();
+        $this->assertDatabaseMissing('settings', ['key' => 'about_message']);
     }
 }

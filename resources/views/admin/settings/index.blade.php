@@ -20,7 +20,7 @@
 
         $tabFields = [
             'tab-contact' => ['email', 'phone', 'address_en', 'address_ar'],
-            'tab-about'   => ['vision_en', 'vision_ar', 'aims_en', 'aims_ar'],
+            'tab-about'   => ['about_en', 'about_ar'],
             'tab-social'  => ['facebook', 'instagram', 'twitter', 'whatsapp', 'youtube', 'linkedin'],
             'tab-seo'     => ['meta_title_en', 'meta_title_ar', 'meta_description_en', 'meta_description_ar'],
         ];
@@ -84,35 +84,22 @@
           @csrf
           @method('PUT')
           <div style="margin-bottom:24px">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-              <div style="font-weight:700;font-size:13.5px"><span class="en">Society Vision</span><span class="ar">رؤية الجمعية</span></div>
-              <div class="lang-tabs"><button type="button" class="lang-tab active" onclick="switchLangTab(this,'vision')">EN</button><button type="button" class="lang-tab" onclick="switchLangTab(this,'vision')">عر</button></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div style="font-weight:700;font-size:13.5px"><span class="en">Vision &amp; Aims</span><span class="ar">الرؤية والأهداف</span></div>
+              <div class="lang-tabs"><button type="button" class="lang-tab active" onclick="switchLangTab(this,'about')">EN</button><button type="button" class="lang-tab" onclick="switchLangTab(this,'about')">عر</button></div>
             </div>
-            <div class="bilingual-pane active" id="vision-en">
-              <textarea class="form-textarea" name="vision_en">{{ old('vision_en', $get('vision', 'value_en')) }}</textarea>
-              @error('vision_en')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
-            </div>
-            <div class="bilingual-pane" id="vision-ar">
-              <textarea class="form-textarea" name="vision_ar" dir="rtl">{{ old('vision_ar', $get('vision', 'value_ar')) }}</textarea>
-              @error('vision_ar')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
-            </div>
-          </div>
-          <div style="margin-bottom:24px">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-              <div style="font-weight:700;font-size:13.5px"><span class="en">Society Aims</span><span class="ar">أهداف الجمعية</span></div>
-              <div class="lang-tabs"><button type="button" class="lang-tab active" onclick="switchLangTab(this,'aims')">EN</button><button type="button" class="lang-tab" onclick="switchLangTab(this,'aims')">عر</button></div>
-            </div>
-            <div class="bilingual-pane active" id="aims-en">
+            <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px"><span class="en">Shown on the public <a href="{{ route('vision') }}" target="_blank" rel="noopener">Vision &amp; Aims</a> page. Bold, italic and lists are kept; other formatting is removed when saved.</span><span class="ar">يظهر في صفحة <a href="{{ route('vision') }}" target="_blank" rel="noopener">رؤيتنا وأهدافنا</a> على الموقع. يُحتفظ بالخط العريض والمائل والقوائم، ويُزال أي تنسيق آخر عند الحفظ.</span></p>
+            <div class="bilingual-pane active" id="about-en">
               <div class="rich-toolbar"><button type="button" class="rich-btn" onclick="execCmd('bold')"><b>B</b></button><button type="button" class="rich-btn" onclick="execCmd('italic')"><i>I</i></button><button type="button" class="rich-btn" onclick="execCmd('insertUnorderedList')">•</button><button type="button" class="rich-btn" onclick="execCmd('insertOrderedList')">1.</button></div>
-              <div class="rich-editor" id="aims_en_editor" contenteditable="true" data-placeholder="Society aims in English…">{!! old('aims_en', $get('aims', 'value_en')) !!}</div>
-              <textarea name="aims_en" id="aims_en" style="display:none">{{ old('aims_en', $get('aims', 'value_en')) }}</textarea>
-              @error('aims_en')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
+              <div class="rich-editor" id="about_en_editor" contenteditable="true" data-placeholder="The society's vision and aims in English…">{!! old('about_en', $get('about_message', 'value_en')) !!}</div>
+              <textarea name="about_en" id="about_en" style="display:none">{{ old('about_en', $get('about_message', 'value_en')) }}</textarea>
+              @error('about_en')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
             </div>
-            <div class="bilingual-pane" id="aims-ar">
+            <div class="bilingual-pane" id="about-ar">
               <div class="rich-toolbar"><button type="button" class="rich-btn" onclick="execCmd('bold')"><b>B</b></button><button type="button" class="rich-btn" onclick="execCmd('italic')"><i>I</i></button><button type="button" class="rich-btn" onclick="execCmd('insertUnorderedList')">•</button><button type="button" class="rich-btn" onclick="execCmd('insertOrderedList')">1.</button></div>
-              <div class="rich-editor" id="aims_ar_editor" contenteditable="true" dir="rtl" data-placeholder="أهداف الجمعية بالعربية…">{!! old('aims_ar', $get('aims', 'value_ar')) !!}</div>
-              <textarea name="aims_ar" id="aims_ar" style="display:none">{{ old('aims_ar', $get('aims', 'value_ar')) }}</textarea>
-              @error('aims_ar')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
+              <div class="rich-editor" id="about_ar_editor" contenteditable="true" dir="rtl" data-placeholder="رؤية الجمعية وأهدافها بالعربية…">{!! old('about_ar', $get('about_message', 'value_ar')) !!}</div>
+              <textarea name="about_ar" id="about_ar" style="display:none">{{ old('about_ar', $get('about_message', 'value_ar')) }}</textarea>
+              @error('about_ar')<div style="color:var(--red);font-size:12px;margin-top:4px">{{ $message }}</div>@enderror
             </div>
           </div>
           <div style="display:flex;justify-content:flex-end">
@@ -197,8 +184,8 @@ function switchSettingsTab(btn, panelId) {
 function execCmd(cmd) { document.execCommand(cmd, false, null); }
 
 document.getElementById('about-form').addEventListener('submit', function () {
-    document.getElementById('aims_en').value = document.getElementById('aims_en_editor').innerHTML;
-    document.getElementById('aims_ar').value = document.getElementById('aims_ar_editor').innerHTML;
+    document.getElementById('about_en').value = document.getElementById('about_en_editor').innerHTML;
+    document.getElementById('about_ar').value = document.getElementById('about_ar_editor').innerHTML;
 });
 </script>
 @endpush

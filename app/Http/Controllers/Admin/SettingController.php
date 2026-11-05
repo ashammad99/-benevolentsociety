@@ -25,6 +25,7 @@ class SettingController extends Controller
         'linkedin' => ['LinkedIn URL', 'رابط لينكدإن'],
         'meta_title' => ['Meta Title', 'عنوان السيو'],
         'meta_description' => ['Meta Description', 'وصف السيو'],
+        'about_message' => ['Vision & Aims', 'الرؤية والأهداف'],
     ];
 
     // ── Show all settings (tabbed view) ────────────────────────────────────
@@ -59,27 +60,27 @@ class SettingController extends Controller
     // ── Save about / vision tab ────────────────────────────────────────────
     public function saveAbout(Request $request)
     {
-        // aims_en/aims_ar come from a contenteditable rich-text toolbar (see
-        // admin.settings.index) and are rendered back with {!! !!} — including
-        // as old() input after a failed save — so sanitize before validating,
-        // the same way PostRequest does for post content.
-        foreach (['aims_en', 'aims_ar'] as $field) {
-            if (is_string($request->input($field))) {
-                $request->merge([$field => $this->sanitizeRichText($request->input($field))]);
+        // The text shown on the public Vision & Aims page. It comes from a
+        // contenteditable rich-text editor and is rendered with {!! !!} (also
+        // as old() input after a failed save), so sanitize before validating,
+        // the same way PostRequest does for post content. An editor left empty
+        // still submits markup such as "<br>", which is stored as null.
+        foreach (['about_en', 'about_ar'] as $field) {
+            $value = $request->input($field);
+            if (is_string($value)) {
+                $clean = $this->sanitizeRichText($value);
+                $request->merge([$field => trim(strip_tags($clean)) === '' ? null : $clean]);
             }
         }
 
         $data = $request->validate([
-            'vision_en' => ['nullable', 'string'],
-            'vision_ar' => ['nullable', 'string'],
-            'aims_en' => ['nullable', 'string'],
-            'aims_ar' => ['nullable', 'string'],
+            'about_en' => ['nullable', 'string', 'max:20000'],
+            'about_ar' => ['nullable', 'string', 'max:20000'],
         ]);
 
-        $this->upsert('vision', 'richtext', ['value_en' => $data['vision_en'] ?? null, 'value_ar' => $data['vision_ar'] ?? null]);
-        $this->upsert('aims', 'richtext', [
-            'value_en' => $data['aims_en'] ?? null,
-            'value_ar' => $data['aims_ar'] ?? null,
+        $this->upsert('about_message', 'richtext', [
+            'value_en' => $data['about_en'] ?? null,
+            'value_ar' => $data['about_ar'] ?? null,
         ]);
 
         return redirect()

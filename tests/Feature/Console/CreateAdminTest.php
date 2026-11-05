@@ -68,7 +68,7 @@ class CreateAdminTest extends TestCase
         $this->assertSame(0, User::count());
         $this->assertSame(0, Category::count());
         $this->assertSame(
-            ['address', 'aims', 'email', 'phone', 'vision'],
+            ['about_message', 'address', 'email', 'phone'],
             Setting::orderBy('key')->pluck('key')->all()
         );
         $this->assertSame(0, Setting::whereNotNull('value')->orWhereNotNull('value_en')->orWhereNotNull('value_ar')->count());

@@ -34,8 +34,7 @@ class SettingsSeeder extends Seeder
             ['email', 'Contact Email', 'البريد الإلكتروني', 'contact', 'email'],
             ['phone', 'Contact Phone', 'رقم الهاتف', 'contact', 'phone'],
             ['address', 'Office Address', 'عنوان المكتب', 'contact', 'text'],
-            ['aims', 'Society Aims', 'أهداف الجمعية', 'about', 'richtext'],
-            ['vision', 'Society Vision', 'رؤية الجمعية', 'about', 'richtext'],
+            ['about_message', 'Vision & Aims', 'الرؤية والأهداف', 'about', 'richtext'],
         ];
 
         $now = now();
