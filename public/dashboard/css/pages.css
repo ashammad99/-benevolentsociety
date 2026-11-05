@@ -15,7 +15,6 @@
 
 /* Filter bar */
 .filter-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
-[dir="rtl"] .filter-bar{flex-direction:row-reverse;}
 .filter-select{padding:7px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;background:var(--card);color:var(--text);outline:none;cursor:pointer;transition:border-color .2s;}
 .filter-select:focus{border-color:var(--red);}
 .search-inline{display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:0 12px;height:36px;min-width:220px;transition:border-color .2s,box-shadow .2s;}

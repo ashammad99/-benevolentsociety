@@ -9,7 +9,7 @@
 @extends('layouts.public')
 
 @section('title', $post->title ?: 'News')
-@section('meta_description', Str::limit(strip_tags($post->excerpt_en ?: $post->content_en), 160))
+@section('meta_description', Str::limit(strip_tags($post->excerpt ?: $post->content), 160))
 
 @push('styles')
 .post-body{font-size:16px;line-height:1.85;color:var(--text)}
@@ -22,25 +22,25 @@
 
 @section('content')
 
-<div class="page-hero" style="padding-bottom:2rem;text-align:left">
+<div class="page-hero" style="padding-bottom:2rem;text-align:start">
   <div class="breadcrumb" style="justify-content:flex-start">
     <a href="{{ route('home') }}"><span class="en">Home</span><span class="ar">الرئيسية</span></a>
     <span>›</span>
     <a href="{{ route('news.index') }}"><span class="en">News</span><span class="ar">الأخبار</span></a>
     @if($post->category)
     <span>›</span>
-    <a href="{{ route('news.index', ['category' => $post->category->slug]) }}">{{ $post->category->name_en }}</a>
+    <a href="{{ route('news.index', ['category' => $post->category->slug]) }}">{{ $post->category->name }}</a>
     @endif
   </div>
-  <div class="page-title" style="font-size:2rem;text-align:left">
+  <div class="page-title" style="font-size:2rem;text-align:start">
     <span class="en">{{ $post->title_en }}</span><span class="ar">{{ $post->title_ar }}</span>
   </div>
 </div>
 
 <div class="section-wrap" style="max-width:820px">
   <div class="post-meta-row">
-    @if($post->category)<span>{{ $post->category->name_en }}</span>@endif
-    <span>{{ optional($post->published_at)->format('F j, Y') }}</span>
+    @if($post->category)<span>{{ $post->category->name }}</span>@endif
+    <span>{{ optional($post->published_at)->translatedFormat('j F Y') }}</span>
     <span>{{ $post->user->name ?? '' }}</span>
     <span>{{ number_format($post->views_count) }} <span class="en">views</span><span class="ar">مشاهدة</span></span>
   </div>
@@ -66,10 +66,10 @@
       @foreach($relatedPosts as $related)
       <a class="project-card" href="{{ route('news.show', $related) }}">
         <div class="project-header">
-          <div class="project-year">{{ optional($related->published_at)->format('M j, Y') }}</div>
+          <div class="project-year">{{ optional($related->published_at)->translatedFormat('j M Y') }}</div>
         </div>
-        <div class="project-title">{{ $related->title_en }}</div>
-        <div class="project-desc">{{ Str::limit($related->excerpt_en ?: strip_tags($related->content_en), 100) }}</div>
+        <div class="project-title">{{ $related->title }}</div>
+        <div class="project-desc">{{ Str::limit($related->excerpt ?: strip_tags($related->content), 100) }}</div>
       </a>
       @endforeach
     </div>

@@ -33,7 +33,7 @@ return [
 
     'name' => [
         'en' => 'Benevolent Society for Disabled',
-        'ar' => 'جمعية المعاقين الخيرية',
+        'ar' => 'جمعية دار المعاقين الخيرية',
     ],
 
     // Shown where space is tight (browser tab of the admin panel, logo alt text).

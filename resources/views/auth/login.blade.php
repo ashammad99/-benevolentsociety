@@ -521,9 +521,7 @@
         [dir="rtl"] .panel-desc-ar { display: block; }
         [dir="rtl"] .panel-logo-name { font-family: var(--font-ar); }
         [dir="rtl"] body { font-family: var(--font-ar); }
-        [dir="rtl"] .panel-stats { flex-direction: row-reverse; }
-        [dir="rtl"] .form-row { flex-direction: row-reverse; }
-
+                
         /* ANIMATIONS */
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(18px); }

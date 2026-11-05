@@ -95,7 +95,7 @@
   <button class="slider-arrow prev" onclick="moveSlide(-1)">&#8249;</button>
   <button class="slider-arrow next" onclick="moveSlide(1)">&#8250;</button>
   <div class="slider-dots" id="dots"></div>
-  <div class="slide-counter" id="counter">1 / 5</div>
+  <div class="slide-counter" id="counter" dir="ltr">1 / 5</div>
 </div>
 <div class="thumb-strip" id="thumbs"></div>
 @if (config('society.stats'))
@@ -208,11 +208,11 @@
       @foreach($latestPosts as $post)
       <a class="project-card" href="{{ route('news.show', $post) }}">
         <div class="project-header">
-          <div class="project-year">{{ $post->category->name_en ?? 'News' }}</div>
-          <div class="project-year">{{ optional($post->published_at)->format('M j, Y') }}</div>
+          <div class="project-year">{{ $post->category->name ?? __('News') }}</div>
+          <div class="project-year">{{ optional($post->published_at)->translatedFormat('j M Y') }}</div>
         </div>
-        <div class="project-title">{{ $post->title_en }}</div>
-        <div class="project-desc">{{ Str::limit($post->excerpt_en ?: strip_tags($post->content_en), 120) }}</div>
+        <div class="project-title">{{ $post->title }}</div>
+        <div class="project-desc">{{ Str::limit($post->excerpt ?: strip_tags($post->content), 120) }}</div>
       </a>
       @endforeach
     </div>

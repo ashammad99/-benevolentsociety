@@ -35,5 +35,7 @@
     "You cannot change your own role.": "لا يمكنك تغيير دورك الخاص.",
     "You cannot delete your own account.": "لا يمكنك حذف حسابك الخاص.",
     "You cannot deactivate your own account.": "لا يمكنك إيقاف حسابك الخاص.",
-    "Your account has been deactivated. Contact an administrator.": "تم إيقاف حسابك. يرجى التواصل مع المسؤول."
+    "Your account has been deactivated. Contact an administrator.": "تم إيقاف حسابك. يرجى التواصل مع المسؤول.",
+
+    "News": "الأخبار"
 }

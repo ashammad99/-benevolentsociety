@@ -285,7 +285,6 @@ span.en{display:inline}span.ar{display:none}
 [dir="rtl"] .slide-title{display:none}[dir="rtl"] .slide-title-ar{display:block}
 [dir="rtl"] .slide-desc{display:none}[dir="rtl"] .slide-desc-ar{display:block}
 [dir="rtl"] body{font-family:var(--font-ar)}
-[dir="rtl"] .nav-menu{flex-direction:row-reverse}
 [dir="rtl"] .slide-content{text-align:right}
 [dir="rtl"] .slide-overlay{background:linear-gradient(to left,rgba(0,0,0,.75) 0%,rgba(0,0,0,.3) 55%,rgba(0,0,0,.06) 100%)}
 [dir="rtl"] .slider-dots{right:auto;left:2.5rem}
@@ -293,12 +292,10 @@ span.en{display:inline}span.ar{display:none}
 [dir="rtl"] .slider-arrow.prev{left:auto;right:1.5rem}
 [dir="rtl"] .slider-arrow.next{right:auto;left:1.5rem}
 [dir="rtl"] .stats-bar,[dir="rtl"] .footer-grid,[dir="rtl"] .footer-bottom,[dir="rtl"] .contact-grid,[dir="rtl"] .contact-strip-inner{direction:rtl}
-[dir="rtl"] .progress-label,[dir="rtl"] .project-header{flex-direction:row-reverse}
 [dir="rtl"] .section-title,[dir="rtl"] .project-title,[dir="rtl"] .program-big-title,[dir="rtl"] .page-title{font-family:var(--font-ar)}
 [dir="rtl"] .dropdown{left:auto;right:0}
 [dir="rtl"] .program-hero{direction:rtl}
 [dir="rtl"] .form-group label,[dir="rtl"] .form-group input,[dir="rtl"] .form-group textarea,[dir="rtl"] .form-group select{text-align:right;direction:rtl}
-[dir="rtl"] .breadcrumb{flex-direction:row-reverse}
 [dir="rtl"] .cs-text{text-align:right}
 [dir="rtl"] .cs-text h3{font-family:var(--font-ar)}
 [dir="rtl"] .contact-info-item{flex-direction:row}

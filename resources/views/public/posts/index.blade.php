@@ -41,7 +41,7 @@
     @foreach($categories as $cat)
       @if($cat->posts_count > 0 || ($category && $category->id === $cat->id))
       <a class="category-pill {{ $category && $category->id === $cat->id ? 'active' : '' }}" href="{{ route('news.index', ['category' => $cat->slug]) }}">
-        {{ $cat->name_en }} ({{ $cat->posts_count }})
+        {{ $cat->name }} ({{ $cat->posts_count }})
       </a>
       @endif
     @endforeach
@@ -64,8 +64,8 @@
           </div>
         @endif
         <div class="project-header">
-          <div class="project-year">{{ $post->category->name_en ?? 'News' }}</div>
-          <div class="project-year">{{ optional($post->published_at)->format('M j, Y') }}</div>
+          <div class="project-year">{{ $post->category->name ?? __('News') }}</div>
+          <div class="project-year">{{ optional($post->published_at)->translatedFormat('j M Y') }}</div>
         </div>
         <div class="project-title"><span class="en">{{ $post->title_en }}</span><span class="ar">{{ $post->title_ar }}</span></div>
         <div class="project-desc">

@@ -220,7 +220,6 @@ body.sidebar-collapsed .user-chevron { opacity: 0; }
   box-shadow: var(--shadow-sm);
   position: relative; z-index: 10;
 }
-[dir="rtl"] .topbar { flex-direction: row-reverse; }
 
 .topbar-toggle {
   width: 34px; height: 34px;
@@ -240,7 +239,6 @@ body.sidebar-collapsed .user-chevron { opacity: 0; }
   font-size: 13px; color: var(--muted);
   overflow: hidden;
 }
-[dir="rtl"] .topbar-breadcrumb { flex-direction: row-reverse; }
 .topbar-breadcrumb span { white-space: nowrap; }
 .bc-sep { color: var(--border); }
 .bc-current { color: var(--text); font-weight: 600; }
@@ -336,7 +334,6 @@ body.sidebar-collapsed .user-chevron { opacity: 0; }
   margin-bottom: 24px;
   gap: 16px; flex-wrap: wrap;
 }
-[dir="rtl"] .page-header { flex-direction: row-reverse; }
 .page-title {
   font-family: var(--font-disp);
   font-size: 1.65rem; font-weight: 700;

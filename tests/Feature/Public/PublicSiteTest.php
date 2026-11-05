@@ -82,6 +82,34 @@ class PublicSiteTest extends TestCase
         $response->assertSee('A Fully Published Post');
     }
 
+    public function test_news_pages_are_fully_arabic_in_arabic(): void
+    {
+        $category = Category::factory()->create(['name_en' => 'Health Projects', 'name_ar' => 'مشاريع صحية']);
+        $make = fn ($en, $ar) => Post::factory()->published()->create([
+            'category_id' => $category->id,
+            'title_en' => $en, 'title_ar' => $ar,
+            'excerpt_en' => "$en summary", 'excerpt_ar' => "$ar ملخص",
+            'published_at' => '2021-01-26 10:00:00',
+        ]);
+        $post = $make('Main English Title', 'العنوان الرئيسي');
+        $make('Related English Title', 'عنوان ذو صلة');
+
+        $this->get('/?lang=ar')->assertSee('dir="rtl"', false);
+
+        $this->get(route('news.show', $post))->assertOk()
+            ->assertSee('مشاريع صحية')
+            ->assertSee('26 يناير 2021')
+            ->assertSee('عنوان ذو صلة')
+            ->assertDontSee('Health Projects')
+            ->assertDontSee('Related English Title')
+            ->assertDontSee('January');
+
+        $this->get(route('news.index'))->assertOk()->assertSee('مشاريع صحية')->assertDontSee('Health Projects');
+        $this->get('/')->assertOk()->assertSee('العنوان الرئيسي')->assertDontSee('Main English Title');
+
+        $this->get(route('news.show', $post).'?lang=en')->assertSee('Health Projects')->assertSee('26 January 2021');
+    }
+
     public function test_viewing_a_post_increments_its_view_count(): void
     {
         $post = Post::factory()->published()->create(['views_count' => 0]);

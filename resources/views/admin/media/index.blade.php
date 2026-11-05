@@ -80,7 +80,7 @@
           <div class="media-thumb" style="background:var(--blue-light);position:relative">
             @if($canManage)
             <input type="checkbox" name="ids[]" value="{{ $item->id }}" form="bulk-delete-form"
-                   style="position:absolute;top:6px;left:6px;z-index:2;accent-color:var(--red);width:16px;height:16px;">
+                   style="position:absolute;top:6px;inset-inline-start:6px;z-index:2;accent-color:var(--red);width:16px;height:16px;">
             @endif
             @if($item->type === 'image')
               <img src="{{ $item->url }}" alt="" style="width:100%;height:100%;object-fit:cover;">
