@@ -83,8 +83,6 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .nav-right{display:flex;gap:10px;align-items:center}
 .lang-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--red);font-size:13px;cursor:pointer;background:transparent;color:var(--red);font-weight:600;transition:all .2s}
 .lang-btn.active{background:var(--red);color:white}
-.nav-cta{padding:9px 18px;background:var(--red);color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
-.nav-cta:hover{background:var(--red-dark)}
 
 /* PAGE HERO */
 .page-hero{background:linear-gradient(135deg,#fdeded 0%,#eaf2fb 100%);padding:4rem 2.5rem 3rem;text-align:center;position:relative;overflow:hidden}
@@ -242,14 +240,7 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .value-desc{font-size:13px;color:var(--muted);line-height:1.55}
 
 /* CONTACT STRIP */
-.contact-strip{background:var(--blue-dark);padding:2.5rem 2.5rem}
-.contact-strip-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
-.cs-text h3{font-family:var(--font-display);font-size:1.5rem;color:white;margin-bottom:.35rem}
-.cs-text p{color:rgba(255,255,255,.7);font-size:14px}
-.cs-actions{display:flex;gap:10px;flex-wrap:wrap}
 .btn-white{padding:11px 22px;background:white;color:var(--blue-dark);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
-.btn-outline-white{padding:11px 22px;background:transparent;color:white;border:2px solid rgba(255,255,255,.5);border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:border-color .2s}
-.btn-outline-white:hover{border-color:white}
 
 /* AD BANNER */
 .ad-banner{background:var(--gray-50);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:1rem;text-align:center;flex-wrap:wrap}
@@ -291,13 +282,11 @@ span.en{display:inline}span.ar{display:none}
 [dir="rtl"] .slide-counter{right:auto;left:2.5rem}
 [dir="rtl"] .slider-arrow.prev{left:auto;right:1.5rem}
 [dir="rtl"] .slider-arrow.next{right:auto;left:1.5rem}
-[dir="rtl"] .stats-bar,[dir="rtl"] .footer-grid,[dir="rtl"] .footer-bottom,[dir="rtl"] .contact-grid,[dir="rtl"] .contact-strip-inner{direction:rtl}
+[dir="rtl"] .stats-bar,[dir="rtl"] .footer-grid,[dir="rtl"] .footer-bottom,[dir="rtl"] .contact-grid{direction:rtl}
 [dir="rtl"] .section-title,[dir="rtl"] .project-title,[dir="rtl"] .program-big-title,[dir="rtl"] .page-title{font-family:var(--font-ar)}
 [dir="rtl"] .dropdown{left:auto;right:0}
 [dir="rtl"] .program-hero{direction:rtl}
 [dir="rtl"] .form-group label,[dir="rtl"] .form-group input,[dir="rtl"] .form-group textarea,[dir="rtl"] .form-group select{text-align:right;direction:rtl}
-[dir="rtl"] .cs-text{text-align:right}
-[dir="rtl"] .cs-text h3{font-family:var(--font-ar)}
 [dir="rtl"] .contact-info-item{flex-direction:row}
 
 @media(max-width:768px){
@@ -345,7 +334,6 @@ span.en{display:inline}span.ar{display:none}
   <div class="nav-right">
     <a class="lang-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">EN</a>
     <a class="lang-btn {{ app()->getLocale() === 'ar' ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['lang' => 'ar']) }}">عر</a>
-    <button class="nav-cta" onclick="location.href='{{ route('contact') }}'"><span class="en">Support Us</span><span class="ar">ادعمنا</span></button>
   </div>
 </nav>
 
@@ -378,7 +366,7 @@ span.en{display:inline}span.ar{display:none}
         <h4><span class="en">Contact</span><span class="ar">تواصل</span></h4>
         <ul>
           <li><a href="mailto:{{ $__settingEmail }}">{{ $__settingEmail }}</a></li>
-          <li><a href="tel:{{ preg_replace('/\s+/', '', $__settingPhone) }}">{{ $__settingPhone }}</a></li>
+          <li><a href="tel:{{ preg_replace('/\s+/', '', $__settingPhone) }}" dir="ltr">{{ $__settingPhone }}</a></li>
           <li><a href="{{ route('contact') }}"><span class="en">{{ $__settingAddrEn }}</span><span class="ar">{{ $__settingAddrAr }}</span></a></li>
           @if($__socialLinks)
           <li>

@@ -80,17 +80,5 @@
   @endif
 </div>
 
-<div class="contact-strip">
-  <div class="contact-strip-inner">
-    <div class="cs-text">
-      <h3><span class="en">Get in Touch or Support Our Work</span><span class="ar">تواصل معنا أو ادعم عملنا</span></h3>
-      <p><span class="en">We welcome volunteers, donors, partners, and community members.</span><span class="ar">نرحب بالمتطوعين والمتبرعين والشركاء وأفراد المجتمع.</span></p>
-    </div>
-    <div class="cs-actions">
-      <button class="btn-white" onclick="location.href='{{ route('contact') }}'"><span class="en">Contact Us</span><span class="ar">تواصل معنا</span></button>
-      <button class="btn-outline-white"><span class="en">Donate Now</span><span class="ar">تبرع الآن</span></button>
-    </div>
-  </div>
-</div>
 
 @endsection

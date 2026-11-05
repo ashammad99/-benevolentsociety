@@ -24,7 +24,7 @@
       <span><span class="en">Contact Us</span><span class="ar">تواصل معنا</span></span>
     </div>
     <div class="page-title"><span class="en">Contact Us</span><span class="ar">تواصل معنا</span></div>
-    <p class="page-subtitle"><span class="en">Reach out to us for inquiries, referrals, volunteering, partnerships, or donations. We are here to help.</span><span class="ar">تواصل معنا للاستفسارات والإحالات والتطوع والشراكات أو التبرعات. نحن هنا للمساعدة.</span></p>
+    <p class="page-subtitle"><span class="en">Reach out to us for inquiries, referrals, volunteering or partnerships. We are here to help.</span><span class="ar">تواصل معنا للاستفسارات والإحالات والتطوع أو الشراكات. نحن هنا للمساعدة.</span></p>
   </div>
 </div>
 
@@ -47,7 +47,7 @@
           <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
           <div>
             <div class="contact-label"><span class="en">Phone</span><span class="ar">الهاتف</span></div>
-            <div class="contact-value">{{ $contact['phone'] ?: config('society.fallback.phone') }}</div>
+            <div class="contact-value"><span dir="ltr">{{ $contact['phone'] ?: config('society.fallback.phone') }}</span></div>
           </div>
         </div>
         <div class="contact-info-item">
@@ -75,11 +75,6 @@
         </div>
       </div>
 
-      <div style="background:var(--red-dark);border-radius:16px;padding:1.75rem;margin-top:1.25rem;color:white;">
-        <div style="font-weight:700;font-size:16px;margin-bottom:.5rem;"><span class="en">Want to Support Us?</span><span class="ar">تريد دعمنا؟</span></div>
-        <p style="color:rgba(255,255,255,.75);font-size:14px;line-height:1.65;margin-bottom:1rem;"><span class="en">Your donation directly funds wheelchairs, therapy sessions, school materials, and more for persons with disabilities in need.</span><span class="ar">تبرعك يموّل مباشرةً الكراسي المتحركة وجلسات العلاج والمستلزمات الدراسية وغيرها لذوي الإعاقة المحتاجين.</span></p>
-        <button style="padding:10px 22px;background:white;color:var(--red-dark);border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;"><span class="en">Donate Now</span><span class="ar">تبرع الآن</span></button>
-      </div>
     </div>
 
     <div class="contact-form">
@@ -97,7 +92,7 @@
           <option value="services"><span class="en">Inquire about services</span></option>
           <option value="referral"><span class="en">Patient / Beneficiary referral</span></option>
           <option value="volunteer"><span class="en">Volunteering</span></option>
-          <option value="donate"><span class="en">Donation / Partnership</span></option>
+          <option value="partnership"><span class="en">Partnership</span></option>
           <option value="media"><span class="en">Media / Press inquiry</span></option>
           <option value="other"><span class="en">Other</span></option>
         </select>
@@ -108,17 +103,5 @@
   </div>
 </div>
 
-<div class="contact-strip">
-  <div class="contact-strip-inner">
-    <div class="cs-text">
-      <h3><span class="en">Get in Touch or Support Our Work</span><span class="ar">تواصل معنا أو ادعم عملنا</span></h3>
-      <p><span class="en">We welcome volunteers, donors, partners, and community members.</span><span class="ar">نرحب بالمتطوعين والمتبرعين والشركاء وأفراد المجتمع.</span></p>
-    </div>
-    <div class="cs-actions">
-      <button class="btn-white" onclick="location.href='{{ route('contact') }}'"><span class="en">Contact Us</span><span class="ar">تواصل معنا</span></button>
-      <button class="btn-outline-white"><span class="en">Donate Now</span><span class="ar">تبرع الآن</span></button>
-    </div>
-  </div>
-</div>
 
 @endsection
