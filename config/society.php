@@ -56,7 +56,7 @@ return [
 
     // Website credit in the footer's bottom line (null hides it).
     'credit' => [
-        'name' => ['en' => 'Ahmed Hammad', 'ar' => 'أحمد حماد'],
+        'name' => ['en' => 'Ahmed Hammad', 'ar' => 'أحمد حمّاد'],
         'url' => 'https://www.linkedin.com/in/ahmed-hammad-461337177/',
     ],
 
