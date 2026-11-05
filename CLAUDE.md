@@ -16,7 +16,7 @@ The app was upgraded from Laravel 10 but deliberately **kept on the Laravel 10 d
 ## Commands
 
 **PHP dependencies:** `composer install`
-**JS dependencies:** `npm install`
+**JS dependencies:** `npm install` (Vite 8 + `laravel-vite-plugin` 3: needs Node ^20.19 or >=22.12)
 
 **Run dev server:** `php artisan serve` (backend) + `npm run dev` (Vite, in parallel)
 **Build frontend assets:** `npm run build`
