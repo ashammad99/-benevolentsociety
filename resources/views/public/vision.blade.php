@@ -29,6 +29,17 @@
   </div>
 </div>
 
+@if ($about['en'] || $about['ar'])
+<div class="section-wrap about-wrap">
+  <div class="section-label"><span class="en">About Us</span><span class="ar">عن الجمعية</span></div>
+  <div class="section-title"><span class="en">Who We Are</span><span class="ar">من نحن</span></div>
+  <div class="about-text">
+    <div class="en">{!! $about['en'] !!}</div>
+    <div class="ar">{!! $about['ar'] !!}</div>
+  </div>
+</div>
+@endif
+
 <div class="section-wrap">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem;">
     <div style="background:var(--red-light);border-radius:20px;padding:2.5rem;border:1px solid rgba(192,57,43,.15);">

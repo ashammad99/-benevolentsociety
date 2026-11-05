@@ -131,6 +131,12 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .section-wrap{padding:4.5rem 2.5rem;max-width:1120px;margin:0 auto}
 .section-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
 .section-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--red-dark);margin-bottom:1rem;line-height:1.25}
+.about-wrap{padding-bottom:0}
+.about-text{max-width:860px;color:var(--muted);font-size:15.5px;line-height:1.85}
+.about-text strong{color:var(--red-dark);font-size:1.1rem}
+.about-text p{margin:1.25rem 0 .5rem}
+.about-text p:first-child{margin-top:0}
+.about-text ul,.about-text ol{padding-inline-start:1.4rem;display:grid;gap:.45rem}
 .section-sub{font-size:15px;color:var(--muted);max-width:560px;line-height:1.65}
 .tag{padding:3px 11px;border-radius:20px;font-size:12px;font-weight:600;display:inline-block}
 

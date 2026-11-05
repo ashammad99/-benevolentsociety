@@ -5,15 +5,25 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMessage;
 use App\Models\Setting;
+use App\Support\SanitizesRichText;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
+    use SanitizesRichText;
+
     public function vision()
     {
-        return view('public.vision');
+        // The organisation's own About Us text (vision and aims), imported from
+        // the old site. Sanitized again on the way out since it is shown raw.
+        $about = [
+            'en' => $this->sanitizeRichText(Setting::get('about_message', 'en')),
+            'ar' => $this->sanitizeRichText(Setting::get('about_message', 'ar')),
+        ];
+
+        return view('public.vision', compact('about'));
     }
 
     public function contact()
