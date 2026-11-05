@@ -59,6 +59,16 @@ class SettingController extends Controller
     // ── Save about / vision tab ────────────────────────────────────────────
     public function saveAbout(Request $request)
     {
+        // aims_en/aims_ar come from a contenteditable rich-text toolbar (see
+        // admin.settings.index) and are rendered back with {!! !!} — including
+        // as old() input after a failed save — so sanitize before validating,
+        // the same way PostRequest does for post content.
+        foreach (['aims_en', 'aims_ar'] as $field) {
+            if (is_string($request->input($field))) {
+                $request->merge([$field => $this->sanitizeRichText($request->input($field))]);
+            }
+        }
+
         $data = $request->validate([
             'vision_en' => ['nullable', 'string'],
             'vision_ar' => ['nullable', 'string'],
@@ -66,13 +76,10 @@ class SettingController extends Controller
             'aims_ar' => ['nullable', 'string'],
         ]);
 
-        // aims_en/aims_ar come from a contenteditable rich-text toolbar (see
-        // admin.settings.index) and are rendered back with {!! !!}, so they
-        // need the same sanitization as Post content before being stored.
         $this->upsert('vision', 'richtext', ['value_en' => $data['vision_en'] ?? null, 'value_ar' => $data['vision_ar'] ?? null]);
         $this->upsert('aims', 'richtext', [
-            'value_en' => $this->sanitizeRichText($data['aims_en'] ?? null),
-            'value_ar' => $this->sanitizeRichText($data['aims_ar'] ?? null),
+            'value_en' => $data['aims_en'] ?? null,
+            'value_ar' => $data['aims_ar'] ?? null,
         ]);
 
         return redirect()

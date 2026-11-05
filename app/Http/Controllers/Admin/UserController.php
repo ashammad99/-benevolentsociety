@@ -114,6 +114,9 @@ class UserController extends Controller
     // ── Toggle active flag ─────────────────────────────────────────────────
     public function toggleActive(User $user)
     {
+        // Same rule as editing: an admin can't deactivate another admin.
+        $this->authorize('update', $user);
+
         if ($user->id === Auth::id()) {
             return back()->withErrors(['user' => __('You cannot deactivate your own account.')]);
         }

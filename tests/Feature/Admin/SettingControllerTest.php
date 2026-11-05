@@ -119,4 +119,21 @@ class SettingControllerTest extends TestCase
         $this->assertStringNotContainsString('<img', $aims->value_ar);
         $this->assertStringContainsString('<p>هدف واحد</p>', $aims->value_ar);
     }
+
+    public function test_aims_are_sanitized_even_when_the_save_fails_validation(): void
+    {
+        $admin = $this->admin();
+
+        // A failed save flashes the submitted aims as old() input, which the
+        // settings page puts back into a {!! !!} editor: it must be sanitized.
+        $this->actingAs($admin)->from(route('admin.settings.index'))->put(route('admin.settings.about'), [
+            'vision_en' => ['not', 'a', 'string'],
+            'aims_en' => '<p>Aim</p><script>alert(1)</script><img src=x onerror=alert(2)>',
+        ])->assertSessionHasErrors('vision_en');
+
+        $this->assertSame('<p>Aim</p>alert(1)', session()->getOldInput('aims_en'));
+
+        $this->actingAs($admin)->put(route('admin.settings.about'), ['aims_en' => ['x']])
+            ->assertSessionHasErrors('aims_en');
+    }
 }

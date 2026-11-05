@@ -184,4 +184,15 @@ class UserControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseHas('users', ['id' => $target->id, 'is_active' => false]);
     }
+
+    public function test_admin_cannot_deactivate_another_admin(): void
+    {
+        $other = $this->admin();
+
+        $this->actingAs($this->admin())
+            ->patch(route('admin.users.toggle-active', $other))
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('users', ['id' => $other->id, 'is_active' => true]);
+    }
 }
