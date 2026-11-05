@@ -200,6 +200,7 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2.5rem;displ
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:#fff;transition:border-color .2s;outline:none}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--red)}
 .form-group textarea{min-height:130px;resize:vertical}
+.contact-social a{color:var(--red);text-decoration:underline;text-underline-offset:2px}
 .field-error{color:var(--red);font-size:12.5px}
 .form-alert{padding:12px 14px;border-radius:8px;font-size:14px;margin-bottom:1rem}
 .form-alert-success{background:var(--green-light);color:var(--green-dark);border:1px solid rgba(39,174,96,.25)}

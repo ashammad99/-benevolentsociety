@@ -35,7 +35,29 @@ class PageController extends Controller
             'address_ar' => Setting::get('address', 'ar'),
         ];
 
-        return view('public.contact', compact('contact'));
+        // Social links from Admin → Settings → Social; networks left empty are skipped.
+        $networks = [
+            'facebook' => ['Facebook', 'فيسبوك'],
+            'instagram' => ['Instagram', 'إنستغرام'],
+            'twitter' => ['X (Twitter)', 'إكس (تويتر)'],
+            'whatsapp' => ['WhatsApp', 'واتساب'],
+            'youtube' => ['YouTube', 'يوتيوب'],
+            'linkedin' => ['LinkedIn', 'لينكدإن'],
+        ];
+        $social = [];
+        foreach ($networks as $key => [$en, $ar]) {
+            $value = trim((string) Setting::get($key));
+            if ($key === 'whatsapp') {
+                // Stored as a phone number; wa.me wants digits only, with the country code.
+                $digits = preg_replace('/\D+/', '', $value);
+                $value = $digits !== '' ? 'https://wa.me/'.$digits : '';
+            }
+            if ($value !== '') {
+                $social[] = ['url' => $value, 'en' => $en, 'ar' => $ar];
+            }
+        }
+
+        return view('public.contact', compact('contact', 'social'));
     }
 
     // ── Contact form → email to the organisation ─────────────────────────

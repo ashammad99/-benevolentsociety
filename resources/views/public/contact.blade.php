@@ -66,13 +66,19 @@
           </div>
         </div>
         @endif
+        @if ($social)
         <div class="contact-info-item">
-          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
+          <div class="contact-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
           <div>
             <div class="contact-label"><span class="en">Follow Us</span><span class="ar">تابعنا</span></div>
-            <div class="contact-value"><span class="en">Facebook · Instagram · WhatsApp</span><span class="ar">فيسبوك · إنستغرام · واتساب</span></div>
+            <div class="contact-value contact-social">
+              @foreach ($social as $link)
+                <a href="{{ $link['url'] }}" target="_blank" rel="noopener"><span class="en">{{ $link['en'] }}</span><span class="ar">{{ $link['ar'] }}</span></a>@if (! $loop->last) <span aria-hidden="true">·</span> @endif
+              @endforeach
+            </div>
           </div>
         </div>
+        @endif
       </div>
 
     </div>

@@ -128,4 +128,24 @@ class ContactFormTest extends TestCase
                 && str_contains($text, 'Phone / الهاتف: -');
         });
     }
+
+    public function test_follow_us_lists_the_social_links_from_settings(): void
+    {
+        Setting::factory()->create(['key' => 'facebook', 'type' => 'url', 'value' => 'https://facebook.com/example']);
+        Setting::factory()->create(['key' => 'whatsapp', 'type' => 'url', 'value' => '+970 59 123 4567']);
+        Setting::factory()->create(['key' => 'youtube', 'type' => 'url', 'value' => null]);
+
+        $this->get('/contact')->assertOk()
+            ->assertSee('Follow Us')
+            ->assertSee('href="https://facebook.com/example" target="_blank" rel="noopener"', false)
+            ->assertSee('href="https://wa.me/970591234567"', false)
+            ->assertDontSee('YouTube');
+
+        $this->get('/contact?lang=ar')->assertSee('فيسبوك')->assertSee('واتساب');
+    }
+
+    public function test_follow_us_is_hidden_when_no_social_links_are_set(): void
+    {
+        $this->get('/contact')->assertOk()->assertDontSee('Follow Us');
+    }
 }
