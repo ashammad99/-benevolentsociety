@@ -80,6 +80,9 @@ class PublicSiteTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('A Fully Published Post');
+        // The organisation is shown as the author, never the admin account that saved the post.
+        $response->assertSee(config('society.name.en'));
+        $response->assertDontSee($post->user->name);
     }
 
     public function test_news_pages_are_fully_arabic_in_arabic(): void

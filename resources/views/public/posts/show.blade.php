@@ -41,7 +41,7 @@
   <div class="post-meta-row">
     @if($post->category)<span>{{ $post->category->name }}</span>@endif
     <span>{{ optional($post->published_at)->translatedFormat('j F Y') }}</span>
-    <span>{{ $post->user->name ?? '' }}</span>
+    <span><span class="en">{{ config('society.name.en') }}</span><span class="ar">{{ config('society.name.ar') }}</span></span>
     <span>{{ number_format($post->views_count) }} <span class="en">views</span><span class="ar">مشاهدة</span></span>
   </div>
 

@@ -38,7 +38,7 @@ class PostController extends Controller
             abort(404);
         }
 
-        $post->load('category', 'user');
+        $post->load('category');
         $post->incrementViews();
 
         $relatedPosts = Post::published()
