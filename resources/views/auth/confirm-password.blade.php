@@ -1,27 +1,34 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@extends('layouts.auth')
+
+@section('title', app()->getLocale() === 'ar' ? 'تأكيد كلمة المرور' : 'Confirm password')
+
+@section('card')
+    <div class="card-header">
+        <h2 class="card-title">
+            <span class="en">Confirm your password</span>
+            <span class="ar">أكّد كلمة المرور</span>
+        </h2>
+        <p class="card-subtitle">
+            <span class="en">This is a secure area. Please enter your password to continue.</span>
+            <span class="ar">هذه منطقة محمية. يرجى إدخال كلمة المرور للمتابعة.</span>
+        </p>
     </div>
+
+    @include('auth.partials.alerts')
 
     <form method="POST" action="{{ route('password.confirm') }}">
         @csrf
 
-        {{-- Password --}}
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
+        @include('auth.partials.password-input', [
+            'id' => 'password', 'name' => 'password', 'autocomplete' => 'current-password', 'autofocus' => true,
+            'labelEn' => 'Password', 'labelAr' => 'كلمة المرور',
+        ])
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="btn-login">
+            <span class="btn-text">
+                <span class="en">Confirm</span>
+                <span class="ar">تأكيد</span>
+            </span>
+        </button>
     </form>
-</x-guest-layout>
+@endsection

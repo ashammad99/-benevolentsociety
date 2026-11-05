@@ -1,31 +1,43 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+@extends('layouts.auth')
+
+@section('title', app()->getLocale() === 'ar' ? 'تأكيد البريد الإلكتروني' : 'Verify email')
+
+@section('card')
+    <div class="card-header">
+        <h2 class="card-title">
+            <span class="en">Verify your email address</span>
+            <span class="ar">أكّد بريدك الإلكتروني</span>
+        </h2>
+        <p class="card-subtitle">
+            <span class="en">Please click the link we emailed you to verify your address. If you didn't receive it, we can send another.</span>
+            <span class="ar">يرجى الضغط على الرابط الذي أرسلناه إلى بريدك لتأكيده. إن لم يصلك، يمكننا إرسال رابط آخر.</span>
+        </p>
     </div>
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+    @if (session('status') === 'verification-link-sent')
+        <div class="alert alert-success" role="status">
+            <span class="en">A new verification link has been sent to your email address.</span>
+            <span class="ar">تم إرسال رابط تأكيد جديد إلى بريدك الإلكتروني.</span>
         </div>
     @endif
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
+    @include('auth.partials.alerts')
 
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
-            </div>
-        </form>
+    <form method="POST" action="{{ route('verification.send') }}">
+        @csrf
+        <button type="submit" class="btn-login">
+            <span class="btn-text">
+                <span class="en">Resend verification email</span>
+                <span class="ar">إعادة إرسال رسالة التأكيد</span>
+            </span>
+        </button>
+    </form>
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
-    </div>
-</x-guest-layout>
+    <form method="POST" action="{{ route('logout') }}" class="card-footer-link">
+        @csrf
+        <button type="submit" class="btn-link">
+            <span class="en">Log out</span>
+            <span class="ar">تسجيل الخروج</span>
+        </button>
+    </form>
+@endsection
