@@ -40,7 +40,8 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // Rejects requests whose Host isn't APP_URL's host (or a subdomain), so a
-        // forged Host header can't put another domain into password-reset links.
+        // forged Host header can't put another domain into links the app generates
+        // (e.g. email-verification links).
         // Not applied in the local environment or in tests.
         \App\Http\Middleware\TrustHosts::class,
         TrustProxies::class,

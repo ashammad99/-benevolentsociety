@@ -32,10 +32,6 @@
                 <span class="en">Remember me</span>
                 <span class="ar">تذكرني</span>
             </label>
-            <a href="{{ route('password.request') }}" class="forgot-link">
-                <span class="en">Forgot password?</span>
-                <span class="ar">نسيت كلمة المرور؟</span>
-            </a>
         </div>
 
         <button type="submit" class="btn-login" id="loginBtn">

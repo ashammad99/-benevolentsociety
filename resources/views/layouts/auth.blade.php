@@ -1,6 +1,6 @@
 {{--
-    Staff pages layout: login and the password pages (forgot, reset, confirm,
-    verify email). Brand panel + card; each page fills @section('card').
+    Staff pages layout: login, confirm password and verify email.
+    Brand panel + card; each page fills @section('card').
 --}}
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" id="page">
@@ -345,7 +345,7 @@
         .pwd-toggle:hover { color: var(--red); }
         .pwd-toggle svg { width: 17px; height: 17px; }
 
-        /* Remember + forgot row */
+        /* Remember-me row */
         .form-row {
             display: flex;
             align-items: center;
@@ -392,14 +392,6 @@
             transform: rotate(45deg);
         }
 
-        .forgot-link {
-            font-size: 13px;
-            color: var(--red);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-        .forgot-link:hover { color: var(--red-dark); text-decoration: underline; }
 
         /* Submit button */
         .btn-login {
@@ -619,7 +611,7 @@
             <span class="ar">أو تغيير اللغة</span>
         </div>
 
-        {{-- Keeps the rest of the URL (e.g. the email on a password-reset link). --}}
+        {{-- Keeps the rest of the URL (path and query) when switching language. --}}
         <div class="lang-row">
             <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="lang-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}" id="btn-en">English</a>
             <a href="{{ request()->fullUrlWithQuery(['lang' => 'ar']) }}" class="lang-btn {{ app()->getLocale() === 'ar' ? 'active' : '' }}" id="btn-ar">العربية</a>

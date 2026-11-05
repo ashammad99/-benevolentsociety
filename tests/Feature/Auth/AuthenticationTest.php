@@ -81,8 +81,13 @@ class AuthenticationTest extends TestCase
         $this->get('/login')->assertSee('البريد الإلكتروني أو كلمة المرور غير صحيحة.');
     }
 
-    public function test_login_page_links_to_the_real_forgot_password_page(): void
+    public function test_there_is_no_self_service_password_reset(): void
     {
-        $this->get('/login')->assertSee('href="'.route('password.request').'"', false);
+        // Admins set staff passwords in Admin → Users.
+        $this->get('/login')->assertOk()->assertDontSee('Forgot password?');
+        $this->get('/forgot-password')->assertNotFound();
+        $this->post('/forgot-password', ['email' => 'a@example.org'])->assertNotFound();
+        $this->get('/reset-password/some-token')->assertNotFound();
+        $this->post('/reset-password', [])->assertNotFound();
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-// Login and password-reset flows are handled by the Breeze controllers in
+// Login and the other staff auth pages are handled by the Breeze controllers in
 // App\Http\Controllers\Auth (routes/auth.php). This controller only serves
 // the admin sidebar's logout form.
 class AuthController extends Controller
